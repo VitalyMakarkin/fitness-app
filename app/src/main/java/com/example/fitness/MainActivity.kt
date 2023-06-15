@@ -4,16 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.domain.models.Exercise
 import com.example.fitness.ui.theme.FitnessTheme
@@ -28,14 +31,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FitnessTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                Column(
+                    modifier = Modifier
+                        .clickable { viewModel.addExercise() }
+                        .fillMaxSize(),
                 ) {
                     val mainUiState: MainUiState by viewModel.mainUiState.collectAsStateWithLifecycle()
 
                     when (mainUiState) {
-                        is MainUiState.Success -> CompletedExercisesList(exercises = (mainUiState as MainUiState.Success).completedExercises)
+                        is MainUiState.Success -> ExercisesList(exercises = (mainUiState as MainUiState.Success).completedExercises)
                         else -> Text(text = "Empty")
                     }
                 }
@@ -45,22 +49,38 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CompletedExercisesList(exercises: List<Exercise>, modifier: Modifier = Modifier) {
-    LazyColumn {
+fun ExercisesList(modifier: Modifier = Modifier, exercises: List<Exercise>) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         items(exercises) { exercise ->
-            Text(text = "${exercise.id}")
+            ExerciseItem(exercise = exercise)
         }
+    }
+}
+
+@Composable
+fun ExerciseItem(modifier: Modifier = Modifier, exercise: Exercise) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Text(text = "${exercise.id}")
+        Text(text = "${exercise.completedAt}")
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun CompletedExercisesList() {
+fun ExercisesListPreview() {
     FitnessTheme {
-        CompletedExercisesList(
-            listOf(
-                Exercise(1, 1, 1L),
-                Exercise(2, 2, 1L)
+        ExercisesList(
+            exercises = listOf(
+                Exercise(1, 10, 1L),
+                Exercise(2, 22, 2L),
+                Exercise(3, 33, 3L),
             )
         )
     }

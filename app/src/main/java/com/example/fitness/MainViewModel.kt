@@ -11,22 +11,31 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: DefaultExercisesRepository
 ) : ViewModel() {
 
-    val mainUiState: StateFlow<MainUiState> = completedExercisesUiState(
+    val mainUiState: StateFlow<MainUiState> = exercisesUiState(
         repository = repository
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = MainUiState.Loading
     )
+
+    fun addExercise() {
+        viewModelScope.launch {
+            val currentTimestamp = System.currentTimeMillis()
+            val newExercise = Exercise(0, 0, currentTimestamp)
+            repository.addExercise(newExercise)
+        }
+    }
 }
 
-private fun completedExercisesUiState(repository: DefaultExercisesRepository): Flow<MainUiState> {
+private fun exercisesUiState(repository: DefaultExercisesRepository): Flow<MainUiState> {
     return repository.getExercises().map { exercises ->
         MainUiState.Success(exercises)
     }
