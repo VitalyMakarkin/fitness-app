@@ -3,18 +3,19 @@ package com.example.fitness.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.fitness.core.database.dao.ExerciseCategoryDao
-import com.example.fitness.core.database.dao.ExerciseDao
+import com.example.fitness.core.database.dao.ExerciseHistoryDao
 import com.example.fitness.core.database.models.ExerciseCategoryEntity
-import com.example.fitness.core.database.models.ExerciseEntity
+import com.example.fitness.core.database.models.ExerciseHistoryEntity
 
 @Database(
     entities = [
-        ExerciseEntity::class,
-        ExerciseCategoryEntity::class
+        ExerciseCategoryEntity::class,
+        ExerciseHistoryEntity::class,
     ],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun exerciseDao(): ExerciseDao
     abstract fun exerciseCategoryDao(): ExerciseCategoryDao
+    abstract fun exerciseHistoryDao(): ExerciseHistoryDao
+
 }
