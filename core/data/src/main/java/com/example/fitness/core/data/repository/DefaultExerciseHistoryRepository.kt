@@ -24,7 +24,12 @@ class DefaultExerciseHistoryRepository @Inject constructor(
             Exercise(
                 exerciseEntity.id,
                 exerciseEntity.categoryId,
-                exerciseEntity.completedAt
+                exerciseEntity.createdAt,
+                exerciseEntity.completedAt,
+                exerciseEntity.sets,
+                exerciseEntity.reps,
+                exerciseEntity.duration,
+                exerciseEntity.score
             )
         }
     }
@@ -35,7 +40,12 @@ class DefaultExerciseHistoryRepository @Inject constructor(
                 Exercise(
                     exerciseEntity.id,
                     exerciseEntity.categoryId,
-                    exerciseEntity.completedAt
+                    exerciseEntity.createdAt,
+                    exerciseEntity.completedAt,
+                    exerciseEntity.sets,
+                    exerciseEntity.reps,
+                    exerciseEntity.duration,
+                    exerciseEntity.score
                 )
             }
         }

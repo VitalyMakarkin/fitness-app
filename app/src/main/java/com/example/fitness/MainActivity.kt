@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.model.Exercise
 import com.example.fitness.ui.theme.FitnessTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,9 +81,9 @@ fun ExercisesListPreview() {
     FitnessTheme {
         ExercisesList(
             exercises = listOf(
-                com.example.fitness.core.model.Exercise(1, 10, 1L),
-                com.example.fitness.core.model.Exercise(2, 22, 2L),
-                com.example.fitness.core.model.Exercise(3, 33, 3L),
+                Exercise(1, 10, 1L, 1L, null, null, null, 0),
+                Exercise(2, 22, 1L, 1L, null, null, null, 0),
+                Exercise(3, 33, 1L, 1L, null, null, null, 0),
             )
         )
     }
