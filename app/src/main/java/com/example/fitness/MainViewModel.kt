@@ -2,7 +2,7 @@ package com.example.fitness
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitness.data.repository.DefaultExercisesRepository
+import com.example.fitness.data.repository.DefaultExerciseHistoryRepository
 import com.example.fitness.domain.models.Exercise
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: DefaultExercisesRepository
+    private val repository: DefaultExerciseHistoryRepository
 ) : ViewModel() {
 
     val mainUiState: StateFlow<MainUiState> = exercisesUiState(
@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
     }
 }
 
-private fun exercisesUiState(repository: DefaultExercisesRepository): Flow<MainUiState> {
+private fun exercisesUiState(repository: DefaultExerciseHistoryRepository): Flow<MainUiState> {
     return repository.getExercises().map { exercises ->
         MainUiState.Success(exercises)
     }
