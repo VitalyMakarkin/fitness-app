@@ -13,8 +13,8 @@ data class ExerciseHistoryEntity(
     @ColumnInfo(name = COLUMN_ID)
     val id: Int,
 
-    @ColumnInfo(name = COLUMN_CATEGORY_ID)
-    val categoryId: Int,
+    @ColumnInfo(name = COLUMN_EXERCISE_CATEGORY_ID)
+    val exerciseCategoryId: Int,
 
     @ColumnInfo(name = COLUMN_CREATED_AT)
     val createdAt: Long,
@@ -37,7 +37,7 @@ data class ExerciseHistoryEntity(
 
     companion object {
         const val COLUMN_ID = "id"
-        const val COLUMN_CATEGORY_ID = "category_id"
+        const val COLUMN_EXERCISE_CATEGORY_ID = "exercise_category_id"
         const val COLUMN_CREATED_AT = "created_at"
         const val COLUMN_COMPLETED_AT = "completed_at"
         const val COLUMN_SETS = "sets"

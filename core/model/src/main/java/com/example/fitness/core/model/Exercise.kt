@@ -2,7 +2,7 @@ package com.example.fitness.core.model
 
 data class Exercise(
     val id: Int,
-    val categoryId: Int?,
+    val exerciseCategoryId: Int?,
     val createdAt: Long,
     val completedAt: Long,
     val sets: Int?,

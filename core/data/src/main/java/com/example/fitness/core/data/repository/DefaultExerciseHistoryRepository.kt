@@ -23,7 +23,7 @@ class DefaultExerciseHistoryRepository @Inject constructor(
         return exerciseHistoryDao.get(id).let { exerciseEntity ->
             Exercise(
                 exerciseEntity.id,
-                exerciseEntity.categoryId,
+                exerciseEntity.exerciseCategoryId,
                 exerciseEntity.createdAt,
                 exerciseEntity.completedAt,
                 exerciseEntity.sets,
@@ -39,7 +39,7 @@ class DefaultExerciseHistoryRepository @Inject constructor(
             list.map { exerciseEntity ->
                 Exercise(
                     exerciseEntity.id,
-                    exerciseEntity.categoryId,
+                    exerciseEntity.exerciseCategoryId,
                     exerciseEntity.createdAt,
                     exerciseEntity.completedAt,
                     exerciseEntity.sets,
