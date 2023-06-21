@@ -2,10 +2,23 @@ package com.example.fitness.core.database.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "exercise_group_items"
+    tableName = "exercise_group_items",
+    foreignKeys = [
+        ForeignKey(
+            entity = ExerciseGroupEntity::class,
+            parentColumns = [ExerciseGroupEntity.COLUMN_ID],
+            childColumns = [ExerciseGroupItemEntity.COLUMN_EXERCISE_GROUP_ID],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [
+        Index(value = [ExerciseGroupItemEntity.COLUMN_EXERCISE_GROUP_ID])
+    ]
 )
 data class ExerciseGroupItemEntity(
 
