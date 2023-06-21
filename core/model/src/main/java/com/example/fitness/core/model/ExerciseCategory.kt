@@ -1,4 +1,4 @@
-package com.example.fitness.domain.models
+package com.example.fitness.core.model
 
 data class ExerciseCategory(
     val id: Int,

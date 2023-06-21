@@ -1,7 +1,7 @@
-package com.example.fitness.di
+package com.example.fitness.core.data.di
 
-import com.example.fitness.data.repository.DefaultExerciseHistoryRepository
-import com.example.fitness.data.repository.ExerciseHistoryRepository
+import com.example.fitness.core.data.repository.DefaultExerciseHistoryRepository
+import com.example.fitness.core.data.repository.ExerciseHistoryRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -2,8 +2,8 @@ package com.example.fitness
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitness.data.repository.DefaultExerciseHistoryRepository
-import com.example.fitness.domain.models.Exercise
+import com.example.fitness.core.data.repository.DefaultExerciseHistoryRepository
+import com.example.fitness.core.model.Exercise
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

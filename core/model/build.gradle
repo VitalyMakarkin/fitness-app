@@ -1,12 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'com.example.fitness.core.data'
+    namespace 'com.example.fitness.core.model'
     compileSdk 33
 
     defaultConfig {
@@ -29,12 +27,6 @@ android {
 }
 
 dependencies {
-    implementation project(":core:model")
-    implementation project(":core:database")
-
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
-
     implementation 'androidx.core:core-ktx:1.10.1'
     testImplementation 'junit:junit:4.13.2'
 }

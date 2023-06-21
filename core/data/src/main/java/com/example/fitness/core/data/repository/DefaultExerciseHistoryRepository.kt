@@ -1,7 +1,7 @@
-package com.example.fitness.data.repository
+package com.example.fitness.core.data.repository
 
 import com.example.fitness.core.database.dao.ExerciseHistoryDao
-import com.example.fitness.domain.models.Exercise
+import com.example.fitness.core.model.Exercise
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

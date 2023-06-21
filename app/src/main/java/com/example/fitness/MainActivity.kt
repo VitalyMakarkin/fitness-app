@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.fitness.domain.models.Exercise
 import com.example.fitness.ui.theme.FitnessTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,7 +48,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ExercisesList(modifier: Modifier = Modifier, exercises: List<Exercise>) {
+fun ExercisesList(
+    modifier: Modifier = Modifier,
+    exercises: List<com.example.fitness.core.model.Exercise>
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -61,7 +63,7 @@ fun ExercisesList(modifier: Modifier = Modifier, exercises: List<Exercise>) {
 }
 
 @Composable
-fun ExerciseItem(modifier: Modifier = Modifier, exercise: Exercise) {
+fun ExerciseItem(modifier: Modifier = Modifier, exercise: com.example.fitness.core.model.Exercise) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,9 +80,9 @@ fun ExercisesListPreview() {
     FitnessTheme {
         ExercisesList(
             exercises = listOf(
-                Exercise(1, 10, 1L),
-                Exercise(2, 22, 2L),
-                Exercise(3, 33, 3L),
+                com.example.fitness.core.model.Exercise(1, 10, 1L),
+                com.example.fitness.core.model.Exercise(2, 22, 2L),
+                com.example.fitness.core.model.Exercise(3, 33, 3L),
             )
         )
     }
