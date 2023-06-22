@@ -1,5 +1,6 @@
 package com.example.fitness.viewmodel
 
+import androidx.lifecycle.ViewModel
 import com.example.fitness.core.data.repository.ExerciseHistoryRepository
 import javax.inject.Inject
 
@@ -8,7 +9,7 @@ import javax.inject.Inject
  */
 class HomeViewModel @Inject constructor(
     private val repository: ExerciseHistoryRepository
-) {
+) : ViewModel() {
 
     // Show avatar and name
     fun getProfile() {

@@ -1,5 +1,6 @@
 package com.example.fitness.viewmodel
 
+import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
 /**
@@ -7,7 +8,7 @@ import javax.inject.Inject
  */
 class ScheduleViewModel @Inject constructor(
     //
-) {
+) : ViewModel() {
 
     // Get schedule
     fun getScheduledEvents() {
