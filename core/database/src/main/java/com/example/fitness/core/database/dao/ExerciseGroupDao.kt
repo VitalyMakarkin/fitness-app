@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.fitness.core.database.models.ExerciseGroupEntity
 import com.example.fitness.core.database.models.ExerciseGroupItemEntity
 import com.example.fitness.core.database.models.PopulatedExerciseGroup
@@ -21,6 +22,7 @@ interface ExerciseGroupDao {
     @Query("SELECT * FROM exercise_groups")
     fun getAll(): Flow<List<ExerciseGroupEntity>>
 
+    @Transaction
     @Query("SELECT * FROM exercise_groups WHERE id = :id")
     fun getPopulatedGroup(id: Int): Flow<PopulatedExerciseGroup>
 

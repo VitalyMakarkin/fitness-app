@@ -1,13 +1,11 @@
 package com.example.fitness.viewmodel
 
 import com.example.fitness.core.data.repository.ExerciseHistoryRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 /**
  * Concept
  */
-@HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: ExerciseHistoryRepository
 ) {

@@ -19,7 +19,7 @@ interface ExerciseHistoryDao {
     @Query("SELECT * FROM exercise_history ORDER BY completed_at DESC")
     fun getAll(): Flow<List<ExerciseHistoryEntity>>
 
-    @Query("SELECT * FROM exercise_history WHERE category_id =:id ORDER BY completed_at DESC")
+    @Query("SELECT * FROM exercise_history WHERE exercise_category_id =:id ORDER BY completed_at DESC")
     suspend fun getAllByCategoryId(id: Int): List<ExerciseHistoryEntity>
 
     @Query("DELETE FROM exercise_history WHERE id = :id")

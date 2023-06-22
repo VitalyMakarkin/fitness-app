@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "exercise_schedule"
+    tableName = "scheduled_exercise_events"
 )
-data class ExerciseScheduleEntity(
+data class ScheduledExerciseEventEntity(
 
     @PrimaryKey
     @ColumnInfo(name = COLUMN_ID)
