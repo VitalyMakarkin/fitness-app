@@ -2,7 +2,7 @@ package com.example.fitness.core.database.di
 
 import com.example.fitness.core.database.AppDatabase
 import com.example.fitness.core.database.dao.ExerciseCategoryDao
-import com.example.fitness.core.database.dao.ExerciseHistoryDao
+import com.example.fitness.core.database.dao.ExerciseDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,9 +13,9 @@ import dagger.hilt.components.SingletonComponent
 object DaosModule {
 
     @Provides
-    fun provideExerciseHistoryDao(
+    fun provideExerciseDao(
         database: AppDatabase
-    ): ExerciseHistoryDao = database.exerciseHistoryDao()
+    ): ExerciseDao = database.exerciseDao()
 
     @Provides
     fun provideExerciseCategoryDao(

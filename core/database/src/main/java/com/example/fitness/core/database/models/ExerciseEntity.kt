@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "exercise_history"
+    tableName = "exercises"
 )
-data class ExerciseHistoryEntity(
+data class ExerciseEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)

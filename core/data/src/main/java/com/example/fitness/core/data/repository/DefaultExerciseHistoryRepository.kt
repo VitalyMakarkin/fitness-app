@@ -1,52 +1,31 @@
 package com.example.fitness.core.data.repository
 
-import com.example.fitness.core.database.dao.ExerciseHistoryDao
+import com.example.fitness.core.data.mapper.mapToExercise
+import com.example.fitness.core.data.mapper.mapToExerciseEntity
+import com.example.fitness.core.database.dao.ExerciseDao
 import com.example.fitness.core.model.Exercise
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DefaultExerciseHistoryRepository @Inject constructor(
-    private val exerciseHistoryDao: ExerciseHistoryDao
+    private val exerciseDao: ExerciseDao
 ) : ExerciseHistoryRepository {
 
     override suspend fun addExercise(exercise: Exercise) {
-//        val exerciseEntity = ExerciseHistoryEntity(
-//            exercise.id,
-//            exercise.categoryId,
-//            exercise.completedAt
-//        )
-//        return exerciseHistoryDao.insert(exerciseEntity)
+        return exerciseDao.insert(
+            exercise = exercise.mapToExerciseEntity()
+        )
     }
 
     override suspend fun getExercise(id: Int): Exercise {
-        return exerciseHistoryDao.get(id).let { exerciseEntity ->
-            Exercise(
-                exerciseEntity.id,
-                exerciseEntity.exerciseCategoryId,
-                exerciseEntity.createdAt,
-                exerciseEntity.completedAt,
-                exerciseEntity.sets,
-                exerciseEntity.reps,
-                exerciseEntity.duration,
-                exerciseEntity.score
-            )
-        }
+        return exerciseDao.get(id).mapToExercise()
     }
 
     override fun getExercises(): Flow<List<Exercise>> {
-        return exerciseHistoryDao.getAll().map { list ->
+        return exerciseDao.getAll().map { list ->
             list.map { exerciseEntity ->
-                Exercise(
-                    exerciseEntity.id,
-                    exerciseEntity.exerciseCategoryId,
-                    exerciseEntity.createdAt,
-                    exerciseEntity.completedAt,
-                    exerciseEntity.sets,
-                    exerciseEntity.reps,
-                    exerciseEntity.duration,
-                    exerciseEntity.score
-                )
+                exerciseEntity.mapToExercise()
             }
         }
     }
