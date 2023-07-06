@@ -22,12 +22,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.ui.theme.FitnessTheme
 import dagger.hilt.android.AndroidEntryPoint
+
+sealed class Screen(val route: String, val imageVector: ImageVector) {
+    object Home : Screen("home", Icons.Default.List)
+    object Schedule : Screen("schedule", Icons.Default.List)
+    object Settings : Screen("settings", Icons.Default.List)
+}
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -40,39 +50,30 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             FitnessTheme {
+                val navController = rememberNavController()
                 Scaffold(
                     bottomBar = {
                         NavigationBar {
-                            NavigationBarItem(
-                                selected = true,
-                                onClick = { /*TODO*/ },
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Default.List,
-                                        contentDescription = null
-                                    )
-                                }
+                            val navBackStackEntry by navController.currentBackStackEntryAsState()
+                            val currentDestination = navBackStackEntry?.destination
+                            val topLevelScreens = listOf(
+                                Screen.Home,
+                                Screen.Schedule,
+                                Screen.Settings
                             )
-                            NavigationBarItem(
-                                selected = false,
-                                onClick = { /*TODO*/ },
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Default.List,
-                                        contentDescription = null
-                                    )
-                                }
-                            )
-                            NavigationBarItem(
-                                selected = false,
-                                onClick = { /*TODO*/ },
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Default.List,
-                                        contentDescription = null
-                                    )
-                                }
-                            )
+
+                            topLevelScreens.forEach { screen ->
+                                NavigationBarItem(
+                                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                                    onClick = { /*TODO*/ },
+                                    icon = {
+                                        Icon(
+                                            imageVector = screen.imageVector,
+                                            contentDescription = screen.route
+                                        )
+                                    }
+                                )
+                            }
                         }
                     }
                 ) { padding ->
