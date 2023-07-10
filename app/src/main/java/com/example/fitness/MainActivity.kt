@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -33,10 +34,12 @@ import com.example.fitness.core.model.Exercise
 import com.example.fitness.ui.theme.FitnessTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-sealed class Screen(val route: String, val imageVector: ImageVector) {
-    object Home : Screen("home", Icons.Default.List)
-    object Schedule : Screen("schedule", Icons.Default.List)
-    object Settings : Screen("settings", Icons.Default.List)
+
+// TODO: Move
+sealed class Screen(val route: String, val imageVector: ImageVector, val label: String) {
+    object Home : Screen("home", Icons.Default.Home, "Home")
+    object Schedule : Screen("schedule", Icons.Default.List, "Schedule")
+    object Settings : Screen("settings", Icons.Default.Settings, "Settings")
 }
 
 @AndroidEntryPoint
@@ -71,6 +74,11 @@ class MainActivity : ComponentActivity() {
                                             imageVector = screen.imageVector,
                                             contentDescription = screen.route
                                         )
+                                    },
+                                    label = {
+                                        Text(
+                                            text = screen.label
+                                        )
                                     }
                                 )
                             }
@@ -80,18 +88,18 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier
                             .padding(padding)
-                            .clickable { viewModel.addExercise() }
+                            //.clickable { viewModel.addExercise() }
                             .fillMaxSize(),
                     ) {
                         val mainUiState: MainUiState by viewModel.mainUiState.collectAsStateWithLifecycle()
 
                         when (mainUiState) {
-                            is MainUiState.Success -> ExercisesList(
-                                exercises = (mainUiState as MainUiState.Success).completedExercises
+                            is MainUiState.Success -> Text(
+                                text = "Success!"
                             )
 
-                            else -> Text(
-                                text = "Empty"
+                            is MainUiState.Loading -> Text(
+                                text = "Loading!"
                             )
                         }
                     }
