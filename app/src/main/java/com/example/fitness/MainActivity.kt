@@ -14,26 +14,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.ui.theme.FitnessTheme
 import dagger.hilt.android.AndroidEntryPoint
-
 
 // TODO: Move
 sealed class Screen(val route: String, val imageVector: ImageVector, val label: String) {
@@ -47,62 +37,13 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            FitnessTheme {
-                val navController = rememberNavController()
-                Scaffold(
-                    bottomBar = {
-                        NavigationBar {
-                            val navBackStackEntry by navController.currentBackStackEntryAsState()
-                            val currentDestination = navBackStackEntry?.destination
-                            val topLevelScreens = listOf(
-                                Screen.Home,
-                                Screen.Schedule,
-                                Screen.Settings
-                            )
-
-                            topLevelScreens.forEach { screen ->
-                                NavigationBarItem(
-                                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                    onClick = { /*TODO*/ },
-                                    icon = {
-                                        Icon(
-                                            imageVector = screen.imageVector,
-                                            contentDescription = screen.route
-                                        )
-                                    },
-                                    label = {
-                                        Text(
-                                            text = screen.label
-                                        )
-                                    }
-                                )
-                            }
-                        }
-                    }
-                ) { padding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(padding)
-                            //.clickable { viewModel.addExercise() }
-                            .fillMaxSize(),
-                    ) {
-                        val mainUiState: MainUiState by viewModel.mainUiState.collectAsStateWithLifecycle()
-
-                        when (mainUiState) {
-                            is MainUiState.Success -> Text(
-                                text = "Success!"
-                            )
-
-                            is MainUiState.Loading -> Text(
-                                text = "Loading!"
-                            )
-                        }
-                    }
+            CompositionLocalProvider {
+                FitnessTheme {
+                    FitnessApp()
                 }
             }
         }
