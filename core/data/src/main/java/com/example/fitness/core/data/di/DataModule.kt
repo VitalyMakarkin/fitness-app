@@ -1,7 +1,7 @@
 package com.example.fitness.core.data.di
 
-import com.example.fitness.core.data.repository.DefaultExerciseHistoryRepository
-import com.example.fitness.core.data.repository.ExerciseHistoryRepository
+import com.example.fitness.core.data.repository.DefaultExercisesRepository
+import com.example.fitness.core.data.repository.ExercisesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ interface DataModule {
 
     @Binds
     fun bindExercisesRepository(
-        exercisesRepository: DefaultExerciseHistoryRepository
-    ): ExerciseHistoryRepository
+        exercisesRepository: DefaultExercisesRepository
+    ): ExercisesRepository
 }

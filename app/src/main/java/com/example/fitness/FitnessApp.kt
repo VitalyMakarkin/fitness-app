@@ -56,20 +56,8 @@ fun FitnessApp(
         Column(
             modifier = Modifier
                 .padding(padding)
-                //.clickable { viewModel.addExercise() }
                 .fillMaxSize(),
         ) {
-//            val mainUiState: MainUiState by viewModel.mainUiState.collectAsStateWithLifecycle()
-//
-//            when (mainUiState) {
-//                is MainUiState.Success -> Text(
-//                    text = "Success!"
-//                )
-//
-//                is MainUiState.Loading -> Text(
-//                    text = "Loading!"
-//                )
-//            }
             Text(
                 text = "Success!"
             )

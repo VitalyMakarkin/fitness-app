@@ -3,7 +3,7 @@ package com.example.fitness.core.data.repository
 import com.example.fitness.core.model.Exercise
 import kotlinx.coroutines.flow.Flow
 
-interface ExerciseHistoryRepository {
+interface ExercisesRepository {
 
     suspend fun addExercise(exercise: Exercise)
 

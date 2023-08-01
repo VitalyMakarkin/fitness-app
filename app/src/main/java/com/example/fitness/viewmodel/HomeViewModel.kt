@@ -1,14 +1,14 @@
 package com.example.fitness.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.fitness.core.data.repository.ExerciseHistoryRepository
+import com.example.fitness.core.data.repository.ExercisesRepository
 import javax.inject.Inject
 
 /**
  * Concept
  */
 class HomeViewModel @Inject constructor(
-    private val repository: ExerciseHistoryRepository
+    private val repository: ExercisesRepository
 ) : ViewModel() {
 
     // Show avatar and name
