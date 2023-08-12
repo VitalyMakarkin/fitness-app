@@ -15,7 +15,7 @@ internal fun ExercisesHistoryRoute(
     val uiState by viewModel.exerciseHistoryUiState.collectAsStateWithLifecycle()
 
     ExerciseHistoryScreen(
-        uiState,
+        uiState = uiState,
         modifier = modifier
     )
 }

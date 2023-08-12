@@ -58,8 +58,8 @@ fun FitnessApp(
                 .padding(padding)
                 .fillMaxSize(),
         ) {
-            Text(
-                text = "Success!"
+            FitnessAppNavHost(
+                appState = appState
             )
         }
     }
