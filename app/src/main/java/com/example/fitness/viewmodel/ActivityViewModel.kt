@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Concept
  */
-class HomeViewModel @Inject constructor(
+class ActivityViewModel @Inject constructor(
     private val repository: ExercisesRepository
 ) : ViewModel() {
 

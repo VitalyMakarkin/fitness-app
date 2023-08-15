@@ -1,4 +1,4 @@
-package com.example.fitness
+package com.example.fitness.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.fitness.navigation.FitnessAppNavHost
+import com.example.fitness.navigation.TopLevelDestination
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,29 +29,25 @@ fun FitnessApp(
             NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-                val topLevelScreens = listOf(
-                    Screen.Home,
-                    Screen.Schedule,
-                    Screen.Settings
-                )
 
-                topLevelScreens.forEach { screen ->
-                    NavigationBarItem(
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                        onClick = { /*TODO*/ },
-                        icon = {
-                            Icon(
-                                imageVector = screen.imageVector,
-                                contentDescription = screen.route
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = screen.label
-                            )
-                        }
-                    )
-                }
+                TopLevelDestination.values()
+                    .forEach { screen ->
+                        NavigationBarItem(
+                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                            onClick = { /*TODO*/ },
+                            icon = {
+                                Icon(
+                                    imageVector = screen.imageVector,
+                                    contentDescription = screen.route
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = screen.label
+                                )
+                            }
+                        )
+                    }
             }
         }
     ) { padding ->

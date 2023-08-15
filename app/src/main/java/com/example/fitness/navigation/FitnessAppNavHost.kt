@@ -1,10 +1,11 @@
-package com.example.fitness
+package com.example.fitness.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.example.fitness.feature.exercisehistory.exerciseHistoryScreen
-import com.example.fitness.feature.exercisehistory.exerciseHistoryRoute
+import com.example.fitness.ui.FitnessAppState
+import com.example.fitness.feature.exercisehistory.navigation.exerciseHistoryScreen
+import com.example.fitness.feature.exercisehistory.navigation.exerciseHistoryRoute
 
 @Composable
 fun FitnessAppNavHost(
