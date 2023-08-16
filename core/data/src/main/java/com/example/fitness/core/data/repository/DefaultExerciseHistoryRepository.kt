@@ -35,4 +35,8 @@ class DefaultExercisesRepository @Inject constructor(
             }
         }
     }
+
+    override fun getExercisesCount(): Flow<Int> {
+        return exerciseDao.getAllCount()
+    }
 }

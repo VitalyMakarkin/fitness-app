@@ -10,4 +10,6 @@ interface ExercisesRepository {
     suspend fun getExercise(id: Int): Exercise
 
     fun getExercises(): Flow<List<Exercise>>
+
+    fun getExercisesCount(): Flow<Int>
 }

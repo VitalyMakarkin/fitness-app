@@ -27,11 +27,11 @@ internal fun ExerciseHistoryScreen(
 ) {
     when (uiState) {
         is ExerciseHistoryUiState.Success -> Text(
-            text = "Success!"
+            text = "ExerciseHistory: Success!"
         )
 
         is ExerciseHistoryUiState.Loading -> Text(
-            text = "Loading!"
+            text = "ExerciseHistory: Loading!"
         )
     }
 }

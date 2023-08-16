@@ -1,4 +1,4 @@
-package com.example.fitness.feature.exercisehistory
+package com.example.fitness.feature.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,20 +11,20 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
-class ExerciseHistoryViewModel @Inject constructor(
-    private val interactor: ExerciseHistoryInteractor
+class ActivityViewModel @Inject constructor(
+    private val interactor: ActivityInteractor
 ) : ViewModel() {
 
-    val exerciseHistoryUiState: StateFlow<ExerciseHistoryUiState> = exerciseHistoryUiState(
+    val activityUiState: StateFlow<ActivityUiState> = activityUiState(
         interactor = interactor
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = ExerciseHistoryUiState.Loading
+        initialValue = ActivityUiState.Loading
     )
 
-    private fun exerciseHistoryUiState(interactor: ExerciseHistoryInteractor): Flow<ExerciseHistoryUiState> {
-        return interactor.getExercises()
-            .map { exercises -> ExerciseHistoryUiState.Success(exercises) }
+    private fun activityUiState(interactor: ActivityInteractor): Flow<ActivityUiState> {
+        return interactor.getExercisesCount()
+            .map { count -> ActivityUiState.Success(count) }
     }
 }

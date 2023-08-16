@@ -19,6 +19,9 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercises ORDER BY completed_at DESC")
     fun getAll(): Flow<List<ExerciseEntity>>
 
+    @Query("SELECT COUNT(*) FROM exercises")
+    fun getAllCount(): Flow<Int>
+
     @Query("SELECT * FROM exercises WHERE exercise_category_id =:id ORDER BY completed_at DESC")
     suspend fun getAllByCategoryId(id: Int): List<ExerciseEntity>
 
