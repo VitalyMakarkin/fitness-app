@@ -8,7 +8,7 @@ const val exerciseHistoryRoute = "exercise_history"
 
 fun NavGraphBuilder.exerciseHistoryScreen() {
     composable(
-        route = exerciseHistoryRoute,
+        route = exerciseHistoryRoute
     ) {
         ExercisesHistoryRoute()
     }

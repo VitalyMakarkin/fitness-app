@@ -1,6 +1,7 @@
 package com.example.fitness.core.data.repository
 
 import com.example.fitness.core.model.Exercise
+import com.example.fitness.core.model.ScheduledExerciseEvent
 import kotlinx.coroutines.flow.Flow
 
 interface ExercisesRepository {
@@ -12,4 +13,6 @@ interface ExercisesRepository {
     fun getExercises(): Flow<List<Exercise>>
 
     fun getExercisesCount(): Flow<Int>
+
+    fun getScheduledExerciseEvents(): Flow<List<ScheduledExerciseEvent>>
 }

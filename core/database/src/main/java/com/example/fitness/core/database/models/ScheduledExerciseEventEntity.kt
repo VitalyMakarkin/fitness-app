@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 )
 data class ScheduledExerciseEventEntity(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
     val id: Int,
 
