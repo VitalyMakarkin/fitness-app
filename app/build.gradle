@@ -49,6 +49,8 @@ android {
 }
 
 dependencies {
+    implementation project(":feature:activity")
+    implementation project(":feature:schedule")
     implementation project(":feature:exercisehistory")
 
     implementation project(":core:model")
