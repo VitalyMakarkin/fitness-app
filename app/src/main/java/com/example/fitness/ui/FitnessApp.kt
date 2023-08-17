@@ -16,7 +16,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.fitness.navigation.FitnessAppNavHost
-import com.example.fitness.navigation.TopLevelDestination
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,11 +29,11 @@ fun FitnessApp(
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
 
-                TopLevelDestination.values()
+                appState.topLevelDestination
                     .forEach { screen ->
                         NavigationBarItem(
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                            onClick = { /*TODO*/ },
+                            onClick = { appState.navigateToTopLevelDestination(screen) },
                             icon = {
                                 Icon(
                                     imageVector = screen.imageVector,
