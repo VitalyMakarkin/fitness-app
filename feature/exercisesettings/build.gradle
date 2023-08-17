@@ -1,31 +1,23 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'com.example.fitness'
+    namespace 'com.example.fitness.feature.exercisesettings'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.fitness"
         minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -41,23 +33,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.3.2'
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
-    implementation project(":feature:activity")
-    implementation project(":feature:schedule")
-    implementation project(":feature:exercisesettings")
-    implementation project(":feature:exercisehistory")
-
     implementation project(":core:model")
     implementation project(":core:data")
 
-    // Common DI
     implementation "com.google.dagger:hilt-android:2.47"
     kapt "com.google.dagger:hilt-compiler:2.44"
 

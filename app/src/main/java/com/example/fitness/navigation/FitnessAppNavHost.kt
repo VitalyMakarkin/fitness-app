@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import com.example.fitness.feature.activity.navigation.activityRoute
 import com.example.fitness.feature.activity.navigation.activityScreen
 import com.example.fitness.ui.FitnessAppState
-import com.example.fitness.feature.exercisehistory.navigation.exerciseHistoryScreen
+import com.example.fitness.feature.exercisesettings.navigation.exerciseSettingsScreen
 import com.example.fitness.feature.schedule.navigation.scheduleScreen
 
 @Composable
@@ -23,6 +23,6 @@ fun FitnessAppNavHost(
     ) {
         activityScreen()
         scheduleScreen()
-        exerciseHistoryScreen()
+        exerciseSettingsScreen()
     }
 }

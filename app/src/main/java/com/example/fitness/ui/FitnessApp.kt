@@ -32,12 +32,14 @@ fun FitnessApp(
                 appState.topLevelDestination
                     .forEach { screen ->
                         NavigationBarItem(
-                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                            selected = currentDestination?.hierarchy?.any { navDestination ->
+                                navDestination.route?.contains(screen.name, true) ?: false
+                            } ?: false,
                             onClick = { appState.navigateToTopLevelDestination(screen) },
                             icon = {
                                 Icon(
                                     imageVector = screen.imageVector,
-                                    contentDescription = screen.route
+                                    contentDescription = ""
                                 )
                             },
                             label = {
