@@ -14,6 +14,7 @@ fun NavController.navigateToExerciseSettings() {
 fun NavGraphBuilder.exerciseSettingsScreen(
     onExerciseHistoryClick: () -> Unit,
     onExerciseCategoriesClick: () -> Unit,
+    onExerciseGroupsClick: () -> Unit,
     nestedScreens: NavGraphBuilder.() -> Unit,
 ) {
     composable(
@@ -21,7 +22,8 @@ fun NavGraphBuilder.exerciseSettingsScreen(
     ) {
         ExerciseSettingsRouter(
             onExerciseHistoryClick = onExerciseHistoryClick,
-            onExerciseCategoriesClick = onExerciseCategoriesClick
+            onExerciseCategoriesClick = onExerciseCategoriesClick,
+            onExerciseGroupsClick = onExerciseGroupsClick
         )
     }
     nestedScreens()

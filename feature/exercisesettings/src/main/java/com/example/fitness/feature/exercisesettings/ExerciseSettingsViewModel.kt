@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
@@ -25,15 +24,16 @@ class ExerciseSettingsViewModel @Inject constructor(
     )
 
     private fun exerciseSettingsUiState(interactor: ExerciseSettingsInteractor): Flow<ExerciseSettingsUiState> {
-        return interactor.observeExercisesCount()
-            .combine(interactor.observeExerciseCategoriesCount()) { exercisesCount, exercisesCategoriesCount ->
-                Pair(exercisesCount, exercisesCategoriesCount)
-            }
-            .map { (exercisesCount, exercisesCategoriesCount) ->
-                ExerciseSettingsUiState.Success(
-                    activitiesCount = exercisesCount,
-                    exerciseCategoriesCount = exercisesCategoriesCount
-                )
-            }
+        return combine(
+            interactor.observeExercisesCount(),
+            interactor.observeExerciseCategoriesCount(),
+            interactor.observeExerciseGroupsCount()
+        ) { exercisesCount, exerciseCategoriesCount, exerciseGroupsCount ->
+            ExerciseSettingsUiState.Success(
+                activitiesCount = exercisesCount,
+                exerciseCategoriesCount = exerciseCategoriesCount,
+                exerciseGroupsCount = exerciseGroupsCount
+            )
+        }
     }
 }

@@ -13,6 +13,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 internal fun ExerciseSettingsRouter(
     onExerciseHistoryClick: () -> Unit,
     onExerciseCategoriesClick: () -> Unit,
+    onExerciseGroupsClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ExerciseSettingsViewModel = hiltViewModel()
 ) {
@@ -22,6 +23,7 @@ internal fun ExerciseSettingsRouter(
         uiState = uiState,
         onExerciseHistoryClick = onExerciseHistoryClick,
         onExerciseCategoriesClick = onExerciseCategoriesClick,
+        onExerciseGroupsClick = onExerciseGroupsClick,
         modifier = modifier
     )
 }
@@ -31,6 +33,7 @@ internal fun ExerciseSettingsScreen(
     uiState: ExerciseSettingsUiState,
     onExerciseHistoryClick: () -> Unit,
     onExerciseCategoriesClick: () -> Unit,
+    onExerciseGroupsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
@@ -42,9 +45,15 @@ internal fun ExerciseSettingsScreen(
                 }
             )
             Text(
-                text = "${uiState.exerciseCategoriesCount} exercises categories",
+                text = "${uiState.exerciseCategoriesCount} exercise categories",
                 modifier = modifier.clickable {
                     onExerciseCategoriesClick()
+                }
+            )
+            Text(
+                text = "${uiState.exerciseGroupsCount} exercise groups",
+                modifier = modifier.clickable {
+                    onExerciseGroupsClick()
                 }
             )
         }

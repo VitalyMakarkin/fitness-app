@@ -10,9 +10,11 @@ import com.example.fitness.core.database.dao.ExerciseGroupDao
 import com.example.fitness.core.database.dao.ScheduledExerciseEventDao
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
+import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.core.model.ScheduledExerciseEvent
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class DefaultExercisesRepository @Inject constructor(
@@ -65,5 +67,13 @@ class DefaultExercisesRepository @Inject constructor(
 
     override fun observeExerciseCategoriesCount(): Flow<Int> {
         return exerciseCategoryDao.observeAllCount()
+    }
+
+    override fun observeExerciseGroups(): Flow<List<ExerciseGroup>> {
+        return flow { listOf<ExerciseGroup>() }
+    }
+
+    override fun observeExerciseGroupsCount(): Flow<Int> {
+        return exerciseGroupDao.observeAllCount()
     }
 }

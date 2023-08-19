@@ -7,6 +7,8 @@ import com.example.fitness.feature.activity.navigation.activityRoute
 import com.example.fitness.feature.activity.navigation.activityScreen
 import com.example.fitness.feature.exercisecategories.navigation.exerciseCategoriesScreen
 import com.example.fitness.feature.exercisecategories.navigation.navigateToExerciseCategories
+import com.example.fitness.feature.exercisegroups.navigation.exerciseGroupsScreen
+import com.example.fitness.feature.exercisegroups.navigation.navigateToExerciseGroups
 import com.example.fitness.feature.exercisehistory.navigation.exerciseHistoryScreen
 import com.example.fitness.feature.exercisehistory.navigation.navigateToExerciseHistory
 import com.example.fitness.ui.FitnessAppState
@@ -30,9 +32,11 @@ fun FitnessAppNavHost(
         exerciseSettingsScreen(
             onExerciseHistoryClick = { navController.navigateToExerciseHistory() },
             onExerciseCategoriesClick = { navController.navigateToExerciseCategories() },
+            onExerciseGroupsClick = { navController.navigateToExerciseGroups() },
             nestedScreens = {
                 exerciseHistoryScreen()
                 exerciseCategoriesScreen()
+                exerciseGroupsScreen()
             }
         )
     }

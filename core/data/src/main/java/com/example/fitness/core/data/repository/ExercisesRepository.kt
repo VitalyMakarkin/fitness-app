@@ -2,6 +2,7 @@ package com.example.fitness.core.data.repository
 
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
+import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.core.model.ScheduledExerciseEvent
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +21,8 @@ interface ExercisesRepository {
     fun observeExerciseCategories(): Flow<List<ExerciseCategory>>
 
     fun observeExerciseCategoriesCount(): Flow<Int>
+
+    fun observeExerciseGroups(): Flow<List<ExerciseGroup>>
+
+    fun observeExerciseGroupsCount(): Flow<Int>
 }

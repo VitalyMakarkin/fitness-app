@@ -15,4 +15,8 @@ class ExerciseSettingsInteractor @Inject constructor(
     fun observeExerciseCategoriesCount(): Flow<Int> {
         return exerciseRepository.observeExerciseCategoriesCount()
     }
+
+    fun observeExerciseGroupsCount(): Flow<Int> {
+        return exerciseRepository.observeExerciseGroupsCount()
+    }
 }

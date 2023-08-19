@@ -4,7 +4,8 @@ sealed interface ExerciseSettingsUiState {
 
     data class Success(
         val activitiesCount: Int,
-        val exerciseCategoriesCount: Int
+        val exerciseCategoriesCount: Int,
+        val exerciseGroupsCount: Int
     ) : ExerciseSettingsUiState
 
     object Loading : ExerciseSettingsUiState

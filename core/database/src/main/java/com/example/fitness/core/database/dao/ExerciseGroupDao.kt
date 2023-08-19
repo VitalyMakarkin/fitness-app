@@ -21,11 +21,14 @@ interface ExerciseGroupDao {
 
     @Transaction
     @Query("SELECT * FROM exercise_groups")
-    fun getAll(): Flow<List<PopulatedExerciseGroup>>
+    fun observeAll(): Flow<List<PopulatedExerciseGroup>>
 
     @Transaction
     @Query("SELECT * FROM exercise_groups WHERE id = :id")
-    fun getPopulatedGroup(id: Int): Flow<PopulatedExerciseGroup>
+    fun observePopulated(id: Int): Flow<PopulatedExerciseGroup>
+
+    @Query("SELECT COUNT(*) FROM exercise_groups")
+    fun observeAllCount(): Flow<Int>
 
     @Query("DELETE FROM exercise_groups WHERE id = :id")
     suspend fun delete(id: Int)
