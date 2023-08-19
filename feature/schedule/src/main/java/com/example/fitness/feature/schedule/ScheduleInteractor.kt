@@ -9,7 +9,7 @@ class ScheduleInteractor @Inject constructor(
     private val exercisesRepository: ExercisesRepository
 ) {
 
-    fun getEvents(): Flow<List<ScheduledExerciseEvent>> {
-        return exercisesRepository.getScheduledExerciseEvents()
+    fun observeEvents(): Flow<List<ScheduledExerciseEvent>> {
+        return exercisesRepository.observeScheduledExerciseEvents()
     }
 }

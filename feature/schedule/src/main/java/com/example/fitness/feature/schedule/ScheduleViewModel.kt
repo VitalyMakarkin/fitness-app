@@ -24,7 +24,7 @@ class ScheduleViewModel @Inject constructor(
     )
 
     private fun scheduleUiState(interactor: ScheduleInteractor): Flow<ScheduleUiState> {
-        return interactor.getEvents()
+        return interactor.observeEvents()
             .map { events -> ScheduleUiState.Success(events) }
     }
 }

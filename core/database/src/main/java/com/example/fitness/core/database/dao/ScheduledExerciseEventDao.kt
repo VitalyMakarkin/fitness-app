@@ -21,7 +21,7 @@ interface ScheduledExerciseEventDao {
 
     @Transaction
     @Query("SELECT * FROM scheduled_exercise_events ORDER BY scheduled_at ASC")
-    fun getAll(): Flow<List<PopulatedScheduledExerciseEvent>>
+    fun observeAll(): Flow<List<PopulatedScheduledExerciseEvent>>
 
     @Query("DELETE FROM scheduled_exercise_events WHERE id = :id")
     suspend fun delete(id: Int)

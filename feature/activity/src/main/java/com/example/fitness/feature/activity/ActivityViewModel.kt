@@ -24,7 +24,7 @@ class ActivityViewModel @Inject constructor(
     )
 
     private fun activityUiState(interactor: ActivityInteractor): Flow<ActivityUiState> {
-        return interactor.getExercisesCount()
+        return interactor.observeExercisesCount()
             .map { count -> ActivityUiState.Success(count) }
     }
 }

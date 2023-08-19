@@ -1,5 +1,6 @@
 package com.example.fitness.core.data.mapper
 
+import com.example.fitness.core.database.models.ExerciseCategoryEntity
 import com.example.fitness.core.database.models.ExerciseEntity
 import com.example.fitness.core.database.models.ExerciseGroupEntity
 import com.example.fitness.core.database.models.ExerciseGroupItemEntity
@@ -7,6 +8,7 @@ import com.example.fitness.core.database.models.PopulatedExerciseGroup
 import com.example.fitness.core.database.models.PopulatedScheduledExerciseEvent
 import com.example.fitness.core.database.models.ScheduledExerciseEventEntity
 import com.example.fitness.core.model.Exercise
+import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.core.model.ScheduledExerciseEvent
 
@@ -74,5 +76,22 @@ fun PopulatedScheduledExerciseEvent.mapToScheduledExerciseEvent() = with(this) {
         event.id,
         event.scheduledAt,
         exerciseGroup.mapToExerciseGroup()
+    )
+}
+
+fun ExerciseCategoryEntity.RequiredState.mapToExerciseCategoryRequiredState() = when (this) {
+    ExerciseCategoryEntity.RequiredState.REQUIRED -> ExerciseCategory.RequiredState.REQUIRED
+    ExerciseCategoryEntity.RequiredState.OPTIONAL -> ExerciseCategory.RequiredState.OPTIONAL
+    else -> ExerciseCategory.RequiredState.NONE
+}
+
+fun ExerciseCategoryEntity.mapToExerciseCategory() = with(this) {
+    ExerciseCategory(
+        id,
+        name,
+        description,
+        containsSets.mapToExerciseCategoryRequiredState(),
+        containsReps.mapToExerciseCategoryRequiredState(),
+        containsDuration.mapToExerciseCategoryRequiredState()
     )
 }

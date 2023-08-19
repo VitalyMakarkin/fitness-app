@@ -17,7 +17,7 @@ interface ExerciseCategoryDao {
     suspend fun get(id: Int): ExerciseCategoryEntity
 
     @Query("SELECT * FROM exercise_categories")
-    fun getAll(): Flow<List<ExerciseCategoryEntity>>
+    fun observeAll(): Flow<List<ExerciseCategoryEntity>>
 
     @Query("DELETE FROM exercise_categories WHERE id = :id")
     suspend fun delete(id: Int)

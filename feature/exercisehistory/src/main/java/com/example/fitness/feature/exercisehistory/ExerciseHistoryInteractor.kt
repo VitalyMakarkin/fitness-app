@@ -6,10 +6,10 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class ExerciseHistoryInteractor @Inject constructor(
-    private val exerciseHistoryRepository: ExercisesRepository
+    private val exerciseRepository: ExercisesRepository
 ) {
 
-    fun getExercises(): Flow<List<Exercise>> {
-        return exerciseHistoryRepository.getExercises()
+    fun observeExercises(): Flow<List<Exercise>> {
+        return exerciseRepository.observeExercises()
     }
 }

@@ -5,10 +5,10 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class ActivityInteractor @Inject constructor(
-    private val exerciseHistoryRepository: ExercisesRepository
+    private val exerciseRepository: ExercisesRepository
 ) {
 
-    fun getExercisesCount(): Flow<Int> {
-        return exerciseHistoryRepository.getExercisesCount()
+    fun observeExercisesCount(): Flow<Int> {
+        return exerciseRepository.observeExercisesCount()
     }
 }

@@ -24,7 +24,7 @@ class ExerciseHistoryViewModel @Inject constructor(
     )
 
     private fun exerciseHistoryUiState(interactor: ExerciseHistoryInteractor): Flow<ExerciseHistoryUiState> {
-        return interactor.getExercises()
+        return interactor.observeExercises()
             .map { exercises -> ExerciseHistoryUiState.Success(exercises) }
     }
 }

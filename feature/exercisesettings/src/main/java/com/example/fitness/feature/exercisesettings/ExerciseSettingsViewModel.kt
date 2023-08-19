@@ -24,7 +24,7 @@ class ExerciseSettingsViewModel @Inject constructor(
     )
 
     private fun exerciseSettingsUiState(interactor: ExerciseSettingsInteractor): Flow<ExerciseSettingsUiState> {
-        return interactor.getExercisesCount()
+        return interactor.observeExercisesCount()
             .map { count -> ExerciseSettingsUiState.Success(count) }
     }
 }
