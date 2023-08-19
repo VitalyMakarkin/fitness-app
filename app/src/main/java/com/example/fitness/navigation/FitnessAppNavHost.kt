@@ -5,6 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.example.fitness.feature.activity.navigation.activityRoute
 import com.example.fitness.feature.activity.navigation.activityScreen
+import com.example.fitness.feature.exercisecategories.navigation.exerciseCategoriesScreen
+import com.example.fitness.feature.exercisecategories.navigation.navigateToExerciseCategories
+import com.example.fitness.feature.exercisehistory.navigation.exerciseHistoryScreen
+import com.example.fitness.feature.exercisehistory.navigation.navigateToExerciseHistory
 import com.example.fitness.ui.FitnessAppState
 import com.example.fitness.feature.exercisesettings.navigation.exerciseSettingsScreen
 import com.example.fitness.feature.schedule.navigation.scheduleScreen
@@ -23,6 +27,13 @@ fun FitnessAppNavHost(
     ) {
         activityScreen()
         scheduleScreen()
-        exerciseSettingsScreen()
+        exerciseSettingsScreen(
+            onExerciseHistoryClick = { navController.navigateToExerciseHistory() },
+            onExerciseCategoriesClick = { navController.navigateToExerciseCategories() },
+            nestedScreens = {
+                exerciseHistoryScreen()
+                exerciseCategoriesScreen()
+            }
+        )
     }
 }

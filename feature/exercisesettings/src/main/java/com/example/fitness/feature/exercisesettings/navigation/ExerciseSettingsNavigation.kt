@@ -11,10 +11,18 @@ fun NavController.navigateToExerciseSettings() {
     this.navigate(exerciseSettingsRoute)
 }
 
-fun NavGraphBuilder.exerciseSettingsScreen() {
+fun NavGraphBuilder.exerciseSettingsScreen(
+    onExerciseHistoryClick: () -> Unit,
+    onExerciseCategoriesClick: () -> Unit,
+    nestedScreens: NavGraphBuilder.() -> Unit,
+) {
     composable(
         route = exerciseSettingsRoute
     ) {
-        ExerciseSettingsRouter()
+        ExerciseSettingsRouter(
+            onExerciseHistoryClick = onExerciseHistoryClick,
+            onExerciseCategoriesClick = onExerciseCategoriesClick
+        )
     }
+    nestedScreens()
 }

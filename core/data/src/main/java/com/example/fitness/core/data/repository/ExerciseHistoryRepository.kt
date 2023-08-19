@@ -18,4 +18,6 @@ interface ExercisesRepository {
     fun observeScheduledExerciseEvents(): Flow<List<ScheduledExerciseEvent>>
 
     fun observeExerciseCategories(): Flow<List<ExerciseCategory>>
+
+    fun observeExerciseCategoriesCount(): Flow<Int>
 }

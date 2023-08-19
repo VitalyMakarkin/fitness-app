@@ -53,6 +53,7 @@ dependencies {
     implementation project(":feature:schedule")
     implementation project(":feature:exercisesettings")
     implementation project(":feature:exercisehistory")
+    implementation project(":feature:exercisecategories")
 
     implementation project(":core:model")
     implementation project(":core:data")

@@ -19,6 +19,9 @@ interface ExerciseCategoryDao {
     @Query("SELECT * FROM exercise_categories")
     fun observeAll(): Flow<List<ExerciseCategoryEntity>>
 
+    @Query("SELECT COUNT(*) FROM exercise_categories")
+    fun observeAllCount(): Flow<Int>
+
     @Query("DELETE FROM exercise_categories WHERE id = :id")
     suspend fun delete(id: Int)
 

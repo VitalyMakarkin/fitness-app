@@ -62,4 +62,8 @@ class DefaultExercisesRepository @Inject constructor(
                 }
             }
     }
+
+    override fun observeExerciseCategoriesCount(): Flow<Int> {
+        return exerciseCategoryDao.observeAllCount()
+    }
 }
