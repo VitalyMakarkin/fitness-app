@@ -3,6 +3,7 @@ package com.example.fitness.core.data.repository
 import com.example.fitness.core.data.mapper.mapToExercise
 import com.example.fitness.core.data.mapper.mapToExerciseCategory
 import com.example.fitness.core.data.mapper.mapToExerciseEntity
+import com.example.fitness.core.data.mapper.mapToExerciseGroup
 import com.example.fitness.core.data.mapper.mapToScheduledExerciseEvent
 import com.example.fitness.core.database.dao.ExerciseCategoryDao
 import com.example.fitness.core.database.dao.ExerciseDao
@@ -14,7 +15,6 @@ import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.core.model.ScheduledExerciseEvent
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class DefaultExercisesRepository @Inject constructor(
@@ -59,7 +59,7 @@ class DefaultExercisesRepository @Inject constructor(
     override fun observeExerciseCategories(): Flow<List<ExerciseCategory>> {
         return exerciseCategoryDao.observeAll()
             .map { list ->
-                list.map {category ->
+                list.map { category ->
                     category.mapToExerciseCategory()
                 }
             }
@@ -70,7 +70,12 @@ class DefaultExercisesRepository @Inject constructor(
     }
 
     override fun observeExerciseGroups(): Flow<List<ExerciseGroup>> {
-        return flow { listOf<ExerciseGroup>() }
+        return exerciseGroupDao.observeAll()
+            .map { list ->
+                list.map { group ->
+                    group.mapToExerciseGroup()
+                }
+            }
     }
 
     override fun observeExerciseGroupsCount(): Flow<Int> {
