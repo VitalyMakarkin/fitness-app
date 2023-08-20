@@ -15,6 +15,8 @@ import com.example.fitness.feature.exercisehistory.navigation.exerciseHistoryScr
 import com.example.fitness.feature.exercisehistory.navigation.navigateToExerciseHistory
 import com.example.fitness.ui.FitnessAppState
 import com.example.fitness.feature.exercisesettings.navigation.exerciseSettingsScreen
+import com.example.fitness.feature.savecompletedexercise.navigation.navigateToSaveCompletedExercise
+import com.example.fitness.feature.savecompletedexercise.navigation.saveCompletedExerciseScreen
 import com.example.fitness.feature.schedule.navigation.scheduleScreen
 
 @Composable
@@ -36,12 +38,15 @@ fun FitnessAppNavHost(
             onExerciseCategoriesClick = { navController.navigateToExerciseCategories() },
             onExerciseGroupsClick = { navController.navigateToExerciseGroups() },
             nestedScreens = {
-                exerciseHistoryScreen()
+                exerciseHistoryScreen(
+                    onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() }
+                )
                 exerciseCategoriesScreen(
                     onNewExerciseCategoryCreateClick = { navController.navigateToCreateExerciseCategory() }
                 )
                 exerciseGroupsScreen()
                 createExerciseCategoryScreen()
+                saveCompletedExerciseScreen()
             }
         )
     }

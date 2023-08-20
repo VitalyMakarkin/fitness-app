@@ -27,4 +27,6 @@ interface ExercisesRepository {
     fun observeExerciseGroupsCount(): Flow<Int>
 
     suspend fun createExerciseCategory()
+
+    suspend fun saveCompletedExercise()
 }

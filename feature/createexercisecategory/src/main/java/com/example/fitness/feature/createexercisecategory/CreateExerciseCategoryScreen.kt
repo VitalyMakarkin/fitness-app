@@ -17,7 +17,8 @@ internal fun CreateExerciseCategoryRouter(
 
     CreateExerciseCategoryScreen(
         uiState = uiState,
-        onCreate = { viewModel.createExerciseCategory() }
+        onCreate = { viewModel.createExerciseCategory() },
+        modifier = modifier
     )
 }
 

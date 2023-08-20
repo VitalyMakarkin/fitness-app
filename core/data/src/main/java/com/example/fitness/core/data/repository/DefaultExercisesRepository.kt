@@ -10,6 +10,7 @@ import com.example.fitness.core.database.dao.ExerciseDao
 import com.example.fitness.core.database.dao.ExerciseGroupDao
 import com.example.fitness.core.database.dao.ScheduledExerciseEventDao
 import com.example.fitness.core.database.models.ExerciseCategoryEntity
+import com.example.fitness.core.database.models.ExerciseEntity
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
@@ -93,5 +94,19 @@ class DefaultExercisesRepository @Inject constructor(
             containsDuration = ExerciseCategoryEntity.RequiredState.NONE
         )
         return exerciseCategoryDao.insert(exerciseCategoryEntity)
+    }
+
+    override suspend fun saveCompletedExercise() {
+        val exerciseEntity = ExerciseEntity(
+            id = 0,
+            exerciseCategoryId = 0,
+            createdAt = 0,
+            completedAt = 0,
+            sets = null,
+            reps = null,
+            duration = null,
+            score = 0
+        )
+        return exerciseDao.insert(exerciseEntity)
     }
 }
