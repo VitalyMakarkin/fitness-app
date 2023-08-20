@@ -11,10 +11,14 @@ fun NavController.navigateToExerciseCategories() {
     this.navigate(exerciseCategoriesRoute)
 }
 
-fun NavGraphBuilder.exerciseCategoriesScreen() {
+fun NavGraphBuilder.exerciseCategoriesScreen(
+    onNewExerciseCategoryCreateClick: () -> Unit,
+) {
     composable(
         route = exerciseCategoriesRoute
     ) {
-        ExerciseCategoriesRouter()
+        ExerciseCategoriesRouter(
+            onNewExerciseCategoryCreateClick = onNewExerciseCategoryCreateClick
+        )
     }
 }

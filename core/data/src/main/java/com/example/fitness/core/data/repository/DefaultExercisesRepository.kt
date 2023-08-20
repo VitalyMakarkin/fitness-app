@@ -9,6 +9,7 @@ import com.example.fitness.core.database.dao.ExerciseCategoryDao
 import com.example.fitness.core.database.dao.ExerciseDao
 import com.example.fitness.core.database.dao.ExerciseGroupDao
 import com.example.fitness.core.database.dao.ScheduledExerciseEventDao
+import com.example.fitness.core.database.models.ExerciseCategoryEntity
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
@@ -80,5 +81,17 @@ class DefaultExercisesRepository @Inject constructor(
 
     override fun observeExerciseGroupsCount(): Flow<Int> {
         return exerciseGroupDao.observeAllCount()
+    }
+
+    override suspend fun createExerciseCategory() {
+        val exerciseCategoryEntity = ExerciseCategoryEntity(
+            id = 0,
+            name = "",
+            description = "",
+            containsSets = ExerciseCategoryEntity.RequiredState.NONE,
+            containsReps = ExerciseCategoryEntity.RequiredState.NONE,
+            containsDuration = ExerciseCategoryEntity.RequiredState.NONE
+        )
+        return exerciseCategoryDao.insert(exerciseCategoryEntity)
     }
 }
