@@ -11,10 +11,14 @@ fun NavController.navigateToSaveCompletedExercise() {
     this.navigate(saveCompletedExerciseRoute)
 }
 
-fun NavGraphBuilder.saveCompletedExerciseScreen() {
+fun NavGraphBuilder.saveCompletedExerciseScreen(
+    onBackClick: () -> Unit
+) {
     composable(
         route = saveCompletedExerciseRoute
     ) {
-        SaveCompletedExerciseRouter()
+        SaveCompletedExerciseRouter(
+            onBackClick = onBackClick
+        )
     }
 }

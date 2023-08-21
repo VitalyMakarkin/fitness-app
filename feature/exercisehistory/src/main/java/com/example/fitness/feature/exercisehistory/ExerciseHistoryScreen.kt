@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 internal fun ExercisesHistoryRoute(
+    onBackClick: () -> Unit,
     onSaveCompletedExerciseClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ExerciseHistoryViewModel = hiltViewModel()
@@ -19,6 +20,7 @@ internal fun ExercisesHistoryRoute(
 
     ExerciseHistoryScreen(
         uiState = uiState,
+        onBackClick = onBackClick,
         onSaveCompletedExerciseClick = onSaveCompletedExerciseClick,
         modifier = modifier
     )
@@ -27,20 +29,27 @@ internal fun ExercisesHistoryRoute(
 @Composable
 internal fun ExerciseHistoryScreen(
     uiState: ExerciseHistoryUiState,
+    onBackClick: () -> Unit,
     onSaveCompletedExerciseClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when (uiState) {
-        is ExerciseHistoryUiState.Success -> Column {
-            Text(text = "ExerciseHistory: Success!")
-            Text(
-                text = "[Add]",
-                modifier = modifier.clickable { onSaveCompletedExerciseClick() }
+    Column {
+        Text(
+            text = "[Back]",
+            modifier = modifier.clickable { onBackClick() }
+        )
+        when (uiState) {
+            is ExerciseHistoryUiState.Success -> Column {
+                Text(text = "ExerciseHistory: Success!")
+                Text(
+                    text = "[Add]",
+                    modifier = modifier.clickable { onSaveCompletedExerciseClick() }
+                )
+            }
+
+            is ExerciseHistoryUiState.Loading -> Text(
+                text = "ExerciseHistory: Loading!"
             )
         }
-
-        is ExerciseHistoryUiState.Loading -> Text(
-            text = "ExerciseHistory: Loading!"
-        )
     }
 }

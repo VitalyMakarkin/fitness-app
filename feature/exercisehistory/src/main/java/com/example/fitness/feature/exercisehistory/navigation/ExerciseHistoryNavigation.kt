@@ -12,12 +12,14 @@ fun NavController.navigateToExerciseHistory() {
 }
 
 fun NavGraphBuilder.exerciseHistoryScreen(
+    onBackClick: () -> Unit,
     onSaveCompletedExerciseClick: () -> Unit
 ) {
     composable(
         route = exerciseHistoryRoute
     ) {
         ExercisesHistoryRoute(
+            onBackClick = onBackClick,
             onSaveCompletedExerciseClick = onSaveCompletedExerciseClick
         )
     }

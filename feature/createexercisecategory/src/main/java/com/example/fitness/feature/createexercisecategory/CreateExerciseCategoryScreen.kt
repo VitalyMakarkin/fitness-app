@@ -1,6 +1,7 @@
 package com.example.fitness.feature.createexercisecategory
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 internal fun CreateExerciseCategoryRouter(
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateExerciseCategoryViewModel = hiltViewModel()
 ) {
@@ -17,6 +19,7 @@ internal fun CreateExerciseCategoryRouter(
 
     CreateExerciseCategoryScreen(
         uiState = uiState,
+        onBackClick = onBackClick,
         onCreate = { viewModel.createExerciseCategory() },
         modifier = modifier
     )
@@ -25,17 +28,24 @@ internal fun CreateExerciseCategoryRouter(
 @Composable
 internal fun CreateExerciseCategoryScreen(
     uiState: CreateExerciseCategoryUiState,
+    onBackClick: () -> Unit,
     onCreate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when (uiState) {
-        is CreateExerciseCategoryUiState.Success -> Text(
-            text = "CreateExerciseCategory: [Create]",
-            modifier.clickable { onCreate() }
+    Column {
+        Text(
+            text = "[Back]",
+            modifier = modifier.clickable { onBackClick() }
         )
+        when (uiState) {
+            is CreateExerciseCategoryUiState.Success -> Text(
+                text = "CreateExerciseCategory: [Create]",
+                modifier.clickable { onCreate() }
+            )
 
-        is CreateExerciseCategoryUiState.Loading -> Text(
-            text = "CreateExerciseCategory: Loading!"
-        )
+            is CreateExerciseCategoryUiState.Loading -> Text(
+                text = "CreateExerciseCategory: Loading!"
+            )
+        }
     }
 }

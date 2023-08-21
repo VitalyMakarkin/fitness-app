@@ -31,7 +31,9 @@ fun FitnessAppNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        activityScreen()
+        activityScreen(
+            onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() }
+        )
         scheduleScreen()
         exerciseSettingsScreen(
             onExerciseHistoryClick = { navController.navigateToExerciseHistory() },
@@ -39,14 +41,22 @@ fun FitnessAppNavHost(
             onExerciseGroupsClick = { navController.navigateToExerciseGroups() },
             nestedScreens = {
                 exerciseHistoryScreen(
+                    onBackClick = { navController.popBackStack() },
                     onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() }
                 )
                 exerciseCategoriesScreen(
+                    onBackClick = { navController.popBackStack() },
                     onNewExerciseCategoryCreateClick = { navController.navigateToCreateExerciseCategory() }
                 )
-                exerciseGroupsScreen()
-                createExerciseCategoryScreen()
-                saveCompletedExerciseScreen()
+                exerciseGroupsScreen(
+                    onBackClick = { navController.popBackStack() },
+                )
+                createExerciseCategoryScreen(
+                    onBackClick = { navController.popBackStack() },
+                )
+                saveCompletedExerciseScreen(
+                    onBackClick = { navController.popBackStack() },
+                )
             }
         )
     }

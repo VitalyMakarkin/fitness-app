@@ -11,10 +11,14 @@ fun NavController.navigateToExerciseGroups() {
     this.navigate(exerciseGroupsRoute)
 }
 
-fun NavGraphBuilder.exerciseGroupsScreen() {
+fun NavGraphBuilder.exerciseGroupsScreen(
+    onBackClick: () -> Unit
+) {
     composable(
         route = exerciseGroupsRoute
     ) {
-        ExerciseGroupsRouter()
+        ExerciseGroupsRouter(
+            onBackClick = onBackClick
+        )
     }
 }

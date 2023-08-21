@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 internal fun ExerciseCategoriesRouter(
+    onBackClick: () -> Unit,
     onNewExerciseCategoryCreateClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ExerciseCategoriesViewModel = hiltViewModel()
@@ -19,6 +20,7 @@ internal fun ExerciseCategoriesRouter(
 
     ExerciseCategoriesScreen(
         uiState = uiState,
+        onBackClick = onBackClick,
         onNewExerciseCategoryCreateClick = onNewExerciseCategoryCreateClick,
         modifier = modifier
     )
@@ -27,20 +29,27 @@ internal fun ExerciseCategoriesRouter(
 @Composable
 internal fun ExerciseCategoriesScreen(
     uiState: ExerciseCategoriesUiState,
+    onBackClick: () -> Unit,
     onNewExerciseCategoryCreateClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when (uiState) {
-        is ExerciseCategoriesUiState.Success -> Column {
-            Text(text = "ExerciseCategories: Success!")
-            Text(
-                text = "[Create new exercise category]",
-                modifier.clickable { onNewExerciseCategoryCreateClick() }
+    Column {
+        Text(
+            text = "[Back]",
+            modifier = modifier.clickable { onBackClick() }
+        )
+        when (uiState) {
+            is ExerciseCategoriesUiState.Success -> Column {
+                Text(text = "ExerciseCategories: Success!")
+                Text(
+                    text = "[Create new exercise category]",
+                    modifier.clickable { onNewExerciseCategoryCreateClick() }
+                )
+            }
+
+            is ExerciseCategoriesUiState.Loading -> Text(
+                text = "ExerciseCategories: Loading!"
             )
         }
-
-        is ExerciseCategoriesUiState.Loading -> Text(
-            text = "ExerciseCategories: Loading!"
-        )
     }
 }
