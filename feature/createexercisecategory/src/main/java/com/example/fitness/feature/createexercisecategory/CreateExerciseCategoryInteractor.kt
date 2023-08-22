@@ -7,7 +7,19 @@ class CreateExerciseCategoryInteractor @Inject constructor(
     private val exercisesRepository: ExercisesRepository
 ) {
 
-    suspend fun createExerciseCategory() {
-        exercisesRepository.createExerciseCategory()
+    suspend fun createExerciseCategory(
+        name: String,
+        description: String?,
+        containsSets: Boolean,
+        containsReps: Boolean,
+        containsDuration: Boolean
+    ) {
+        exercisesRepository.createExerciseCategory(
+            name,
+            description,
+            containsSets,
+            containsReps,
+            containsDuration
+        )
     }
 }
