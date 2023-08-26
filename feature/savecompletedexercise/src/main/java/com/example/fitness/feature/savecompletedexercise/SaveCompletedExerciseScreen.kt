@@ -5,9 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.feature.savecompletedexercise.dialog.exercisecategoryselection.ExerciseCategorySelectionDialog
 
 @Composable
 internal fun SaveCompletedExerciseRouter(
@@ -32,6 +36,16 @@ internal fun SaveCompletedExerciseScreen(
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var showExerciseCategorySelectionDialog by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    if (showExerciseCategorySelectionDialog) {
+        ExerciseCategorySelectionDialog(
+            onDismiss = { showExerciseCategorySelectionDialog = false }
+        )
+    }
+
     Column {
         Text(
             text = "[Back]",
@@ -39,7 +53,10 @@ internal fun SaveCompletedExerciseScreen(
         )
         when (uiState) {
             is SaveCompletedExerciseUiState.Success -> Column {
-                Text(text = "Categories: ${uiState.exerciseCategories.joinToString(",") { it.id.toString() }}")
+                Text(
+                    text = "Categories: ${uiState.exerciseCategories.joinToString(",") { it.id.toString() }}",
+                    modifier.clickable { showExerciseCategorySelectionDialog = true }
+                )
                 Text(
                     text = "[Create]",
                     modifier.clickable { onSaveClick() }

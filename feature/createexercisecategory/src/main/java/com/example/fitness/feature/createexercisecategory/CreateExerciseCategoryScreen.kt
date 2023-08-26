@@ -40,9 +40,7 @@ internal fun CreateExerciseCategoryRouter(
         onCategoryContainsRepsChanged = { checked -> viewModel.onCategoryContainsRepsChanged(checked) },
         categoryContainsDuration = categoryContainsDuration,
         onCategoryContainsDurationChanged = { checked ->
-            viewModel.onCategoryContainsDurationChanged(
-                checked
-            )
+            viewModel.onCategoryContainsDurationChanged(checked)
         },
     )
 }
