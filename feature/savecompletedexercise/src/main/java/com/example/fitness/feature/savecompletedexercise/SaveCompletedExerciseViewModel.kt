@@ -6,17 +6,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.fitness.core.model.ExerciseCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 private const val EXERCISE_CATEGORY_ID = "saveCompletedExerciseExerciseCategoryId"
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class SaveCompletedExerciseViewModel @Inject constructor(
     private val interactor: SaveCompletedExerciseInteractor,
@@ -35,12 +37,12 @@ class SaveCompletedExerciseViewModel @Inject constructor(
         )
 
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
-        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1).flatMapConcat { categoryId ->
+        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1).flatMapLatest { categoryId ->
             if (categoryId != -1) {
                 interactor.observeExerciseCategory(exerciseCategoryId.value)
                     .map { category -> SaveCompletedExerciseUiState.Success(category) }
             } else {
-                flow { emit(SaveCompletedExerciseUiState.Success(null)) }
+                flowOf(SaveCompletedExerciseUiState.Success(null))
             }
         }
     }
