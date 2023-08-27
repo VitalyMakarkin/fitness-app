@@ -19,6 +19,9 @@ interface ExerciseCategoryDao {
     @Query("SELECT * FROM exercise_categories")
     fun observeAll(): Flow<List<ExerciseCategoryEntity>>
 
+    @Query("SELECT * FROM exercise_categories WHERE id = :id")
+    fun observe(id: Int): Flow<ExerciseCategoryEntity>
+
     @Query("SELECT COUNT(*) FROM exercise_categories")
     fun observeAllCount(): Flow<Int>
 

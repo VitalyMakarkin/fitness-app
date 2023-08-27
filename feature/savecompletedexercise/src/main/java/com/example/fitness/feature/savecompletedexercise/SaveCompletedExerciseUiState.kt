@@ -5,7 +5,7 @@ import com.example.fitness.core.model.ExerciseCategory
 sealed interface SaveCompletedExerciseUiState {
 
     data class Success(
-        val exerciseCategories: List<ExerciseCategory>
+        val selectedExerciseCategory: ExerciseCategory?
     ) : SaveCompletedExerciseUiState
 
     object Loading : SaveCompletedExerciseUiState

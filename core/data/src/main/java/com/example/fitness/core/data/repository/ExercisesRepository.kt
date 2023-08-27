@@ -20,6 +20,8 @@ interface ExercisesRepository {
 
     fun observeExerciseCategories(): Flow<List<ExerciseCategory>>
 
+    fun observeExerciseCategory(id: Int): Flow<ExerciseCategory>
+
     fun observeExerciseCategoriesCount(): Flow<Int>
 
     fun observeExerciseGroups(): Flow<List<ExerciseGroup>>

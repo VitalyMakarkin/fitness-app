@@ -38,11 +38,7 @@ class DefaultExercisesRepository @Inject constructor(
 
     override fun observeExercises(): Flow<List<Exercise>> {
         return exerciseDao.observeAll()
-            .map { list ->
-                list.map { exerciseEntity ->
-                    exerciseEntity.mapToExercise()
-                }
-            }
+            .map { list -> list.map { exerciseEntity -> exerciseEntity.mapToExercise() } }
     }
 
     override fun observeExercisesCount(): Flow<Int> {
@@ -51,20 +47,17 @@ class DefaultExercisesRepository @Inject constructor(
 
     override fun observeScheduledExerciseEvents(): Flow<List<ScheduledExerciseEvent>> {
         return exerciseEventDao.observeAll()
-            .map { list ->
-                list.map { event ->
-                    event.mapToScheduledExerciseEvent()
-                }
-            }
+            .map { list -> list.map { event -> event.mapToScheduledExerciseEvent() } }
     }
 
     override fun observeExerciseCategories(): Flow<List<ExerciseCategory>> {
         return exerciseCategoryDao.observeAll()
-            .map { list ->
-                list.map { category ->
-                    category.mapToExerciseCategory()
-                }
-            }
+            .map { list -> list.map { category -> category.mapToExerciseCategory() } }
+    }
+
+    override fun observeExerciseCategory(id: Int): Flow<ExerciseCategory> {
+        return exerciseCategoryDao.observe(id)
+            .map { category -> category.mapToExerciseCategory() }
     }
 
     override fun observeExerciseCategoriesCount(): Flow<Int> {

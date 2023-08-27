@@ -13,6 +13,10 @@ class SaveCompletedExerciseInteractor @Inject constructor(
         return exercisesRepository.observeExerciseCategories()
     }
 
+    fun observeExerciseCategory(id: Int): Flow<ExerciseCategory> {
+        return exercisesRepository.observeExerciseCategory(id)
+    }
+
     suspend fun saveExercise() {
         exercisesRepository.saveCompletedExercise()
     }

@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 private const val CATEGORY_NAME = "createExerciseCategoryName"
@@ -28,15 +24,6 @@ class CreateExerciseCategoryViewModel @Inject constructor(
     val categoryContainsSets = savedStateHandle.getStateFlow(CATEGORY_CONTAINS_SETS, false)
     val categoryContainsReps = savedStateHandle.getStateFlow(CATEGORY_CONTAINS_REPS, false)
     val categoryContainsDuration = savedStateHandle.getStateFlow(CATEGORY_CONTAINS_DURATION, false)
-
-    val createExerciseCategoryUiState: StateFlow<CreateExerciseCategoryUiState> =
-        flow {
-            emit(CreateExerciseCategoryUiState.Success)
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = CreateExerciseCategoryUiState.Loading
-        )
 
     fun createExerciseCategory() {
         viewModelScope.launch {

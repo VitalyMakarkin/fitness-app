@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.feature.savecompletedexercise.dialog.exercisecategoryselection.ExerciseCategorySelectionDialog
 
 @Composable
@@ -24,6 +25,7 @@ internal fun SaveCompletedExerciseRouter(
     SaveCompletedExerciseScreen(
         uiState = uiState,
         onBackClick = onBackClick,
+        onExerciseCategoryChanged = { category -> viewModel.changeExerciseCategory(category) },
         onSaveClick = { viewModel.saveExercise() },
         modifier = modifier
     )
@@ -33,6 +35,7 @@ internal fun SaveCompletedExerciseRouter(
 internal fun SaveCompletedExerciseScreen(
     uiState: SaveCompletedExerciseUiState,
     onBackClick: () -> Unit,
+    onExerciseCategoryChanged: (ExerciseCategory) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -42,7 +45,8 @@ internal fun SaveCompletedExerciseScreen(
 
     if (showExerciseCategorySelectionDialog) {
         ExerciseCategorySelectionDialog(
-            onDismiss = { showExerciseCategorySelectionDialog = false }
+            onDismiss = { showExerciseCategorySelectionDialog = false },
+            onExerciseCategoryClicked = { category -> onExerciseCategoryChanged(category) }
         )
     }
 
@@ -54,7 +58,7 @@ internal fun SaveCompletedExerciseScreen(
         when (uiState) {
             is SaveCompletedExerciseUiState.Success -> Column {
                 Text(
-                    text = "Categories: ${uiState.exerciseCategories.joinToString(",") { it.id.toString() }}",
+                    text = "Category: ${uiState.selectedExerciseCategory?.name ?: "Not selected"}",
                     modifier.clickable { showExerciseCategorySelectionDialog = true }
                 )
                 Text(

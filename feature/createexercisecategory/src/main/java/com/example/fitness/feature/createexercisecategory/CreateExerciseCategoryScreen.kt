@@ -18,7 +18,6 @@ internal fun CreateExerciseCategoryRouter(
     onBackClick: () -> Unit,
     viewModel: CreateExerciseCategoryViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.createExerciseCategoryUiState.collectAsStateWithLifecycle()
     val categoryName by viewModel.categoryName.collectAsStateWithLifecycle()
     val categoryDescription by viewModel.categoryDescription.collectAsStateWithLifecycle()
     val categoryContainsSets by viewModel.categoryContainsSets.collectAsStateWithLifecycle()
@@ -27,7 +26,6 @@ internal fun CreateExerciseCategoryRouter(
 
     CreateExerciseCategoryScreen(
         modifier = modifier,
-        uiState = uiState,
         onBackClick = onBackClick,
         onCreate = { viewModel.createExerciseCategory() },
         categoryName = categoryName,
@@ -49,7 +47,6 @@ internal fun CreateExerciseCategoryRouter(
 @Composable
 internal fun CreateExerciseCategoryScreen(
     modifier: Modifier = Modifier,
-    uiState: CreateExerciseCategoryUiState,
     onBackClick: () -> Unit,
     onCreate: () -> Unit,
     categoryName: String = "",
@@ -90,15 +87,9 @@ internal fun CreateExerciseCategoryScreen(
             checked = categoryContainsDuration,
             onCheckedChange = { checked -> onCategoryContainsDurationChanged(checked) },
         )
-        when (uiState) {
-            is CreateExerciseCategoryUiState.Success -> Text(
-                text = "CreateExerciseCategory: [Create]",
-                modifier.clickable { onCreate() }
-            )
-
-            is CreateExerciseCategoryUiState.Loading -> Text(
-                text = "CreateExerciseCategory: Loading!"
-            )
-        }
+        Text(
+            text = "CreateExerciseCategory: [Create]",
+            modifier.clickable { onCreate() }
+        )
     }
 }
