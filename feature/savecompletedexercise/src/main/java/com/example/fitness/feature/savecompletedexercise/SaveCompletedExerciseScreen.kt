@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -23,21 +24,23 @@ internal fun SaveCompletedExerciseRouter(
     val uiState by viewModel.saveCompletedExerciseUiState.collectAsStateWithLifecycle()
 
     SaveCompletedExerciseScreen(
+        modifier = modifier,
         uiState = uiState,
         onBackClick = onBackClick,
         onExerciseCategoryChanged = { category -> viewModel.changeExerciseCategory(category) },
         onSaveClick = { viewModel.saveExercise() },
-        modifier = modifier
+        shouldNavigateBack = viewModel.shouldNavigateBack
     )
 }
 
 @Composable
 internal fun SaveCompletedExerciseScreen(
+    modifier: Modifier = Modifier,
     uiState: SaveCompletedExerciseUiState,
     onBackClick: () -> Unit,
     onExerciseCategoryChanged: (ExerciseCategory) -> Unit,
     onSaveClick: () -> Unit,
-    modifier: Modifier = Modifier
+    shouldNavigateBack: Boolean = false
 ) {
     var showExerciseCategorySelectionDialog by rememberSaveable {
         mutableStateOf(false)
@@ -48,6 +51,12 @@ internal fun SaveCompletedExerciseScreen(
             onDismiss = { showExerciseCategorySelectionDialog = false },
             onExerciseCategoryClicked = { category -> onExerciseCategoryChanged(category) }
         )
+    }
+
+    LaunchedEffect(shouldNavigateBack) {
+        if (shouldNavigateBack) {
+            onBackClick()
+        }
     }
 
     Column {

@@ -1,5 +1,8 @@
 package com.example.fitness.feature.savecompletedexercise
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,6 +39,8 @@ class SaveCompletedExerciseViewModel @Inject constructor(
             initialValue = SaveCompletedExerciseUiState.Loading
         )
 
+    var shouldNavigateBack by mutableStateOf(false)
+
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
         return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1).flatMapLatest { categoryId ->
             if (categoryId != -1) {
@@ -54,6 +59,7 @@ class SaveCompletedExerciseViewModel @Inject constructor(
     fun saveExercise() {
         viewModelScope.launch {
             interactor.saveExercise()
+            shouldNavigateBack = true
         }
     }
 }

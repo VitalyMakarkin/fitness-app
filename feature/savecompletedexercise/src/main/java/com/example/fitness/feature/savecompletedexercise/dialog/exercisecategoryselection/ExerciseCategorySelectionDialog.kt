@@ -56,7 +56,10 @@ internal fun ExerciseCategorySelectionDialog(
                         Text(
                             text = category.name,
                             modifier = modifier
-                                .clickable { onExerciseCategoryClicked(category) }
+                                .clickable {
+                                    onExerciseCategoryClicked(category)
+                                    onDismiss()
+                                }
                                 .fillMaxWidth()
                         )
                     }

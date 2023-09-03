@@ -1,5 +1,8 @@
 package com.example.fitness.feature.createexercisecategory
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,6 +28,8 @@ class CreateExerciseCategoryViewModel @Inject constructor(
     val categoryContainsReps = savedStateHandle.getStateFlow(CATEGORY_CONTAINS_REPS, false)
     val categoryContainsDuration = savedStateHandle.getStateFlow(CATEGORY_CONTAINS_DURATION, false)
 
+    var shouldNavigateBack by mutableStateOf(false)
+
     fun createExerciseCategory() {
         viewModelScope.launch {
             val categoryName = savedStateHandle.get<String>(CATEGORY_NAME) ?: ""
@@ -40,6 +45,8 @@ class CreateExerciseCategoryViewModel @Inject constructor(
                 containsReps = categoryContainsReps,
                 containsDuration = categoryContainsDuration
             )
+
+            shouldNavigateBack = true
         }
     }
 

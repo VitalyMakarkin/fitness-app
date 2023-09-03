@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +41,7 @@ internal fun CreateExerciseCategoryRouter(
         onCategoryContainsDurationChanged = { checked ->
             viewModel.onCategoryContainsDurationChanged(checked)
         },
+        shouldNavigateBack = viewModel.shouldNavigateBack
     )
 }
 
@@ -59,7 +61,15 @@ internal fun CreateExerciseCategoryScreen(
     onCategoryContainsRepsChanged: (Boolean) -> Unit,
     categoryContainsDuration: Boolean = false,
     onCategoryContainsDurationChanged: (Boolean) -> Unit,
+    shouldNavigateBack: Boolean = false
 ) {
+
+    LaunchedEffect(shouldNavigateBack) {
+        if (shouldNavigateBack) {
+            onBackClick()
+        }
+    }
+
     Column {
         Text(
             text = "[Back]",
