@@ -1,7 +1,7 @@
 package com.example.fitness.feature.createexercisecategory
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.design.component.TopNavigationBar
 
 @Composable
 internal fun CreateExerciseCategoryRouter(
@@ -70,36 +71,49 @@ internal fun CreateExerciseCategoryScreen(
         }
     }
 
-    Column {
-        Text(
-            text = "[Back]",
-            modifier = modifier.clickable { onBackClick() }
-        )
-        TextField(
-            value = categoryName,
-            onValueChange = { text -> onCategoryNameChanged(text) },
-            label = { Text(text = "Name") }
-        )
-        TextField(
-            value = categoryDescription,
-            onValueChange = { text -> onCategoryDescriptionChanged(text) },
-            label = { Text(text = "Description") }
-        )
-        Checkbox(
-            checked = categoryContainsSets,
-            onCheckedChange = { checked -> onCategoryContainsSetsChanged(checked) },
-        )
-        Checkbox(
-            checked = categoryContainsReps,
-            onCheckedChange = { checked -> onCategoryContainsRepsChanged(checked) },
-        )
-        Checkbox(
-            checked = categoryContainsDuration,
-            onCheckedChange = { checked -> onCategoryContainsDurationChanged(checked) },
-        )
-        Text(
-            text = "CreateExerciseCategory: [Create]",
-            modifier.clickable { onCreate() }
-        )
+    LazyColumn {
+        item {
+            TopNavigationBar(
+                onBackClick = onBackClick
+            )
+        }
+        item {
+            TextField(
+                value = categoryName,
+                onValueChange = { text -> onCategoryNameChanged(text) },
+                label = { Text(text = "Name") }
+            )
+        }
+        item {
+            TextField(
+                value = categoryDescription,
+                onValueChange = { text -> onCategoryDescriptionChanged(text) },
+                label = { Text(text = "Description") }
+            )
+        }
+        item {
+            Checkbox(
+                checked = categoryContainsSets,
+                onCheckedChange = { checked -> onCategoryContainsSetsChanged(checked) },
+            )
+        }
+        item {
+            Checkbox(
+                checked = categoryContainsReps,
+                onCheckedChange = { checked -> onCategoryContainsRepsChanged(checked) },
+            )
+        }
+        item {
+            Checkbox(
+                checked = categoryContainsDuration,
+                onCheckedChange = { checked -> onCategoryContainsDurationChanged(checked) },
+            )
+        }
+        item {
+            Text(
+                text = "CreateExerciseCategory: [Create]",
+                modifier.clickable { onCreate() }
+            )
+        }
     }
 }

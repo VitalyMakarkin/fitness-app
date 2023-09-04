@@ -1,13 +1,13 @@
 package com.example.fitness.feature.exercisegroups
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.design.component.TopNavigationBar
 
 @Composable
 internal fun ExerciseGroupsRouter(
@@ -30,19 +30,22 @@ internal fun ExerciseGroupsScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column {
-        Text(
-            text = "[Back]",
-            modifier = modifier.clickable { onBackClick() }
-        )
-        when (uiState) {
-            is ExerciseGroupsUiState.Success -> Text(
-                text = "ExerciseGroups: Success!"
+    LazyColumn {
+        item {
+            TopNavigationBar(
+                onBackClick = onBackClick
             )
+        }
+        item {
+            when (uiState) {
+                is ExerciseGroupsUiState.Success -> Text(
+                    text = "ExerciseGroups: Success!"
+                )
 
-            is ExerciseGroupsUiState.Loading -> Text(
-                text = "ExerciseGroups: Loading!"
-            )
+                is ExerciseGroupsUiState.Loading -> Text(
+                    text = "ExerciseGroups: Loading!"
+                )
+            }
         }
     }
 }

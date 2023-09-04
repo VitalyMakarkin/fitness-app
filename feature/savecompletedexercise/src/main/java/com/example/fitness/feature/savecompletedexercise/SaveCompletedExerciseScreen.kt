@@ -2,6 +2,7 @@ package com.example.fitness.feature.savecompletedexercise
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.feature.savecompletedexercise.dialog.exercisecategoryselection.ExerciseCategorySelectionDialog
 
@@ -59,26 +61,29 @@ internal fun SaveCompletedExerciseScreen(
         }
     }
 
-    Column {
-        Text(
-            text = "[Back]",
-            modifier = modifier.clickable { onBackClick() }
-        )
-        when (uiState) {
-            is SaveCompletedExerciseUiState.Success -> Column {
-                Text(
-                    text = "Category: ${uiState.selectedExerciseCategory?.name ?: "Not selected"}",
-                    modifier.clickable { showExerciseCategorySelectionDialog = true }
-                )
-                Text(
-                    text = "[Create]",
-                    modifier.clickable { onSaveClick() }
+    LazyColumn {
+        item {
+            TopNavigationBar(
+                onBackClick = onBackClick
+            )
+        }
+        item {
+            when (uiState) {
+                is SaveCompletedExerciseUiState.Success -> Column {
+                    Text(
+                        text = "Category: ${uiState.selectedExerciseCategory?.name ?: "Not selected"}",
+                        modifier.clickable { showExerciseCategorySelectionDialog = true }
+                    )
+                    Text(
+                        text = "[Create]",
+                        modifier.clickable { onSaveClick() }
+                    )
+                }
+
+                is SaveCompletedExerciseUiState.Loading -> Text(
+                    text = "SaveCompletedExercise: Loading!"
                 )
             }
-
-            is SaveCompletedExerciseUiState.Loading -> Text(
-                text = "SaveCompletedExercise: Loading!"
-            )
         }
     }
 }
