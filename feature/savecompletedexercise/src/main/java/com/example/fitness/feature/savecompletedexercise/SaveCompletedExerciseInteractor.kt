@@ -17,7 +17,25 @@ class SaveCompletedExerciseInteractor @Inject constructor(
         return exercisesRepository.observeExerciseCategory(id)
     }
 
-    suspend fun saveExercise() {
-        exercisesRepository.saveCompletedExercise()
+    suspend fun saveExercise(
+        name: String,
+        exerciseCategoryId: Int,
+        createdAt: Long,
+        completedAt: Long,
+        sets: Int? = null,
+        reps: Int? = null,
+        duration: Long? = null,
+        score: Int
+    ) {
+        exercisesRepository.saveCompletedExercise(
+            name,
+            exerciseCategoryId,
+            createdAt,
+            completedAt,
+            sets,
+            reps,
+            duration,
+            score
+        )
     }
 }

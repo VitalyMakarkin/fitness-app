@@ -13,6 +13,9 @@ data class ExerciseEntity(
     @ColumnInfo(name = COLUMN_ID)
     val id: Int,
 
+    @ColumnInfo(name = COLUMN_NAME)
+    val name: String,
+
     @ColumnInfo(name = COLUMN_EXERCISE_CATEGORY_ID)
     val exerciseCategoryId: Int,
 
@@ -37,6 +40,7 @@ data class ExerciseEntity(
 
     companion object {
         const val COLUMN_ID = "id"
+        const val COLUMN_NAME = "name"
         const val COLUMN_EXERCISE_CATEGORY_ID = "exercise_category_id"
         const val COLUMN_CREATED_AT = "created_at"
         const val COLUMN_COMPLETED_AT = "completed_at"

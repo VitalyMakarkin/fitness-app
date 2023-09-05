@@ -58,7 +58,18 @@ class SaveCompletedExerciseViewModel @Inject constructor(
 
     fun saveExercise() {
         viewModelScope.launch {
-            interactor.saveExercise()
+            val currentTime = System.currentTimeMillis()
+            interactor.saveExercise(
+                name = "",
+                exerciseCategoryId = 0,
+                createdAt = currentTime,
+                completedAt = currentTime,
+                sets = null,
+                reps = null,
+                duration = null,
+                score = 0
+            )
+
             shouldNavigateBack = true
         }
     }

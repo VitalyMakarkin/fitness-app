@@ -107,16 +107,26 @@ class DefaultExercisesRepository @Inject constructor(
         return exerciseCategoryDao.insert(exerciseCategoryEntity)
     }
 
-    override suspend fun saveCompletedExercise() {
+    override suspend fun saveCompletedExercise(
+        name: String,
+        exerciseCategoryId: Int,
+        createdAt: Long,
+        completedAt: Long,
+        sets: Int?,
+        reps: Int?,
+        duration: Long?,
+        score: Int
+    ) {
         val exerciseEntity = ExerciseEntity(
             id = 0,
-            exerciseCategoryId = 0,
-            createdAt = 0,
-            completedAt = 0,
-            sets = null,
-            reps = null,
-            duration = null,
-            score = 0
+            name = name,
+            exerciseCategoryId = exerciseCategoryId,
+            createdAt = createdAt,
+            completedAt = completedAt,
+            sets = sets,
+            reps = reps,
+            duration = duration,
+            score = score
         )
         return exerciseDao.insert(exerciseEntity)
     }

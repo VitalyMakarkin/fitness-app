@@ -36,5 +36,14 @@ interface ExercisesRepository {
         containsDuration: Boolean
     )
 
-    suspend fun saveCompletedExercise()
+    suspend fun saveCompletedExercise(
+        name: String,
+        exerciseCategoryId: Int,
+        createdAt: Long,
+        completedAt: Long,
+        sets: Int? = null,
+        reps: Int? = null,
+        duration: Long? = null,
+        score: Int
+    )
 }
