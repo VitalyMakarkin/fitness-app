@@ -64,6 +64,7 @@ internal fun SaveCompletedExerciseScreen(
     LazyColumn {
         item {
             TopNavigationBar(
+                title = "Save completed exercise",
                 onBackClick = onBackClick
             )
         }

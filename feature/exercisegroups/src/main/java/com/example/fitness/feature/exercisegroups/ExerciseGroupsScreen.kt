@@ -33,6 +33,7 @@ internal fun ExerciseGroupsScreen(
     LazyColumn {
         item {
             TopNavigationBar(
+                title = "Exercise groups",
                 onBackClick = onBackClick
             )
         }

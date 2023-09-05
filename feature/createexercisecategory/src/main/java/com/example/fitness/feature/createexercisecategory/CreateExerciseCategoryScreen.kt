@@ -74,6 +74,7 @@ internal fun CreateExerciseCategoryScreen(
     LazyColumn {
         item {
             TopNavigationBar(
+                title = "Create exercise category",
                 onBackClick = onBackClick
             )
         }

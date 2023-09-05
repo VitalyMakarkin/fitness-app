@@ -38,6 +38,7 @@ internal fun ExerciseCategoriesScreen(
     LazyColumn {
         item {
             TopNavigationBar(
+                title = "Exercise categories",
                 onBackClick = onBackClick
             )
         }

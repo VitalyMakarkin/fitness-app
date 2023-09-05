@@ -38,6 +38,7 @@ internal fun ExerciseHistoryScreen(
     LazyColumn {
         item {
             TopNavigationBar(
+                title = "Completed exercises",
                 onBackClick = onBackClick
             )
         }
