@@ -15,6 +15,7 @@ import com.example.fitness.core.model.ScheduledExerciseEvent
 fun Exercise.mapToExerciseEntity() = with(this) {
     ExerciseEntity(
         id,
+        name,
         exerciseCategoryId,
         createdAt,
         completedAt,
@@ -28,6 +29,7 @@ fun Exercise.mapToExerciseEntity() = with(this) {
 fun ExerciseEntity.mapToExercise() = with(this) {
     Exercise(
         id,
+        name,
         exerciseCategoryId,
         createdAt,
         completedAt,
@@ -45,6 +47,7 @@ fun ExerciseGroup.mapToExerciseGroupEntity() = with(this) {
 fun ExerciseGroupItemEntity.mapToExercise() = with(this) {
     Exercise(
         id,
+        "", // TODO
         exerciseCategoryId,
         createdAt = 0,
         completedAt = 0,

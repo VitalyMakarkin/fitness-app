@@ -40,7 +40,7 @@ fun TopNavigationBar(
 
         Text(
             text = title,
-            fontSize = 16.sp, // TODO
+            fontSize = 20.sp, // TODO
             fontWeight = FontWeight(600), // TODO
             modifier = modifier
         )
