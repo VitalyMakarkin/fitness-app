@@ -65,7 +65,7 @@ internal fun ExerciseHistoryScreen(
                 is ExerciseHistoryUiState.Success -> {
                     items(uiState.completedExercises) { exercise ->
                         ExerciseHistoryListItem(
-                            name = exercise.exerciseCategoryId.toString(),
+                            name = exercise.name,
                             completedAt = exercise.completedAt
                         )
                     }

@@ -30,26 +30,6 @@ class CreateExerciseCategoryViewModel @Inject constructor(
 
     var shouldNavigateBack by mutableStateOf(false)
 
-    fun createExerciseCategory() {
-        viewModelScope.launch {
-            val categoryName = savedStateHandle.get<String>(CATEGORY_NAME) ?: ""
-            val categoryDescription = savedStateHandle.get<String>(CATEGORY_DESCRIPTION)
-            val categoryContainsSets = savedStateHandle.get<Boolean>(CATEGORY_CONTAINS_SETS) ?: false
-            val categoryContainsReps = savedStateHandle.get<Boolean>(CATEGORY_CONTAINS_REPS) ?: false
-            val categoryContainsDuration = savedStateHandle.get<Boolean>(CATEGORY_CONTAINS_DURATION) ?: false
-
-            interactor.createExerciseCategory(
-                name = categoryName,
-                description = categoryDescription,
-                containsSets = categoryContainsSets,
-                containsReps = categoryContainsReps,
-                containsDuration = categoryContainsDuration
-            )
-
-            shouldNavigateBack = true
-        }
-    }
-
     fun onCategoryNameChanged(text: String) {
         savedStateHandle[CATEGORY_NAME] = text
     }
@@ -68,5 +48,25 @@ class CreateExerciseCategoryViewModel @Inject constructor(
 
     fun onCategoryContainsDurationChanged(checked: Boolean) {
         savedStateHandle[CATEGORY_CONTAINS_DURATION] = checked
+    }
+
+    fun createExerciseCategory() {
+        viewModelScope.launch {
+            val categoryName = savedStateHandle.get<String>(CATEGORY_NAME) ?: ""
+            val categoryDescription = savedStateHandle.get<String>(CATEGORY_DESCRIPTION)
+            val categoryContainsSets = savedStateHandle.get<Boolean>(CATEGORY_CONTAINS_SETS) ?: false
+            val categoryContainsReps = savedStateHandle.get<Boolean>(CATEGORY_CONTAINS_REPS) ?: false
+            val categoryContainsDuration = savedStateHandle.get<Boolean>(CATEGORY_CONTAINS_DURATION) ?: false
+
+            interactor.createExerciseCategory(
+                name = categoryName,
+                description = categoryDescription,
+                containsSets = categoryContainsSets,
+                containsReps = categoryContainsReps,
+                containsDuration = categoryContainsDuration
+            )
+
+            shouldNavigateBack = true
+        }
     }
 }
