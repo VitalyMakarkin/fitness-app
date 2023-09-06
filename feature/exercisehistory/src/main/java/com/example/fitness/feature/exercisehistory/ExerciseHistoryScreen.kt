@@ -1,13 +1,20 @@
 package com.example.fitness.feature.exercisehistory
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,46 +45,50 @@ internal fun ExerciseHistoryScreen(
     onSaveCompletedExerciseClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn {
-        item {
-            TopNavigationBar(
-                title = "Completed exercises",
-                onBackClick = onBackClick
-            )
-        }
+    Box(
+        contentAlignment = Alignment.BottomEnd,
+        modifier = modifier
+            .fillMaxSize(),
+    ) {
+        LazyColumn(
+            modifier = modifier
+                .fillMaxSize()
+        ) {
+            item {
+                TopNavigationBar(
+                    title = "Completed exercises",
+                    onBackClick = onBackClick
+                )
+            }
 
-        when (uiState) {
-            is ExerciseHistoryUiState.Success -> {
-                items(uiState.completedExercises) { exercise ->
-                    ExerciseHistoryListItem(
-                        name = exercise.exerciseCategoryId.toString(),
-                        completedAt = exercise.completedAt
+            when (uiState) {
+                is ExerciseHistoryUiState.Success -> {
+                    items(uiState.completedExercises) { exercise ->
+                        ExerciseHistoryListItem(
+                            name = exercise.exerciseCategoryId.toString(),
+                            completedAt = exercise.completedAt
+                        )
+                    }
+                }
+
+                is ExerciseHistoryUiState.Loading -> item {
+                    Text(
+                        text = "ExerciseHistory: Loading!"
                     )
                 }
             }
-
-            is ExerciseHistoryUiState.Loading -> item {
-                Text(
-                    text = "ExerciseHistory: Loading!"
-                )
-            }
         }
 
-//        item {
-//            when (uiState) {
-//                is ExerciseHistoryUiState.Success -> Column {
-//                    Text(text = "ExerciseHistory: Success!")
-//                    Text(
-//                        text = "[Add]",
-//                        modifier = modifier.clickable { onSaveCompletedExerciseClick() }
-//                    )
-//                }
-//
-//                is ExerciseHistoryUiState.Loading -> Text(
-//                    text = "ExerciseHistory: Loading!"
-//                )
-//            }
-//        }
+        FloatingActionButton(
+            onClick = { onSaveCompletedExerciseClick() },
+            modifier = modifier
+                .padding(24.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = "Add"
+            )
+        }
     }
 }
 
@@ -88,7 +99,7 @@ internal fun ExerciseHistoryListItem(
     completedAt: Long = 0
 ) {
     Column(
-        Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
