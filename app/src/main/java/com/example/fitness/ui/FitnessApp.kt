@@ -1,5 +1,6 @@
 package com.example.fitness.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -23,32 +26,40 @@ fun FitnessApp(
     appState: FitnessAppState = rememberFitnessAppState()
 ) {
     val navController = rememberNavController()
+
+    // TODO: show/hide bottom bar
+    val bottomBarVisibilityState = rememberSaveable {
+        mutableStateOf(true)
+    }
+
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
+            AnimatedVisibility(visible = bottomBarVisibilityState.value) {
+                NavigationBar {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
 
-                appState.topLevelDestination
-                    .forEach { screen ->
-                        NavigationBarItem(
-                            selected = currentDestination?.hierarchy?.any { navDestination ->
-                                navDestination.route?.contains(screen.name, true) ?: false
-                            } ?: false,
-                            onClick = { appState.navigateToTopLevelDestination(screen) },
-                            icon = {
-                                Icon(
-                                    imageVector = screen.imageVector,
-                                    contentDescription = ""
-                                )
-                            },
-                            label = {
-                                Text(
-                                    text = screen.label
-                                )
-                            }
-                        )
-                    }
+                    appState.topLevelDestination
+                        .forEach { screen ->
+                            NavigationBarItem(
+                                selected = currentDestination?.hierarchy?.any { navDestination ->
+                                    navDestination.route?.contains(screen.name, true) ?: false
+                                } ?: false,
+                                onClick = { appState.navigateToTopLevelDestination(screen) },
+                                icon = {
+                                    Icon(
+                                        imageVector = screen.imageVector,
+                                        contentDescription = ""
+                                    )
+                                },
+                                label = {
+                                    Text(
+                                        text = screen.label
+                                    )
+                                }
+                            )
+                        }
+                }
             }
         }
     ) { padding ->

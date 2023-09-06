@@ -1,11 +1,12 @@
 package com.example.fitness.feature.exercisecategories
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,13 +44,17 @@ internal fun ExerciseCategoriesScreen(
     onNewExerciseCategoryCreateClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn {
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
         item {
             TopNavigationBar(
                 title = "Exercise categories",
                 onBackClick = onBackClick
             )
         }
+
         when (uiState) {
             is ExerciseCategoriesUiState.Success -> {
                 items(uiState.exerciseCategories) { category ->
@@ -63,10 +68,18 @@ internal fun ExerciseCategoriesScreen(
                 }
 
                 item {
-                    Text(
-                        text = "[Create new exercise category]",
-                        modifier.clickable { onNewExerciseCategoryCreateClick() }
-                    )
+                    Button(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        onClick = { onNewExerciseCategoryCreateClick() }
+                    ) {
+                        Text(
+                            text = "Add category",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight(600)
+                        )
+                    }
                 }
             }
 
