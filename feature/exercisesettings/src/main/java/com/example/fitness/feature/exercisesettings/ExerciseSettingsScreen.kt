@@ -50,9 +50,9 @@ internal fun ExerciseSettingsScreen(
         is ExerciseSettingsUiState.Success -> LazyVerticalGrid(
             modifier = modifier.fillMaxSize(),
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item {
                 SettingsGridItem(
@@ -98,7 +98,7 @@ internal fun SettingsGridItem(
     ) {
         Text(
             text = title,
-            fontSize = 14.sp, // TODO: move to theme typography
+            fontSize = 20.sp, // TODO: move to theme typography
             fontWeight = FontWeight(800), // TODO: move to theme typography
             modifier = modifier
                 .padding(start = 8.dp, top = 8.dp)
@@ -106,8 +106,8 @@ internal fun SettingsGridItem(
         if (subtitle.isNotEmpty()) {
             Text(
                 text = subtitle,
-                fontSize = 20.sp, // TODO: move to theme typography
-                fontWeight = FontWeight(800), // TODO: move to theme typography
+                fontSize = 32.sp, // TODO: move to theme typography
+                fontWeight = FontWeight(500), // TODO: move to theme typography
                 modifier = modifier
                     .padding(start = 8.dp)
             )

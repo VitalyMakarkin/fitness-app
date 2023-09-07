@@ -44,50 +44,53 @@ internal fun ExerciseCategoriesScreen(
     onNewExerciseCategoryCreateClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
-        modifier = modifier
-            .fillMaxSize()
+
+    Column(
+        modifier = modifier.fillMaxSize()
     ) {
-        item {
-            TopNavigationBar(
-                title = "Exercise categories",
-                onBackClick = onBackClick
-            )
-        }
+        LazyColumn(
+            modifier = modifier
+                .fillMaxSize()
+                .weight(1f)
+        ) {
+            item {
+                TopNavigationBar(
+                    title = "Exercise categories",
+                    onBackClick = onBackClick
+                )
+            }
 
-        when (uiState) {
-            is ExerciseCategoriesUiState.Success -> {
-                items(uiState.exerciseCategories) { category ->
-                    ExerciseCategoriesListItem(
-                        name = category.name,
-                        description = category.description ?: "",
-                        containsSets = category.containsSets,
-                        containsReps = category.containsReps,
-                        containsDuration = category.containsDuration
-                    )
-                }
-
-                item {
-                    Button(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        onClick = { onNewExerciseCategoryCreateClick() }
-                    ) {
-                        Text(
-                            text = "Add category",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight(600)
+            when (uiState) {
+                is ExerciseCategoriesUiState.Success -> {
+                    items(uiState.exerciseCategories) { category ->
+                        ExerciseCategoriesListItem(
+                            name = category.name,
+                            description = category.description ?: "",
+                            containsSets = category.containsSets,
+                            containsReps = category.containsReps,
+                            containsDuration = category.containsDuration
                         )
                     }
                 }
-            }
 
-            is ExerciseCategoriesUiState.Loading -> item {
-                Text(
-                    text = "ExerciseCategories: Loading!"
-                )
+                is ExerciseCategoriesUiState.Loading -> item {
+                    Text(
+                        text = "ExerciseCategories: Loading!"
+                    )
+                }
             }
+        }
+        Button(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            onClick = { onNewExerciseCategoryCreateClick() }
+        ) {
+            Text(
+                text = "Add category",
+                fontSize = 20.sp,
+                fontWeight = FontWeight(600)
+            )
         }
     }
 }
@@ -102,7 +105,7 @@ internal fun ExerciseCategoriesListItem(
     containsDuration: ExerciseCategory.RequiredState
 ) {
     Column(
-        Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
     ) {

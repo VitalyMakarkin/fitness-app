@@ -29,7 +29,7 @@ fun TopNavigationBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = 16.dp),
+            .padding(all = 8.dp),
     ) {
         IconButton(onClick = { onBackClick() }) {
             Icon(

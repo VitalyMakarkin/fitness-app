@@ -1,15 +1,22 @@
 package com.example.fitness.feature.createexercisecategory
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
@@ -71,49 +78,76 @@ internal fun CreateExerciseCategoryScreen(
         }
     }
 
-    LazyColumn {
-        item {
-            TopNavigationBar(
-                title = "Create exercise category",
-                onBackClick = onBackClick
-            )
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
+        LazyColumn(
+            modifier = modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            item {
+                TopNavigationBar(
+                    title = "New exercise category",
+                    onBackClick = onBackClick
+                )
+            }
+            item {
+                OutlinedTextField(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    value = categoryName,
+                    onValueChange = { text -> onCategoryNameChanged(text) },
+                    label = { Text(text = "Name") }
+                )
+            }
+            item {
+                OutlinedTextField(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    value = categoryDescription,
+                    onValueChange = { text -> onCategoryDescriptionChanged(text) },
+                    label = { Text(text = "Description") }
+                )
+            }
+            item {
+                Checkbox(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp),
+                    checked = categoryContainsSets,
+                    onCheckedChange = { checked -> onCategoryContainsSetsChanged(checked) },
+                )
+            }
+            item {
+                Checkbox(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp),
+                    checked = categoryContainsReps,
+                    onCheckedChange = { checked -> onCategoryContainsRepsChanged(checked) },
+                )
+            }
+            item {
+                Checkbox(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp),
+                    checked = categoryContainsDuration,
+                    onCheckedChange = { checked -> onCategoryContainsDurationChanged(checked) },
+                )
+            }
         }
-        item {
-            TextField(
-                value = categoryName,
-                onValueChange = { text -> onCategoryNameChanged(text) },
-                label = { Text(text = "Name") }
-            )
-        }
-        item {
-            TextField(
-                value = categoryDescription,
-                onValueChange = { text -> onCategoryDescriptionChanged(text) },
-                label = { Text(text = "Description") }
-            )
-        }
-        item {
-            Checkbox(
-                checked = categoryContainsSets,
-                onCheckedChange = { checked -> onCategoryContainsSetsChanged(checked) },
-            )
-        }
-        item {
-            Checkbox(
-                checked = categoryContainsReps,
-                onCheckedChange = { checked -> onCategoryContainsRepsChanged(checked) },
-            )
-        }
-        item {
-            Checkbox(
-                checked = categoryContainsDuration,
-                onCheckedChange = { checked -> onCategoryContainsDurationChanged(checked) },
-            )
-        }
-        item {
+
+        Button(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            onClick = { onCreate() }
+        ) {
             Text(
-                text = "CreateExerciseCategory: [Create]",
-                modifier.clickable { onCreate() }
+                text = "Create",
+                fontSize = 20.sp,
+                fontWeight = FontWeight(600)
             )
         }
     }

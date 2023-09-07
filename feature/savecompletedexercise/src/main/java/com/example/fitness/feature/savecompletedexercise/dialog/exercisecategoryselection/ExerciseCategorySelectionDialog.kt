@@ -47,8 +47,7 @@ internal fun ExerciseCategorySelectionDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
         Surface(
-            modifier = modifier
-                .fillMaxSize()
+            modifier = modifier.fillMaxSize()
         ) {
             if (uiState is ExerciseCategorySelectionUiState.Success) {
                 LazyColumn(modifier = modifier) {
