@@ -2,6 +2,7 @@ package com.example.fitness.feature.exercisehistory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitness.feature.exercisehistory.model.mapToExerciseUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,10 @@ class ExerciseHistoryViewModel @Inject constructor(
 
     private fun exerciseHistoryUiState(interactor: ExerciseHistoryInteractor): Flow<ExerciseHistoryUiState> {
         return interactor.observeExercises()
-            .map { exercises -> ExerciseHistoryUiState.Success(exercises) }
+            .map { exercises ->
+                ExerciseHistoryUiState.Success(
+                    completedExercises = exercises.map { it.mapToExerciseUI() }
+                )
+            }
     }
 }

@@ -1,8 +1,8 @@
 package com.example.fitness.feature.exercisehistory
 
-import com.example.fitness.core.model.Exercise
+import com.example.fitness.feature.exercisehistory.model.ExerciseUI
 
 sealed interface ExerciseHistoryUiState {
-    data class Success(val completedExercises: List<Exercise>) : ExerciseHistoryUiState
+    data class Success(val completedExercises: List<ExerciseUI>) : ExerciseHistoryUiState
     object Loading : ExerciseHistoryUiState
 }

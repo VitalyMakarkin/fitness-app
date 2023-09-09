@@ -101,7 +101,7 @@ internal fun ActionTile(
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp),
-            fontSize = 16.sp, // TODO: move to theme typography
+            fontSize = 20.sp, // TODO: move to theme typography
             fontWeight = FontWeight(800), // TODO: move to theme typography
             text = title
         )

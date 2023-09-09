@@ -12,7 +12,7 @@ import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.core.model.ScheduledExerciseEvent
 
-fun Exercise.mapToExerciseEntity() = with(this) {
+internal fun Exercise.mapToExerciseEntity() = with(this) {
     ExerciseEntity(
         id,
         name,
@@ -26,7 +26,7 @@ fun Exercise.mapToExerciseEntity() = with(this) {
     )
 }
 
-fun ExerciseEntity.mapToExercise() = with(this) {
+internal fun ExerciseEntity.mapToExercise() = with(this) {
     Exercise(
         id,
         name,
@@ -40,11 +40,11 @@ fun ExerciseEntity.mapToExercise() = with(this) {
     )
 }
 
-fun ExerciseGroup.mapToExerciseGroupEntity() = with(this) {
+internal fun ExerciseGroup.mapToExerciseGroupEntity() = with(this) {
     ExerciseGroupEntity(id, name)
 }
 
-fun ExerciseGroupItemEntity.mapToExercise() = with(this) {
+internal fun ExerciseGroupItemEntity.mapToExercise() = with(this) {
     Exercise(
         id,
         "", // TODO
@@ -58,7 +58,7 @@ fun ExerciseGroupItemEntity.mapToExercise() = with(this) {
     )
 }
 
-fun PopulatedExerciseGroup.mapToExerciseGroup() = with(this) {
+internal fun PopulatedExerciseGroup.mapToExerciseGroup() = with(this) {
     ExerciseGroup(
         group.id,
         group.name,
@@ -66,7 +66,7 @@ fun PopulatedExerciseGroup.mapToExerciseGroup() = with(this) {
     )
 }
 
-fun ScheduledExerciseEvent.mapToScheduledExerciseEventEntity() = with(this) {
+internal fun ScheduledExerciseEvent.mapToScheduledExerciseEventEntity() = with(this) {
     ScheduledExerciseEventEntity(
         id,
         scheduledAt,
@@ -74,7 +74,7 @@ fun ScheduledExerciseEvent.mapToScheduledExerciseEventEntity() = with(this) {
     )
 }
 
-fun PopulatedScheduledExerciseEvent.mapToScheduledExerciseEvent() = with(this) {
+internal fun PopulatedScheduledExerciseEvent.mapToScheduledExerciseEvent() = with(this) {
     ScheduledExerciseEvent(
         event.id,
         event.scheduledAt,
@@ -82,13 +82,13 @@ fun PopulatedScheduledExerciseEvent.mapToScheduledExerciseEvent() = with(this) {
     )
 }
 
-fun ExerciseCategoryEntity.RequiredState.mapToExerciseCategoryRequiredState() = when (this) {
+internal fun ExerciseCategoryEntity.RequiredState.mapToExerciseCategoryRequiredState() = when (this) {
     ExerciseCategoryEntity.RequiredState.REQUIRED -> ExerciseCategory.RequiredState.REQUIRED
     ExerciseCategoryEntity.RequiredState.OPTIONAL -> ExerciseCategory.RequiredState.OPTIONAL
     else -> ExerciseCategory.RequiredState.NONE
 }
 
-fun ExerciseCategoryEntity.mapToExerciseCategory() = with(this) {
+internal fun ExerciseCategoryEntity.mapToExerciseCategory() = with(this) {
     ExerciseCategory(
         id,
         name,
