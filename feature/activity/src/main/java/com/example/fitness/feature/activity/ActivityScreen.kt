@@ -52,7 +52,7 @@ internal fun ActivityScreen(
                 is ActivityUiState.Success -> {
 
                     item {
-                        Spacer(modifier = modifier.height(12.dp))
+                        Spacer(modifier = modifier.height(16.dp))
                     }
 
                     item {
@@ -60,6 +60,8 @@ internal fun ActivityScreen(
                             title = "Activities",
                             subtitle = "${uiState.activitiesCount} exercises for all time"
                         )
+
+                        Spacer(modifier = modifier.height(12.dp))
                     }
                 }
 
@@ -96,18 +98,18 @@ internal fun ActionTile(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
+            .padding(horizontal = 16.dp),
     ) {
         Text(
             modifier = modifier
-                .padding(start = 16.dp, top = 16.dp),
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp),
             fontSize = 20.sp, // TODO: move to theme typography
             fontWeight = FontWeight(800), // TODO: move to theme typography
             text = title
         )
         Text(
             modifier = modifier
-                .padding(start = 16.dp, top = 8.dp, bottom = 16.dp),
+                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 20.sp, // TODO: move to theme typography
             fontWeight = FontWeight(400), // TODO: move to theme typography
             text = subtitle
