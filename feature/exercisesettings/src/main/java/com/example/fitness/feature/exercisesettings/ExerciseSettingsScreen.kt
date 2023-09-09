@@ -55,21 +55,21 @@ internal fun ExerciseSettingsScreen(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item {
-                SettingsGridItem(
+                ExerciseSettingTile(
                     title = "Exercises completed",
                     subtitle = uiState.activitiesCount.toString(),
                     onClick = { onExerciseHistoryClick() }
                 )
             }
             item {
-                SettingsGridItem(
+                ExerciseSettingTile(
                     title = "Exercises categories",
                     subtitle = uiState.exerciseCategoriesCount.toString(),
                     onClick = { onExerciseCategoriesClick() }
                 )
             }
             item {
-                SettingsGridItem(
+                ExerciseSettingTile(
                     title = "Exercises groups",
                     subtitle = uiState.exerciseGroupsCount.toString(),
                     onClick = { onExerciseGroupsClick() }
@@ -85,7 +85,7 @@ internal fun ExerciseSettingsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingsGridItem(
+internal fun ExerciseSettingTile(
     modifier: Modifier = Modifier,
     title: String,
     subtitle: String = "",
@@ -101,15 +101,15 @@ internal fun SettingsGridItem(
             fontSize = 20.sp, // TODO: move to theme typography
             fontWeight = FontWeight(800), // TODO: move to theme typography
             modifier = modifier
-                .padding(start = 8.dp, top = 8.dp)
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp)
         )
         if (subtitle.isNotEmpty()) {
             Text(
                 text = subtitle,
-                fontSize = 32.sp, // TODO: move to theme typography
+                fontSize = 40.sp, // TODO: move to theme typography
                 fontWeight = FontWeight(500), // TODO: move to theme typography
                 modifier = modifier
-                    .padding(start = 8.dp)
+                    .padding(start = 16.dp, top = 8.dp, end = 16.dp)
             )
         }
     }
