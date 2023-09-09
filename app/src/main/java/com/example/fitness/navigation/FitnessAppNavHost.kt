@@ -7,6 +7,8 @@ import com.example.fitness.feature.activity.navigation.activityRoute
 import com.example.fitness.feature.activity.navigation.activityScreen
 import com.example.fitness.feature.createexercisecategory.navigation.createExerciseCategoryScreen
 import com.example.fitness.feature.createexercisecategory.navigation.navigateToCreateExerciseCategory
+import com.example.fitness.feature.createexercisegroup.navigation.createExerciseGroupScreen
+import com.example.fitness.feature.createexercisegroup.navigation.navigateToCreateExerciseGroup
 import com.example.fitness.feature.exercisecategories.navigation.exerciseCategoriesScreen
 import com.example.fitness.feature.exercisecategories.navigation.navigateToExerciseCategories
 import com.example.fitness.feature.exercisegroups.navigation.exerciseGroupsScreen
@@ -50,9 +52,13 @@ fun FitnessAppNavHost(
                 )
                 exerciseGroupsScreen(
                     onBackClick = { navController.popBackStack() },
+                    onNewExerciseGroupCreateClick = { navController.navigateToCreateExerciseGroup() }
                 )
                 createExerciseCategoryScreen(
                     onBackClick = { navController.popBackStack() },
+                )
+                createExerciseGroupScreen(
+                    onBackClick = { navController.popBackStack() }
                 )
                 saveCompletedExerciseScreen(
                     onBackClick = { navController.popBackStack() },

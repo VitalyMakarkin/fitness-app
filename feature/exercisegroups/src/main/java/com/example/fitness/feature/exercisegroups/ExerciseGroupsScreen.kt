@@ -23,6 +23,7 @@ import com.example.fitness.feature.exercisegroups.model.ExerciseGroupUI
 @Composable
 internal fun ExerciseGroupsRouter(
     onBackClick: () -> Unit,
+    onNewExerciseGroupCreateClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ExerciseGroupsViewModel = hiltViewModel()
 ) {
@@ -31,6 +32,7 @@ internal fun ExerciseGroupsRouter(
     ExerciseGroupsScreen(
         uiState = uiState,
         onBackClick = onBackClick,
+        onNewExerciseGroupCreateClick = onNewExerciseGroupCreateClick,
         modifier = modifier
     )
 }
@@ -39,6 +41,7 @@ internal fun ExerciseGroupsRouter(
 internal fun ExerciseGroupsScreen(
     uiState: ExerciseGroupsUiState,
     onBackClick: () -> Unit,
+    onNewExerciseGroupCreateClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -80,7 +83,7 @@ internal fun ExerciseGroupsScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            onClick = { }
+            onClick = { onNewExerciseGroupCreateClick() }
         ) {
             Text(
                 text = "Add group",
