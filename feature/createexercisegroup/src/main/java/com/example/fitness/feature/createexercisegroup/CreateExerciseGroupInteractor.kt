@@ -7,19 +7,7 @@ class CreateExerciseGroupInteractor @Inject constructor(
     private val exercisesRepository: ExercisesRepository
 ) {
 
-    suspend fun createExerciseGroup(
-        name: String,
-        description: String?,
-        containsSets: Boolean,
-        containsReps: Boolean,
-        containsDuration: Boolean
-    ) {
-        exercisesRepository.createExerciseCategory(
-            name,
-            description,
-            containsSets,
-            containsReps,
-            containsDuration
-        )
+    suspend fun createExerciseGroup(name: String, ) {
+        exercisesRepository.createExerciseGroup(name)
     }
 }

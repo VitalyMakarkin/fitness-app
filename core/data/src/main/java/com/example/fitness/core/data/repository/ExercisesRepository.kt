@@ -36,6 +36,8 @@ interface ExercisesRepository {
         containsDuration: Boolean
     )
 
+    suspend fun createExerciseGroup(name: String)
+
     suspend fun saveCompletedExercise(
         name: String,
         exerciseCategoryId: Int,

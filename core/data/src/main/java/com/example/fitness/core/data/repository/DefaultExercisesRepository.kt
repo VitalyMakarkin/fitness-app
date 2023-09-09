@@ -11,6 +11,7 @@ import com.example.fitness.core.database.dao.ExerciseGroupDao
 import com.example.fitness.core.database.dao.ScheduledExerciseEventDao
 import com.example.fitness.core.database.models.ExerciseCategoryEntity
 import com.example.fitness.core.database.models.ExerciseEntity
+import com.example.fitness.core.database.models.ExerciseGroupEntity
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
@@ -105,6 +106,14 @@ class DefaultExercisesRepository @Inject constructor(
             }
         )
         return exerciseCategoryDao.insert(exerciseCategoryEntity)
+    }
+
+    override suspend fun createExerciseGroup(name: String) {
+        val exerciseGroup = ExerciseGroupEntity(
+            id = 0,
+            name = name
+        )
+        return exerciseGroupDao.insert(exerciseGroup)
     }
 
     override suspend fun saveCompletedExercise(
