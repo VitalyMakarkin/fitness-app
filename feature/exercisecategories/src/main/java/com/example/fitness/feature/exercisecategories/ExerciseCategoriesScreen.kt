@@ -1,12 +1,15 @@
 package com.example.fitness.feature.exercisecategories
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,8 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
-import com.example.fitness.core.model.ExerciseCategory
-import java.lang.StringBuilder
+import com.example.fitness.feature.exercisecategories.model.ExerciseCategoryUI
 
 @Composable
 internal fun ExerciseCategoriesRouter(
@@ -63,13 +65,11 @@ internal fun ExerciseCategoriesScreen(
             when (uiState) {
                 is ExerciseCategoriesUiState.Success -> {
                     items(uiState.exerciseCategories) { category ->
-                        ExerciseCategoriesListItem(
-                            name = category.name,
-                            description = category.description ?: "",
-                            containsSets = category.containsSets,
-                            containsReps = category.containsReps,
-                            containsDuration = category.containsDuration
+                        ExerciseCategoryTile(
+                            modifier = modifier,
+                            exerciseCategory = category
                         )
+                        Spacer(modifier = modifier.height(12.dp))
                     }
                 }
 
@@ -96,83 +96,39 @@ internal fun ExerciseCategoriesScreen(
 }
 
 @Composable
-internal fun ExerciseCategoriesListItem(
+internal fun ExerciseCategoryTile(
     modifier: Modifier = Modifier,
-    name: String = "",
-    description: String = "",
-    containsSets: ExerciseCategory.RequiredState,
-    containsReps: ExerciseCategory.RequiredState,
-    containsDuration: ExerciseCategory.RequiredState
+    exerciseCategory: ExerciseCategoryUI
 ) {
-    Column(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+            .padding(horizontal = 16.dp),
     ) {
         Text(
-            text = name,
-            fontSize = 20.sp,
-            fontWeight = FontWeight(600)
+            modifier = modifier
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp),
+            fontSize = 20.sp, // TODO: move to theme typography
+            fontWeight = FontWeight(800), // TODO: move to theme typography
+            text = exerciseCategory.name
         )
 
-        if (description.isNotEmpty()) {
+        if (exerciseCategory.description != null) {
             Text(
-                text = description,
-                fontSize = 20.sp,
-                fontWeight = FontWeight(400)
+                modifier = modifier
+                    .padding(start = 16.dp, top = 8.dp, end = 16.dp),
+                fontSize = 20.sp, // TODO: move to theme typography
+                fontWeight = FontWeight(400), // TODO: move to theme typography
+                text = exerciseCategory.description
             )
         }
 
         Text(
-            text = convertSubtitle(containsSets, containsReps, containsDuration),
-            fontSize = 20.sp,
-            fontWeight = FontWeight(400)
+            modifier = modifier
+                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
+            fontSize = 20.sp, // TODO: move to theme typography
+            fontWeight = FontWeight(400), // TODO: move to theme typography
+            text = exerciseCategory.additionalInfo
         )
     }
-}
-
-// TODO: move to presentation model
-internal fun convertSubtitle(
-    containsSets: ExerciseCategory.RequiredState,
-    containsReps: ExerciseCategory.RequiredState,
-    containsDuration: ExerciseCategory.RequiredState
-): String {
-    val required = mutableListOf<String>()
-    val optional = mutableListOf<String>()
-
-    when (containsSets) {
-        ExerciseCategory.RequiredState.REQUIRED -> required.add("sets")
-        ExerciseCategory.RequiredState.OPTIONAL -> optional.add("sets")
-        else -> {}
-    }
-
-    when (containsReps) {
-        ExerciseCategory.RequiredState.REQUIRED -> required.add("reps")
-        ExerciseCategory.RequiredState.OPTIONAL -> optional.add("reps")
-        else -> {}
-    }
-
-    when (containsDuration) {
-        ExerciseCategory.RequiredState.REQUIRED -> required.add("duration")
-        ExerciseCategory.RequiredState.OPTIONAL -> optional.add("duration")
-        else -> {}
-    }
-
-    return StringBuilder()
-        .apply {
-            if (required.isEmpty() && optional.isEmpty()) {
-                append("without recommendations")
-            } else {
-                if (required.isNotEmpty()) {
-                    append("required: ${required.joinToString(", ")}")
-                    if (optional.isNotEmpty()) {
-                        append(" ")
-                    }
-                }
-                if (optional.isNotEmpty()) {
-                    append("optional: ${optional.joinToString(", ")}")
-                }
-            }
-        }
-        .toString()
 }

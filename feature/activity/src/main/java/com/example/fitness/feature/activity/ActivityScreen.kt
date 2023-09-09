@@ -1,8 +1,10 @@
 package com.example.fitness.feature.activity
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -48,6 +50,11 @@ internal fun ActivityScreen(
         ) {
             when (uiState) {
                 is ActivityUiState.Success -> {
+
+                    item {
+                        Spacer(modifier = modifier.height(12.dp))
+                    }
+
                     item {
                         ActionTile(
                             title = "Activities",
@@ -89,7 +96,7 @@ internal fun ActionTile(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
     ) {
         Text(
             modifier = modifier
