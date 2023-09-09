@@ -2,6 +2,7 @@ package com.example.fitness.feature.exercisegroups
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitness.feature.exercisegroups.model.mapToExerciseGroupUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,10 @@ class ExerciseGroupsViewModel @Inject constructor(
 
     private fun exerciseGroupsUiState(interactor: ExerciseGroupsInteractor): Flow<ExerciseGroupsUiState> {
         return interactor.observeExerciseGroups()
-            .map { list -> ExerciseGroupsUiState.Success(list) }
+            .map { list ->
+                ExerciseGroupsUiState.Success(
+                    exerciseGroups = list.map { it.mapToExerciseGroupUI() }
+                )
+            }
     }
 }
