@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,8 +56,10 @@ internal fun ActivityScreen(
                     }
                     item {
                         ActionTile(
-                            title = "Activities",
-                            subtitle = "${uiState.activitiesCount} exercises completed for all time"
+                            title = stringResource(R.string.activities_tile),
+                            subtitle = stringResource(R.string.activities_tile_content).format(
+                                uiState.activitiesCount
+                            )
                         )
                         Spacer(modifier = modifier.height(12.dp))
                     }
@@ -78,7 +81,7 @@ internal fun ActivityScreen(
             onClick = { onSaveCompletedExerciseClick() }
         ) {
             Text(
-                text = "Add activity",
+                text = stringResource(R.string.add_activity_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )
@@ -100,15 +103,15 @@ internal fun ActionTile(
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-            fontSize = 20.sp, // TODO: move to theme typography
-            fontWeight = FontWeight(800), // TODO: move to theme typography
+            fontSize = 20.sp,
+            fontWeight = FontWeight(800),
             text = title
         )
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp, // TODO: move to theme typography
-            fontWeight = FontWeight(400), // TODO: move to theme typography
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400),
             text = subtitle
         )
     }
