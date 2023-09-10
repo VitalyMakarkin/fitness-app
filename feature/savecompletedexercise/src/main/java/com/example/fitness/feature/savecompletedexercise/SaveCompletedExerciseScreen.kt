@@ -30,8 +30,8 @@ import com.example.fitness.feature.savecompletedexercise.dialog.exercisecategory
 
 @Composable
 internal fun SaveCompletedExerciseRouter(
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
     viewModel: SaveCompletedExerciseViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.saveCompletedExerciseUiState.collectAsStateWithLifecycle()

@@ -31,10 +31,9 @@ private const val EXERCISE_SCORE = "saveCompletedExerciseScore"
 @HiltViewModel
 class SaveCompletedExerciseViewModel @Inject constructor(
     private val interactor: SaveCompletedExerciseInteractor,
-    private val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val exerciseCategoryId = savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1)
     val exerciseName = savedStateHandle.getStateFlow(EXERCISE_NAME, "")
     val exerciseCompletedAt = savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, 0L)
     val exerciseSets = savedStateHandle.getStateFlow(EXERCISE_SETS, 0)
@@ -56,7 +55,7 @@ class SaveCompletedExerciseViewModel @Inject constructor(
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
         return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1).flatMapLatest { categoryId ->
             if (categoryId != -1) {
-                interactor.observeExerciseCategory(exerciseCategoryId.value)
+                interactor.observeExerciseCategory(categoryId)
                     .map { category -> SaveCompletedExerciseUiState.Success(category) }
             } else {
                 flowOf(SaveCompletedExerciseUiState.Success(null))
