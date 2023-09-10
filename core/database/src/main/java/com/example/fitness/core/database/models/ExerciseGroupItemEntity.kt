@@ -17,7 +17,9 @@ import androidx.room.PrimaryKey
         )
     ],
     indices = [
-        Index(value = [ExerciseGroupItemEntity.COLUMN_EXERCISE_GROUP_ID])
+        Index(
+            value = [ExerciseGroupItemEntity.COLUMN_EXERCISE_GROUP_ID]
+        )
     ]
 )
 data class ExerciseGroupItemEntity(
@@ -25,6 +27,9 @@ data class ExerciseGroupItemEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
     val id: Int,
+
+    @ColumnInfo(name = COLUMN_NAME)
+    val name: String,
 
     @ColumnInfo(name = COLUMN_EXERCISE_GROUP_ID)
     val exerciseGroupId: Int,
@@ -44,6 +49,7 @@ data class ExerciseGroupItemEntity(
 
     companion object {
         const val COLUMN_ID = "id"
+        const val COLUMN_NAME = "name"
         const val COLUMN_EXERCISE_GROUP_ID = "exercise_group_id"
         const val COLUMN_EXERCISE_CATEGORY_ID = "exercise_category_id"
         const val COLUMN_SETS = "sets"

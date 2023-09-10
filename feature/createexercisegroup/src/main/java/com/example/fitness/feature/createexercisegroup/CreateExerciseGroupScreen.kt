@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
+import com.example.fitness.core.model.ExerciseGroupItem
 import com.example.fitness.feature.createexercisegroup.dialog.addexercise.AddExerciseDialog
 
 @Composable
@@ -46,6 +47,7 @@ internal fun CreateExerciseGroupRouter(
         onCreate = { viewModel.createExerciseCategory() },
         categoryName = categoryName,
         onCategoryNameChanged = { text -> viewModel.onCategoryNameChanged(text) },
+        onConfirmAddExercise = { exercise -> viewModel.addExercise(exercise) },
         shouldNavigateBack = viewModel.shouldNavigateBack
     )
 }
@@ -58,6 +60,7 @@ internal fun CreateExerciseGroupScreen(
     onCreate: () -> Unit,
     categoryName: String = "",
     onCategoryNameChanged: (String) -> Unit,
+    onConfirmAddExercise: (ExerciseGroupItem) -> Unit,
     shouldNavigateBack: Boolean = false
 ) {
     var showAddExerciseDialog by rememberSaveable {
@@ -66,7 +69,8 @@ internal fun CreateExerciseGroupScreen(
 
     if (showAddExerciseDialog) {
         AddExerciseDialog(
-            onDismiss = { showAddExerciseDialog = false }
+            onDismiss = { showAddExerciseDialog = false },
+            onConfirm = { exerciseGroupItem -> onConfirmAddExercise(exerciseGroupItem) }
         )
     }
 

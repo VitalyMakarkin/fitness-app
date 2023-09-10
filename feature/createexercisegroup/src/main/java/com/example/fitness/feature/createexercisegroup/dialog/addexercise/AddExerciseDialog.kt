@@ -30,18 +30,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseCategory
+import com.example.fitness.core.model.ExerciseGroupItem
 import com.example.fitness.feature.createexercisegroup.dialog.exercisecategoryselection.ExerciseCategorySelectionDialog
 
 @Composable
 internal fun AddExerciseDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
+    onConfirm: (ExerciseGroupItem) -> Unit,
     viewModel: AddExerciseViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.addExerciseUiState.collectAsStateWithLifecycle()
 
     val exerciseName by viewModel.exerciseName.collectAsStateWithLifecycle()
-    val exerciseCompletedAt by viewModel.exerciseCompletedAt.collectAsStateWithLifecycle()
     val exerciseSets by viewModel.exerciseSets.collectAsStateWithLifecycle()
     val exerciseReps by viewModel.exerciseReps.collectAsStateWithLifecycle()
     val exerciseDuration by viewModel.exerciseDuration.collectAsStateWithLifecycle()
@@ -53,8 +54,6 @@ internal fun AddExerciseDialog(
         onExerciseCategoryChanged = { category -> viewModel.changeExerciseCategory(category) },
         exerciseName = exerciseName,
         onExerciseNameChanged = { text -> viewModel.onExerciseNameChanged(text) },
-        exerciseCompletedAt = exerciseCompletedAt.toString(),
-        onExerciseCompletedAtChanged = { text -> viewModel.onExerciseCompletedAtChanged(text) },
         exerciseSets = exerciseSets.toString(),
         onExerciseSetsChanged = { text -> viewModel.onExerciseSetsChanged(text) },
         exerciseReps = exerciseReps.toString(),
@@ -75,8 +74,6 @@ internal fun AddExerciseDialog(
     onExerciseCategoryChanged: (ExerciseCategory) -> Unit,
     exerciseName: String = "",
     onExerciseNameChanged: (String) -> Unit,
-    exerciseCompletedAt: String = "",
-    onExerciseCompletedAtChanged: (String) -> Unit,
     exerciseSets: String = "",
     onExerciseSetsChanged: (String) -> Unit,
     exerciseReps: String = "",
@@ -152,7 +149,6 @@ internal fun AddExerciseDialog(
                             is AddExerciseUiState.Loading -> {}
                         }
                     }
-
                     item {
                         OutlinedTextField(
                             modifier = modifier
@@ -161,17 +157,6 @@ internal fun AddExerciseDialog(
                             value = exerciseName,
                             onValueChange = { text -> onExerciseNameChanged(text) },
                             label = { Text(text = "Name") }
-                        )
-                    }
-
-                    item {
-                        OutlinedTextField(
-                            modifier = modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                            value = exerciseCompletedAt,
-                            onValueChange = { text -> onExerciseCompletedAtChanged(text) },
-                            label = { Text(text = "Completed at") }
                         )
                     }
                     item {
@@ -205,7 +190,6 @@ internal fun AddExerciseDialog(
                         )
                     }
                 }
-
                 Button(
                     modifier = modifier
                         .fillMaxWidth()

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitness.core.model.ExerciseGroupItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -24,6 +25,10 @@ class CreateExerciseGroupViewModel @Inject constructor(
 
     fun onCategoryNameChanged(text: String) {
         savedStateHandle[GROUP_NAME] = text
+    }
+
+    fun addExercise(exerciseGroupItem: ExerciseGroupItem) {
+        // TODO
     }
 
     fun createExerciseCategory() {

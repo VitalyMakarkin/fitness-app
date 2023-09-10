@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 
 private const val EXERCISE_NAME = "addExerciseName"
 private const val EXERCISE_CATEGORY_ID = "addExerciseCategoryId"
-private const val EXERCISE_COMPLETED_AT = "addExerciseCompletedAt"
 private const val EXERCISE_SETS = "addExerciseSets"
 private const val EXERCISE_REPS = "addExerciseReps"
 private const val EXERCISE_DURATION = "addExerciseDuration"
@@ -35,7 +34,6 @@ class AddExerciseViewModel @Inject constructor(
 ) : ViewModel() {
 
     val exerciseName = savedStateHandle.getStateFlow(EXERCISE_NAME, "")
-    val exerciseCompletedAt = savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, 0L)
     val exerciseSets = savedStateHandle.getStateFlow(EXERCISE_SETS, 0)
     val exerciseReps = savedStateHandle.getStateFlow(EXERCISE_REPS, 0)
     val exerciseDuration = savedStateHandle.getStateFlow(EXERCISE_DURATION, 0L)
@@ -69,10 +67,6 @@ class AddExerciseViewModel @Inject constructor(
 
     fun onExerciseNameChanged(text: String) {
         savedStateHandle[EXERCISE_NAME] = text
-    }
-
-    fun onExerciseCompletedAtChanged(text: String) {
-        savedStateHandle[EXERCISE_COMPLETED_AT] = text.toLong()
     }
 
     fun onExerciseSetsChanged(text: String) {
