@@ -53,14 +53,15 @@ class SaveCompletedExerciseViewModel @Inject constructor(
     var shouldNavigateBack by mutableStateOf(false)
 
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
-        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1).flatMapLatest { categoryId ->
-            if (categoryId != -1) {
-                interactor.observeExerciseCategory(categoryId)
-                    .map { category -> SaveCompletedExerciseUiState.Success(category) }
-            } else {
-                flowOf(SaveCompletedExerciseUiState.Success(null))
+        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1)
+            .flatMapLatest { categoryId ->
+                if (categoryId != -1) {
+                    interactor.observeExerciseCategory(categoryId)
+                        .map { category -> SaveCompletedExerciseUiState.Success(category) }
+                } else {
+                    flowOf(SaveCompletedExerciseUiState.Success(null))
+                }
             }
-        }
     }
 
     fun changeExerciseCategory(category: ExerciseCategory) {

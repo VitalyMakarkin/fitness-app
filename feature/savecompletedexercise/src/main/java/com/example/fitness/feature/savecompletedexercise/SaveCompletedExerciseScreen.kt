@@ -125,7 +125,8 @@ internal fun SaveCompletedExerciseScreen(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
-                            value = uiState.selectedExerciseCategory?.name ?: "Not selected",
+                            value = uiState.selectedExerciseCategory?.name
+                                ?: "Not selected",
                             onValueChange = { },
                             label = { Text(text = "Category") },
                             readOnly = true,
