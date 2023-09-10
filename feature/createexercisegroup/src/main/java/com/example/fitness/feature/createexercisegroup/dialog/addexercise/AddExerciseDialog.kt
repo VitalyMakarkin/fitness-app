@@ -60,7 +60,10 @@ internal fun AddExerciseDialog(
         onExerciseRepsChanged = { text -> viewModel.onExerciseRepsChanged(text) },
         exerciseDuration = exerciseDuration.toString(),
         onExerciseDurationChanged = { text -> viewModel.onExerciseDurationChanged(text) },
-        onConfirmClick = { viewModel.confirmAddExercise() },
+        onConfirmClick = {
+            onConfirm(viewModel.getConfirmedNewExercise())
+            viewModel.shouldNavigateBack = true
+        },
         shouldNavigateBack = viewModel.shouldNavigateBack
     )
 }

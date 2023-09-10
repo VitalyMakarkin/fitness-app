@@ -1,5 +1,6 @@
 package com.example.fitness.feature.createexercisegroup
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,7 +29,7 @@ class CreateExerciseGroupViewModel @Inject constructor(
     }
 
     fun addExercise(exerciseGroupItem: ExerciseGroupItem) {
-        // TODO
+        Log.d("CreateExerciseGroup", exerciseGroupItem.toString())
     }
 
     fun createExerciseCategory() {
