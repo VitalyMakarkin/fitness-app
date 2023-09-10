@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -90,7 +91,7 @@ internal fun CreateExerciseGroupScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = "New exercise group",
+                    title = stringResource(R.string.top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -101,7 +102,7 @@ internal fun CreateExerciseGroupScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryName,
                     onValueChange = { text -> onCategoryNameChanged(text) },
-                    label = { Text(text = "Name") }
+                    label = { Text(text = stringResource(R.string.text_input_name_label)) }
                 )
             }
             item {
@@ -116,13 +117,13 @@ internal fun CreateExerciseGroupScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = "Add"
+                            contentDescription = stringResource(R.string.add_exercise_button)
                         )
                         Spacer(
                             modifier = modifier.width(4.dp)
                         )
                         Text(
-                            text = "Add exercise",
+                            text = stringResource(R.string.add_exercise_button),
                             fontSize = 20.sp,
                             fontWeight = FontWeight(600)
                         )
@@ -138,7 +139,7 @@ internal fun CreateExerciseGroupScreen(
             onClick = { onCreate() }
         ) {
             Text(
-                text = "Create",
+                text = stringResource(R.string.create_group_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

@@ -21,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroupItem
+import com.example.fitness.feature.createexercisegroup.R
 import com.example.fitness.feature.createexercisegroup.dialog.exercisecategoryselection.ExerciseCategorySelectionDialog
 
 @Composable
@@ -120,7 +122,7 @@ internal fun AddExerciseDialog(
                 ) {
                     item {
                         TopNavigationBar(
-                            title = "Add exercise",
+                            title = stringResource(R.string.add_exercise_dialog_top_navigation_bar_title),
                             onBackClick = { onDismiss() }
                         )
                     }
@@ -132,9 +134,9 @@ internal fun AddExerciseDialog(
                                         .fillMaxWidth()
                                         .padding(horizontal = 16.dp),
                                     value = uiState.selectedExerciseCategory?.name
-                                        ?: "Not selected",
+                                        ?: stringResource(R.string.add_exercise_dialog_category_not_selected),
                                     onValueChange = { },
-                                    label = { Text(text = "Category") },
+                                    label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_category_label)) },
                                     readOnly = true,
                                     interactionSource = remember { MutableInteractionSource() }
                                         .also { interactionSource ->
@@ -159,7 +161,7 @@ internal fun AddExerciseDialog(
                                 .padding(horizontal = 16.dp),
                             value = exerciseName,
                             onValueChange = { text -> onExerciseNameChanged(text) },
-                            label = { Text(text = "Name") }
+                            label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_name_label)) }
                         )
                     }
                     item {
@@ -169,7 +171,7 @@ internal fun AddExerciseDialog(
                                 .padding(horizontal = 16.dp),
                             value = exerciseSets,
                             onValueChange = { text -> onExerciseSetsChanged(text) },
-                            label = { Text(text = "Sets") }
+                            label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_sets_label)) }
                         )
                     }
                     item {
@@ -179,7 +181,7 @@ internal fun AddExerciseDialog(
                                 .padding(horizontal = 16.dp),
                             value = exerciseReps,
                             onValueChange = { text -> onExerciseRepsChanged(text) },
-                            label = { Text(text = "Reps") }
+                            label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_reps_label)) }
                         )
                     }
                     item {
@@ -189,7 +191,7 @@ internal fun AddExerciseDialog(
                                 .padding(horizontal = 16.dp),
                             value = exerciseDuration,
                             onValueChange = { text -> onExerciseDurationChanged(text) },
-                            label = { Text(text = "Duration") }
+                            label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_duration_label)) }
                         )
                     }
                 }
@@ -200,7 +202,7 @@ internal fun AddExerciseDialog(
                     onClick = { onConfirmClick() }
                 ) {
                     Text(
-                        text = "Confirm",
+                        text = stringResource(R.string.add_exercise_dialog_confirm_button),
                         fontSize = 20.sp,
                         fontWeight = FontWeight(600)
                     )
