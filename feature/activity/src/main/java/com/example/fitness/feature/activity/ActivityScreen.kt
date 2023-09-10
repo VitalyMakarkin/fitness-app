@@ -50,17 +50,14 @@ internal fun ActivityScreen(
         ) {
             when (uiState) {
                 is ActivityUiState.Success -> {
-
                     item {
                         Spacer(modifier = modifier.height(16.dp))
                     }
-
                     item {
                         ActionTile(
                             title = "Activities",
-                            subtitle = "${uiState.activitiesCount} exercises for all time"
+                            subtitle = "${uiState.activitiesCount} exercises completed for all time"
                         )
-
                         Spacer(modifier = modifier.height(12.dp))
                     }
                 }
@@ -81,7 +78,7 @@ internal fun ActivityScreen(
             onClick = { onSaveCompletedExerciseClick() }
         ) {
             Text(
-                text = "Add completed exercise",
+                text = "Add activity",
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )
