@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,7 +58,7 @@ internal fun ExerciseCategoriesScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = "Exercise categories",
+                    title = stringResource(R.string.top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -87,7 +88,7 @@ internal fun ExerciseCategoriesScreen(
             onClick = { onNewExerciseCategoryCreateClick() }
         ) {
             Text(
-                text = "Add category",
+                text = stringResource(R.string.add_category_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )
@@ -108,8 +109,8 @@ internal fun ExerciseCategoryTile(
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-            fontSize = 20.sp, // TODO: move to theme typography
-            fontWeight = FontWeight(800), // TODO: move to theme typography
+            fontSize = 20.sp,
+            fontWeight = FontWeight(800),
             text = exerciseCategory.name
         )
 
@@ -117,8 +118,8 @@ internal fun ExerciseCategoryTile(
             Text(
                 modifier = modifier
                     .padding(start = 16.dp, top = 8.dp, end = 16.dp),
-                fontSize = 20.sp, // TODO: move to theme typography
-                fontWeight = FontWeight(400), // TODO: move to theme typography
+                fontSize = 20.sp,
+                fontWeight = FontWeight(400),
                 text = exerciseCategory.description
             )
         }
@@ -126,8 +127,8 @@ internal fun ExerciseCategoryTile(
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp, // TODO: move to theme typography
-            fontWeight = FontWeight(400), // TODO: move to theme typography
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400),
             text = exerciseCategory.additionalInfo
         )
     }

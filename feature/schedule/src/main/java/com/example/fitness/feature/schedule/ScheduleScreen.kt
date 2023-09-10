@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,7 +68,7 @@ internal fun ScheduleScreen(
             onClick = { }
         ) {
             Text(
-                text = "Add event",
+                text = stringResource(R.string.add_event_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

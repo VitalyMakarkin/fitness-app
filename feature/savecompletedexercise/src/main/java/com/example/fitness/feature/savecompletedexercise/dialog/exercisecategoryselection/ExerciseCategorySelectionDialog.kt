@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseCategory
+import com.example.fitness.feature.savecompletedexercise.R
 
 @Composable
 internal fun ExerciseCategorySelectionDialog(
@@ -60,7 +62,7 @@ internal fun ExerciseCategorySelectionDialog(
             ) {
                 item {
                     TopNavigationBar(
-                        title = "Select category",
+                        title = stringResource(R.string.category_selection_top_navigation_bar_title),
                         onBackClick = { onDismiss() }
                     )
                 }

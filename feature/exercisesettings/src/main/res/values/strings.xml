@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exercise_completed_tile">Exercises completed</string>
+    <string name="exercise_categories_tile">Exercises categories</string>
+    <string name="exercise_groups_tile">Exercises groups</string>
+</resources>

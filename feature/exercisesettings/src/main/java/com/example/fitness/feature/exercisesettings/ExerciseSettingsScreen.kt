@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,21 +57,21 @@ internal fun ExerciseSettingsScreen(
         ) {
             item {
                 ExerciseSettingTile(
-                    title = "Exercises completed",
+                    title = stringResource(R.string.exercise_completed_tile),
                     subtitle = uiState.activitiesCount.toString(),
                     onClick = { onExerciseHistoryClick() }
                 )
             }
             item {
                 ExerciseSettingTile(
-                    title = "Exercises categories",
+                    title = stringResource(R.string.exercise_categories_tile),
                     subtitle = uiState.exerciseCategoriesCount.toString(),
                     onClick = { onExerciseCategoriesClick() }
                 )
             }
             item {
                 ExerciseSettingTile(
-                    title = "Exercises groups",
+                    title = stringResource(R.string.exercise_groups_tile),
                     subtitle = uiState.exerciseGroupsCount.toString(),
                     onClick = { onExerciseGroupsClick() }
                 )
@@ -98,16 +99,16 @@ internal fun ExerciseSettingTile(
     ) {
         Text(
             text = title,
-            fontSize = 20.sp, // TODO: move to theme typography
-            fontWeight = FontWeight(800), // TODO: move to theme typography
+            fontSize = 20.sp,
+            fontWeight = FontWeight(800),
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp)
         )
         if (subtitle.isNotEmpty()) {
             Text(
                 text = subtitle,
-                fontSize = 40.sp, // TODO: move to theme typography
-                fontWeight = FontWeight(500), // TODO: move to theme typography
+                fontSize = 40.sp,
+                fontWeight = FontWeight(500),
                 modifier = modifier
                     .padding(start = 16.dp, top = 8.dp, end = 16.dp)
             )

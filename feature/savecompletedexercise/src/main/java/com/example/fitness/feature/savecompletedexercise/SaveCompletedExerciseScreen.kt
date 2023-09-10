@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -114,7 +115,7 @@ internal fun SaveCompletedExerciseScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = "New completed exercise",
+                    title = stringResource(R.string.top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -126,9 +127,9 @@ internal fun SaveCompletedExerciseScreen(
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = uiState.selectedExerciseCategory?.name
-                                ?: "Not selected",
+                                ?: stringResource(R.string.not_selected_category),
                             onValueChange = { },
-                            label = { Text(text = "Category") },
+                            label = { Text(text = stringResource(R.string.text_input_category_label)) },
                             readOnly = true,
                             interactionSource = remember { MutableInteractionSource() }
                                 .also { interactionSource ->
@@ -153,7 +154,7 @@ internal fun SaveCompletedExerciseScreen(
                         .padding(horizontal = 16.dp),
                     value = exerciseName,
                     onValueChange = { text -> onExerciseNameChanged(text) },
-                    label = { Text(text = "Name") }
+                    label = { Text(text = stringResource(R.string.text_input_name_label)) }
                 )
             }
             item {
@@ -163,7 +164,7 @@ internal fun SaveCompletedExerciseScreen(
                         .padding(horizontal = 16.dp),
                     value = exerciseCompletedAt,
                     onValueChange = { text -> onExerciseCompletedAtChanged(text) },
-                    label = { Text(text = "Completed at") }
+                    label = { Text(text = stringResource(R.string.text_input_completed_at_label)) }
                 )
             }
             item {
@@ -173,7 +174,7 @@ internal fun SaveCompletedExerciseScreen(
                         .padding(horizontal = 16.dp),
                     value = exerciseSets,
                     onValueChange = { text -> onExerciseSetsChanged(text) },
-                    label = { Text(text = "Sets") }
+                    label = { Text(text = stringResource(R.string.text_input_sets_label)) }
                 )
             }
             item {
@@ -183,7 +184,7 @@ internal fun SaveCompletedExerciseScreen(
                         .padding(horizontal = 16.dp),
                     value = exerciseReps,
                     onValueChange = { text -> onExerciseRepsChanged(text) },
-                    label = { Text(text = "Reps") }
+                    label = { Text(text = stringResource(R.string.text_input_reps_label)) }
                 )
             }
             item {
@@ -193,7 +194,7 @@ internal fun SaveCompletedExerciseScreen(
                         .padding(horizontal = 16.dp),
                     value = exerciseDuration,
                     onValueChange = { text -> onExerciseDurationChanged(text) },
-                    label = { Text(text = "Duration") }
+                    label = { Text(text = stringResource(R.string.text_input_duration_label)) }
                 )
             }
             item {
@@ -203,7 +204,7 @@ internal fun SaveCompletedExerciseScreen(
                         .padding(horizontal = 16.dp),
                     value = exerciseScore,
                     onValueChange = { text -> onExerciseScoreChanged(text) },
-                    label = { Text(text = "Score") }
+                    label = { Text(text = stringResource(R.string.text_input_score_label)) }
                 )
             }
         }
@@ -215,7 +216,7 @@ internal fun SaveCompletedExerciseScreen(
             onClick = { onSaveClick() }
         ) {
             Text(
-                text = "Save",
+                text = stringResource(R.string.save_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )
