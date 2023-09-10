@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -88,7 +89,7 @@ internal fun CreateExerciseCategoryScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = "New exercise category",
+                    title = stringResource(R.string.top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -99,7 +100,7 @@ internal fun CreateExerciseCategoryScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryName,
                     onValueChange = { text -> onCategoryNameChanged(text) },
-                    label = { Text(text = "Name") }
+                    label = { Text(text = stringResource(R.string.text_input_name_label)) }
                 )
             }
             item {
@@ -109,7 +110,7 @@ internal fun CreateExerciseCategoryScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryDescription,
                     onValueChange = { text -> onCategoryDescriptionChanged(text) },
-                    label = { Text(text = "Description") }
+                    label = { Text(text = stringResource(R.string.text_input_description_label)) }
                 )
             }
             item {
@@ -145,7 +146,7 @@ internal fun CreateExerciseCategoryScreen(
             onClick = { onCreate() }
         ) {
             Text(
-                text = "Create",
+                text = stringResource(R.string.create_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )
