@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ExerciseCategoriesViewModel @Inject constructor(
@@ -33,5 +34,9 @@ class ExerciseCategoriesViewModel @Inject constructor(
             }
     }
 
-
+    fun updateRemoteExerciseCategories() {
+        viewModelScope.launch {
+            interactor.updateRemoteExerciseCategories()
+        }
+    }
 }

@@ -36,6 +36,7 @@ internal fun ExerciseCategoriesRouter(
         uiState = uiState,
         onBackClick = onBackClick,
         onNewExerciseCategoryCreateClick = onNewExerciseCategoryCreateClick,
+        onRemoteUpdate = { viewModel.updateRemoteExerciseCategories() },
         modifier = modifier
     )
 }
@@ -45,6 +46,7 @@ internal fun ExerciseCategoriesScreen(
     uiState: ExerciseCategoriesUiState,
     onBackClick: () -> Unit,
     onNewExerciseCategoryCreateClick: () -> Unit,
+    onRemoteUpdate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -81,6 +83,21 @@ internal fun ExerciseCategoriesScreen(
                 }
             }
         }
+
+        // TODO
+        Button(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            onClick = { onRemoteUpdate() }
+        ) {
+            Text(
+                text = "UPDATE",
+                fontSize = 20.sp,
+                fontWeight = FontWeight(600)
+            )
+        }
+
         Button(
             modifier = modifier
                 .fillMaxWidth()

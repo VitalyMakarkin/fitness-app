@@ -24,10 +24,12 @@ android {
 dependencies {
     implementation project(":core:model")
     implementation project(":core:database")
+    implementation project(":core:network")
 
     implementation "com.google.dagger:hilt-android:2.44.2"
     kapt "com.google.dagger:hilt-compiler:2.44"
 
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0' // TODO: remove
     implementation 'androidx.core:core-ktx:1.10.1'
     testImplementation 'junit:junit:4.13.2'
 }

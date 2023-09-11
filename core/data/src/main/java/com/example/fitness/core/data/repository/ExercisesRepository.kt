@@ -24,6 +24,10 @@ interface ExercisesRepository {
 
     fun observeExerciseCategoriesCount(): Flow<Int>
 
+    suspend fun updateAllCategories()
+
+    suspend fun clearAllExerciseCategories()
+
     fun observeExerciseGroups(): Flow<List<ExerciseGroup>>
 
     fun observeExerciseGroupsCount(): Flow<Int>

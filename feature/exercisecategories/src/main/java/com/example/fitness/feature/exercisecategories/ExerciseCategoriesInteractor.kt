@@ -12,4 +12,8 @@ class ExerciseCategoriesInteractor @Inject constructor(
     fun observeExerciseCategories(): Flow<List<ExerciseCategory>> {
         return exercisesRepository.observeExerciseCategories()
     }
+
+    suspend fun updateRemoteExerciseCategories() {
+        exercisesRepository.updateAllCategories()
+    }
 }

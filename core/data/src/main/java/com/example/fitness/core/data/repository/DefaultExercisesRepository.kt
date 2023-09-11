@@ -16,15 +16,19 @@ import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.core.model.ScheduledExerciseEvent
+import com.example.fitness.core.network.api.WgerApi
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 class DefaultExercisesRepository @Inject constructor(
     private val exerciseCategoryDao: ExerciseCategoryDao,
     private val exerciseGroupDao: ExerciseGroupDao,
     private val exerciseDao: ExerciseDao,
-    private val exerciseEventDao: ScheduledExerciseEventDao
+    private val exerciseEventDao: ScheduledExerciseEventDao,
+    private val wgerApi: WgerApi
 ) : ExercisesRepository {
 
     override suspend fun addExercise(exercise: Exercise) {
@@ -63,6 +67,37 @@ class DefaultExercisesRepository @Inject constructor(
 
     override fun observeExerciseCategoriesCount(): Flow<Int> {
         return exerciseCategoryDao.observeAllCount()
+    }
+
+    override suspend fun updateAllCategories() {
+        withContext(Dispatchers.IO) {
+            val response = wgerApi.getExerciseCategories()
+
+            try {
+                response.body()?.let { pageResponse ->
+                    exerciseCategoryDao.deleteAll()
+                    pageResponse.results.forEach { categoryResponse ->
+                        val category = ExerciseCategoryEntity(
+                            0,
+                            categoryResponse.name,
+                            null,
+                            ExerciseCategoryEntity.RequiredState.NONE,
+                            ExerciseCategoryEntity.RequiredState.NONE,
+                            ExerciseCategoryEntity.RequiredState.NONE
+                        )
+
+                        exerciseCategoryDao.insert(category)
+                    }
+                }
+
+            } catch (error: Throwable) {
+                // TODO
+            }
+        }
+    }
+
+    override suspend fun clearAllExerciseCategories() {
+        return exerciseCategoryDao.deleteAll()
     }
 
     override fun observeExerciseGroups(): Flow<List<ExerciseGroup>> {
