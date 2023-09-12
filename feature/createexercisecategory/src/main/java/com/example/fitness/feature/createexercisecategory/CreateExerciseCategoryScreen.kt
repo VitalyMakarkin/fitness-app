@@ -72,7 +72,6 @@ internal fun CreateExerciseCategoryScreen(
     onCategoryContainsDurationChanged: (Boolean) -> Unit,
     shouldNavigateBack: Boolean = false
 ) {
-
     LaunchedEffect(shouldNavigateBack) {
         if (shouldNavigateBack) {
             onBackClick()

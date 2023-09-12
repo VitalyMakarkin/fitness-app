@@ -36,7 +36,7 @@ internal fun ExerciseCategoriesRouter(
         uiState = uiState,
         onBackClick = onBackClick,
         onNewExerciseCategoryCreateClick = onNewExerciseCategoryCreateClick,
-        onRemoteUpdate = { viewModel.updateRemoteExerciseCategories() },
+        onUpdate = { viewModel.updateRemoteExerciseCategories() },
         modifier = modifier
     )
 }
@@ -46,10 +46,9 @@ internal fun ExerciseCategoriesScreen(
     uiState: ExerciseCategoriesUiState,
     onBackClick: () -> Unit,
     onNewExerciseCategoryCreateClick: () -> Unit,
-    onRemoteUpdate: () -> Unit,
+    onUpdate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -61,7 +60,9 @@ internal fun ExerciseCategoriesScreen(
             item {
                 TopNavigationBar(
                     title = stringResource(R.string.top_navigation_bar_title),
-                    onBackClick = onBackClick
+                    onBackClick = onBackClick,
+                    menuVisibility = true,
+                    onMenuClick = onUpdate
                 )
             }
 
@@ -82,20 +83,6 @@ internal fun ExerciseCategoriesScreen(
                     )
                 }
             }
-        }
-
-        // TODO
-        Button(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            onClick = { onRemoteUpdate() }
-        ) {
-            Text(
-                text = "UPDATE",
-                fontSize = 20.sp,
-                fontWeight = FontWeight(600)
-            )
         }
 
         Button(

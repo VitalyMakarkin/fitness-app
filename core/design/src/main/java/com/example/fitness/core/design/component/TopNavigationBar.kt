@@ -23,6 +23,8 @@ fun TopNavigationBar(
     modifier: Modifier = Modifier,
     title: String = "",
     onBackClick: () -> Unit,
+    menuVisibility: Boolean = false,
+    onMenuClick: () -> Unit = {}
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -37,17 +39,17 @@ fun TopNavigationBar(
                 contentDescription = "Back"
             )
         }
-
         Text(
             text = title,
-            fontSize = 20.sp, // TODO
-            fontWeight = FontWeight(600), // TODO
+            fontSize = 20.sp,
+            fontWeight = FontWeight(600),
             modifier = modifier
         )
-
+        val menuAlpha = if (menuVisibility) 1F else 0F
         IconButton(
-            onClick = {}, // TODO
-            modifier = modifier.alpha(0F) // TODO
+            onClick = { onMenuClick() },
+            modifier = modifier
+                .alpha(menuAlpha)
         ) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
