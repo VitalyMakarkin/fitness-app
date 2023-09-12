@@ -36,6 +36,8 @@ interface ExercisesRepository {
 
     suspend fun createExerciseGroup(name: String)
 
+    suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int)
+
     suspend fun saveCompletedExercise(
         name: String,
         exerciseCategoryId: Int,

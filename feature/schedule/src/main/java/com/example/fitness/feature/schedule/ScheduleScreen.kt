@@ -22,12 +22,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 internal fun ScheduleRoute(
     modifier: Modifier = Modifier,
+    onCreateScheduledEventClick: () -> Unit,
     viewModel: ScheduleViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.scheduleUiState.collectAsStateWithLifecycle()
 
     ScheduleScreen(
         uiState = uiState,
+        onCreateScheduledEventClick = onCreateScheduledEventClick,
         modifier = modifier
     )
 }
@@ -35,6 +37,7 @@ internal fun ScheduleRoute(
 @Composable
 internal fun ScheduleScreen(
     uiState: ScheduleUiState,
+    onCreateScheduledEventClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -65,7 +68,7 @@ internal fun ScheduleScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            onClick = { }
+            onClick = { onCreateScheduledEventClick() }
         ) {
             Text(
                 text = stringResource(R.string.add_event_button),

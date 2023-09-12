@@ -11,10 +11,16 @@ fun NavController.navigateToSchedule() {
     this.navigate(scheduleRoute)
 }
 
-fun NavGraphBuilder.scheduleScreen() {
+fun NavGraphBuilder.scheduleScreen(
+    onCreateScheduledEventClick: () -> Unit,
+    nestedScreens: NavGraphBuilder.() -> Unit,
+) {
     composable(
         route = scheduleRoute
     ) {
-        ScheduleRoute()
+        ScheduleRoute(
+            onCreateScheduledEventClick = onCreateScheduledEventClick
+        )
     }
+    nestedScreens()
 }

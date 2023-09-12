@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="top_navigation_bar_title">Create event</string>
+    <string name="text_input_scheduled_at_label">Scheduled at</string>
+    <string name="text_input_exercise_group_label">Exercise group</string>
+    <string name="confirm_button">Confirm</string>
+</resources>
