@@ -66,19 +66,6 @@ internal fun PopulatedScheduledExerciseEvent.mapToScheduledExerciseEvent() = wit
     )
 }
 
-internal fun ExerciseCategoryEntity.RequiredState.mapToExerciseCategoryRequiredState() = when (this) {
-    ExerciseCategoryEntity.RequiredState.REQUIRED -> ExerciseCategory.RequiredState.REQUIRED
-    ExerciseCategoryEntity.RequiredState.OPTIONAL -> ExerciseCategory.RequiredState.OPTIONAL
-    else -> ExerciseCategory.RequiredState.NONE
-}
-
 internal fun ExerciseCategoryEntity.mapToExerciseCategory() = with(this) {
-    ExerciseCategory(
-        id,
-        name,
-        description,
-        containsSets.mapToExerciseCategoryRequiredState(),
-        containsReps.mapToExerciseCategoryRequiredState(),
-        containsDuration.mapToExerciseCategoryRequiredState()
-    )
+    ExerciseCategory(id, name, description)
 }

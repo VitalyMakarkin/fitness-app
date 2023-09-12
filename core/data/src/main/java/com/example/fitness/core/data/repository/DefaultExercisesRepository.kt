@@ -80,10 +80,7 @@ class DefaultExercisesRepository @Inject constructor(
                         val category = ExerciseCategoryEntity(
                             0,
                             categoryResponse.name,
-                            null,
-                            ExerciseCategoryEntity.RequiredState.NONE,
-                            ExerciseCategoryEntity.RequiredState.NONE,
-                            ExerciseCategoryEntity.RequiredState.NONE
+                            "Base category",
                         )
 
                         exerciseCategoryDao.insert(category)
@@ -113,32 +110,11 @@ class DefaultExercisesRepository @Inject constructor(
         return exerciseGroupDao.observeAllCount()
     }
 
-    override suspend fun createExerciseCategory(
-        name: String,
-        description: String?,
-        containsSets: Boolean,
-        containsReps: Boolean,
-        containsDuration: Boolean
-    ) {
+    override suspend fun createExerciseCategory(name: String, description: String?) {
         val exerciseCategoryEntity = ExerciseCategoryEntity(
             id = 0,
             name = name,
-            description = description,
-            containsSets = if (containsSets) {
-                ExerciseCategoryEntity.RequiredState.REQUIRED
-            } else {
-                ExerciseCategoryEntity.RequiredState.NONE
-            },
-            containsReps = if (containsReps) {
-                ExerciseCategoryEntity.RequiredState.REQUIRED
-            } else {
-                ExerciseCategoryEntity.RequiredState.NONE
-            },
-            containsDuration = if (containsDuration) {
-                ExerciseCategoryEntity.RequiredState.REQUIRED
-            } else {
-                ExerciseCategoryEntity.RequiredState.NONE
-            }
+            description = description
         )
         return exerciseCategoryDao.insert(exerciseCategoryEntity)
     }

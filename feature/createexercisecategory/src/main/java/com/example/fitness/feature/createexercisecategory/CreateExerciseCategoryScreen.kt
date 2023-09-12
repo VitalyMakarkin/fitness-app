@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -30,9 +29,6 @@ internal fun CreateExerciseCategoryRouter(
 ) {
     val categoryName by viewModel.categoryName.collectAsStateWithLifecycle()
     val categoryDescription by viewModel.categoryDescription.collectAsStateWithLifecycle()
-    val categoryContainsSets by viewModel.categoryContainsSets.collectAsStateWithLifecycle()
-    val categoryContainsReps by viewModel.categoryContainsReps.collectAsStateWithLifecycle()
-    val categoryContainsDuration by viewModel.categoryContainsDuration.collectAsStateWithLifecycle()
 
     CreateExerciseCategoryScreen(
         modifier = modifier,
@@ -42,14 +38,6 @@ internal fun CreateExerciseCategoryRouter(
         onCategoryNameChanged = { text -> viewModel.onCategoryNameChanged(text) },
         categoryDescription = categoryDescription,
         onCategoryDescriptionChanged = { text -> viewModel.onCategoryDescriptionChanged(text) },
-        categoryContainsSets = categoryContainsSets,
-        onCategoryContainsSetsChanged = { checked -> viewModel.onCategoryContainsSetsChanged(checked) },
-        categoryContainsReps = categoryContainsReps,
-        onCategoryContainsRepsChanged = { checked -> viewModel.onCategoryContainsRepsChanged(checked) },
-        categoryContainsDuration = categoryContainsDuration,
-        onCategoryContainsDurationChanged = { checked ->
-            viewModel.onCategoryContainsDurationChanged(checked)
-        },
         shouldNavigateBack = viewModel.shouldNavigateBack
     )
 }
@@ -64,12 +52,6 @@ internal fun CreateExerciseCategoryScreen(
     onCategoryNameChanged: (String) -> Unit,
     categoryDescription: String = "",
     onCategoryDescriptionChanged: (String) -> Unit,
-    categoryContainsSets: Boolean = false,
-    onCategoryContainsSetsChanged: (Boolean) -> Unit,
-    categoryContainsReps: Boolean = false,
-    onCategoryContainsRepsChanged: (Boolean) -> Unit,
-    categoryContainsDuration: Boolean = false,
-    onCategoryContainsDurationChanged: (Boolean) -> Unit,
     shouldNavigateBack: Boolean = false
 ) {
     LaunchedEffect(shouldNavigateBack) {
@@ -110,30 +92,6 @@ internal fun CreateExerciseCategoryScreen(
                     value = categoryDescription,
                     onValueChange = { text -> onCategoryDescriptionChanged(text) },
                     label = { Text(text = stringResource(R.string.text_input_description_label)) }
-                )
-            }
-            item {
-                Checkbox(
-                    modifier = modifier
-                        .padding(horizontal = 16.dp),
-                    checked = categoryContainsSets,
-                    onCheckedChange = { checked -> onCategoryContainsSetsChanged(checked) },
-                )
-            }
-            item {
-                Checkbox(
-                    modifier = modifier
-                        .padding(horizontal = 16.dp),
-                    checked = categoryContainsReps,
-                    onCheckedChange = { checked -> onCategoryContainsRepsChanged(checked) },
-                )
-            }
-            item {
-                Checkbox(
-                    modifier = modifier
-                        .padding(horizontal = 16.dp),
-                    checked = categoryContainsDuration,
-                    onCheckedChange = { checked -> onCategoryContainsDurationChanged(checked) },
                 )
             }
         }

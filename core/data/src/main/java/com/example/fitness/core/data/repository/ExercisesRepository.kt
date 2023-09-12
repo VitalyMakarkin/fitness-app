@@ -32,13 +32,7 @@ interface ExercisesRepository {
 
     fun observeExerciseGroupsCount(): Flow<Int>
 
-    suspend fun createExerciseCategory(
-        name: String,
-        description: String?,
-        containsSets: Boolean,
-        containsReps: Boolean,
-        containsDuration: Boolean
-    )
+    suspend fun createExerciseCategory(name: String, description: String?)
 
     suspend fun createExerciseGroup(name: String)
 

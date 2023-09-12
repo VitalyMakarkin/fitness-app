@@ -118,22 +118,12 @@ internal fun ExerciseCategoryTile(
             text = exerciseCategory.name
         )
 
-        if (exerciseCategory.description != null) {
-            Text(
-                modifier = modifier
-                    .padding(start = 16.dp, top = 8.dp, end = 16.dp),
-                fontSize = 20.sp,
-                fontWeight = FontWeight(400),
-                text = exerciseCategory.description
-            )
-        }
-
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight(400),
-            text = exerciseCategory.additionalInfo
+            text = exerciseCategory.description ?: ""
         )
     }
 }
