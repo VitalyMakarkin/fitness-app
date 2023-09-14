@@ -30,7 +30,7 @@ internal fun ExerciseGroupsRouter(
     modifier: Modifier = Modifier,
     viewModel: ExerciseGroupsViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.exerciseGroupsUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ExerciseGroupsScreen(
         uiState = uiState,

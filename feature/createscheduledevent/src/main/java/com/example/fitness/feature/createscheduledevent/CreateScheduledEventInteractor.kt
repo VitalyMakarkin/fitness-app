@@ -16,4 +16,8 @@ class CreateScheduledEventInteractor @Inject constructor(
     fun observeExerciseGroups(): Flow<List<ExerciseGroup>> {
         return exercisesRepository.observeExerciseGroups()
     }
+
+    fun observeExerciseGroup(id: Int): Flow<ExerciseGroup> {
+        return exercisesRepository.observeExerciseGroup(id)
+    }
 }

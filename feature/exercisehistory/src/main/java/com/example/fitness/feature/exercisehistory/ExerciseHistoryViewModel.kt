@@ -16,7 +16,7 @@ class ExerciseHistoryViewModel @Inject constructor(
     private val interactor: ExerciseHistoryInteractor
 ) : ViewModel() {
 
-    val exerciseHistoryUiState: StateFlow<ExerciseHistoryUiState> = exerciseHistoryUiState(
+    val uiState: StateFlow<ExerciseHistoryUiState> = exerciseHistoryUiState(
         interactor = interactor
     ).stateIn(
         scope = viewModelScope,

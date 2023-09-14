@@ -6,13 +6,22 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitness.core.model.ExerciseGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 private const val EVENT_SCHEDULED_AT = "createScheduledEventScheduledAt"
 private const val EVENT_EXERCISE_GROUP_ID = "createScheduledEventExerciseGroupId"
 
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class CreateScheduledEventViewModel @Inject constructor(
     private val interactor: CreateScheduledEventInteractor,
@@ -20,16 +29,40 @@ class CreateScheduledEventViewModel @Inject constructor(
 ) : ViewModel() {
 
     val scheduledAt = savedStateHandle.getStateFlow(EVENT_SCHEDULED_AT, 0L)
-    val exerciseGroupId = savedStateHandle.getStateFlow(EVENT_EXERCISE_GROUP_ID, 0)
+
+    val uiState: StateFlow<CreateScheduledEventUiState> =
+        createScheduledEventUiState(
+            interactor = interactor
+        ).stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = CreateScheduledEventUiState.Loading
+        )
 
     var shouldNavigateBack by mutableStateOf(false)
+
+    private fun createScheduledEventUiState(interactor: CreateScheduledEventInteractor): Flow<CreateScheduledEventUiState> {
+        return savedStateHandle.getStateFlow(EVENT_EXERCISE_GROUP_ID, -1)
+            .flatMapLatest { groupId ->
+                if (groupId != -1) {
+                    interactor.observeExerciseGroup(groupId)
+                        .map { group ->
+                            CreateScheduledEventUiState.Success(
+                                selectedExerciseGroup = group
+                            )
+                        }
+                } else {
+                    flowOf(CreateScheduledEventUiState.Success(null))
+                }
+            }
+    }
 
     fun onEventScheduledAtChanged(text: String) {
         savedStateHandle[EVENT_SCHEDULED_AT] = text.toLong()
     }
 
-    fun onEventExerciseGroupChanged(text: String) {
-        savedStateHandle[EVENT_EXERCISE_GROUP_ID] = text.toInt()
+    fun changeExerciseGroup(group: ExerciseGroup) {
+        savedStateHandle[EVENT_EXERCISE_GROUP_ID] = group.id
     }
 
     fun createExerciseCategory() {

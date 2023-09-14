@@ -16,7 +16,7 @@ class ExerciseCategorySelectionViewModel @Inject constructor(
     private val interactor: SaveCompletedExerciseInteractor
 ) : ViewModel() {
 
-    val exerciseCategorySelectionUiState: StateFlow<ExerciseCategorySelectionUiState> =
+    val uiState: StateFlow<ExerciseCategorySelectionUiState> =
         exerciseCategorySelectionUiState(
             interactor = interactor
         ).stateIn(

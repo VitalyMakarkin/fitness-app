@@ -38,7 +38,7 @@ class AddExerciseViewModel @Inject constructor(
     val exerciseReps = savedStateHandle.getStateFlow(EXERCISE_REPS, 0)
     val exerciseDuration = savedStateHandle.getStateFlow(EXERCISE_DURATION, 0L)
 
-    val addExerciseUiState: StateFlow<AddExerciseUiState> =
+    val uiState: StateFlow<AddExerciseUiState> =
         addExerciseUiState(
             interactor = interactor
         ).stateIn(

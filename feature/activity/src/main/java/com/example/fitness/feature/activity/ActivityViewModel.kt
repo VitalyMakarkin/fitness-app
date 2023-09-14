@@ -15,7 +15,7 @@ class ActivityViewModel @Inject constructor(
     private val interactor: ActivityInteractor
 ) : ViewModel() {
 
-    val activityUiState: StateFlow<ActivityUiState> = activityUiState(
+    val uiState: StateFlow<ActivityUiState> = activityUiState(
         interactor = interactor
     ).stateIn(
         scope = viewModelScope,

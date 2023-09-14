@@ -41,7 +41,7 @@ class SaveCompletedExerciseViewModel @Inject constructor(
     val exerciseDuration = savedStateHandle.getStateFlow(EXERCISE_DURATION, 0L)
     val exerciseScore = savedStateHandle.getStateFlow(EXERCISE_SCORE, 0)
 
-    val saveCompletedExerciseUiState: StateFlow<SaveCompletedExerciseUiState> =
+    val uiState: StateFlow<SaveCompletedExerciseUiState> =
         saveCompletedExerciseUiState(
             interactor = interactor
         ).stateIn(

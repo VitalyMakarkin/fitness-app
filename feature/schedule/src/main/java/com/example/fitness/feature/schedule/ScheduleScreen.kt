@@ -25,7 +25,7 @@ internal fun ScheduleRoute(
     onCreateScheduledEventClick: () -> Unit,
     viewModel: ScheduleViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.scheduleUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScheduleScreen(
         uiState = uiState,

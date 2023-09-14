@@ -16,7 +16,7 @@ class ExerciseGroupsViewModel @Inject constructor(
     private val interactor: ExerciseGroupsInteractor
 ) : ViewModel() {
 
-    val exerciseGroupsUiState: StateFlow<ExerciseGroupsUiState> = exerciseGroupsUiState(
+    val uiState: StateFlow<ExerciseGroupsUiState> = exerciseGroupsUiState(
         interactor = interactor
     ).stateIn(
         scope = viewModelScope,

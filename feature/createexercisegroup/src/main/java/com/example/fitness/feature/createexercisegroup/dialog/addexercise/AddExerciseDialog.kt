@@ -42,7 +42,7 @@ internal fun AddExerciseDialog(
     onConfirm: (ExerciseGroupItem) -> Unit,
     viewModel: AddExerciseViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.addExerciseUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val exerciseName by viewModel.exerciseName.collectAsStateWithLifecycle()
     val exerciseSets by viewModel.exerciseSets.collectAsStateWithLifecycle()

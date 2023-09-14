@@ -3,5 +3,8 @@
     <string name="create_scheduled_event_top_navigation_bar_title">Create event</string>
     <string name="create_scheduled_event_text_input_scheduled_at_label">Scheduled at</string>
     <string name="create_scheduled_event_text_input_exercise_group_label">Exercise group</string>
+    <string name="create_scheduled_event_not_selected_category">Not selected</string>
     <string name="create_scheduled_event_confirm_button">Confirm</string>
+
+    <string name="exercise_group_selection_top_navigation_bar_title">Select group</string>
 </resources>

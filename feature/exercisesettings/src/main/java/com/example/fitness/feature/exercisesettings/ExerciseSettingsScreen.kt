@@ -28,7 +28,7 @@ internal fun ExerciseSettingsRouter(
     modifier: Modifier = Modifier,
     viewModel: ExerciseSettingsViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.exerciseSettingsUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ExerciseSettingsScreen(
         uiState = uiState,

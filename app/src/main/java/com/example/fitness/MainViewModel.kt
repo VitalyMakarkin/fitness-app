@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
 
-    val mainUiState: StateFlow<MainUiState> = mainUiState().stateIn(
+    val uiState: StateFlow<MainUiState> = mainUiState().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = MainUiState.Loading

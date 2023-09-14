@@ -107,6 +107,11 @@ class DefaultExercisesRepository @Inject constructor(
             }
     }
 
+    override fun observeExerciseGroup(id: Int): Flow<ExerciseGroup> {
+        return exerciseGroupDao.observePopulated(id)
+            .map { group -> group.mapToExerciseGroup() }
+    }
+
     override fun observeExerciseGroupsCount(): Flow<Int> {
         return exerciseGroupDao.observeAllCount()
     }

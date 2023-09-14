@@ -30,7 +30,7 @@ internal fun ExercisesHistoryRoute(
     modifier: Modifier = Modifier,
     viewModel: ExerciseHistoryViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.exerciseHistoryUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ExerciseHistoryScreen(
         uiState = uiState,

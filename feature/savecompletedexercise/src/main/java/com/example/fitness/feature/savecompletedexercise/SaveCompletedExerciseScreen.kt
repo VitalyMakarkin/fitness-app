@@ -35,7 +35,7 @@ internal fun SaveCompletedExerciseRouter(
     onBackClick: () -> Unit,
     viewModel: SaveCompletedExerciseViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.saveCompletedExerciseUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val exerciseName by viewModel.exerciseName.collectAsStateWithLifecycle()
     val exerciseCompletedAt by viewModel.exerciseCompletedAt.collectAsStateWithLifecycle()
@@ -121,7 +121,7 @@ internal fun SaveCompletedExerciseScreen(
             }
             item {
                 when (uiState) {
-                    is SaveCompletedExerciseUiState.Success -> Column {
+                    is SaveCompletedExerciseUiState.Success ->
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
@@ -142,7 +142,6 @@ internal fun SaveCompletedExerciseScreen(
                                     }
                                 }
                         )
-                    }
 
                     is SaveCompletedExerciseUiState.Loading -> {}
                 }

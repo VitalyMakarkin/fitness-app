@@ -30,6 +30,8 @@ interface ExercisesRepository {
 
     fun observeExerciseGroups(): Flow<List<ExerciseGroup>>
 
+    fun observeExerciseGroup(id: Int): Flow<ExerciseGroup>
+
     fun observeExerciseGroupsCount(): Flow<Int>
 
     suspend fun createExerciseCategory(name: String, description: String?)

@@ -15,7 +15,7 @@ class ScheduleViewModel @Inject constructor(
     private val interactor: ScheduleInteractor
 ) : ViewModel() {
 
-    val scheduleUiState: StateFlow<ScheduleUiState> = scheduleUiState(
+    val uiState: StateFlow<ScheduleUiState> = scheduleUiState(
         interactor = interactor
     ).stateIn(
         scope = viewModelScope,

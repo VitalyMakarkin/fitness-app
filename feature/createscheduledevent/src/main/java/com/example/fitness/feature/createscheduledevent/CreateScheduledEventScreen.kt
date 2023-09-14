@@ -1,5 +1,7 @@
 package com.example.fitness.feature.createscheduledevent
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
+import com.example.fitness.core.model.ExerciseGroup
+import com.example.fitness.feature.createscheduledevent.dialog.exercisegroupselection.ExerciseGroupSelectionDialog
 
 @Composable
 internal fun CreateScheduledEventRouter(
@@ -27,17 +35,18 @@ internal fun CreateScheduledEventRouter(
     onBackClick: () -> Unit,
     viewModel: CreateScheduledEventViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     val eventScheduledAt by viewModel.scheduledAt.collectAsStateWithLifecycle()
-    val eventExerciseGroupId by viewModel.exerciseGroupId.collectAsStateWithLifecycle()
 
     CreateScheduledEventScreen(
         modifier = modifier,
+        uiState = uiState,
         onBackClick = onBackClick,
         onCreate = { viewModel.createExerciseCategory() },
         eventScheduledAt = eventScheduledAt.toString(),
         onEventScheduledAtChanged = { text -> viewModel.onEventScheduledAtChanged(text) },
-        eventExerciseGroupId = eventExerciseGroupId.toString(),
-        onEventExerciseGroupChanged = { text -> viewModel.onEventExerciseGroupChanged(text) },
+        onEventExerciseGroupChanged = { group -> viewModel.changeExerciseGroup(group) },
         shouldNavigateBack = viewModel.shouldNavigateBack
     )
 }
@@ -46,14 +55,24 @@ internal fun CreateScheduledEventRouter(
 @Composable
 internal fun CreateScheduledEventScreen(
     modifier: Modifier = Modifier,
+    uiState: CreateScheduledEventUiState,
     onBackClick: () -> Unit,
     onCreate: () -> Unit,
     eventScheduledAt: String = "",
     onEventScheduledAtChanged: (String) -> Unit,
-    eventExerciseGroupId: String = "",
-    onEventExerciseGroupChanged: (String) -> Unit,
+    onEventExerciseGroupChanged: (ExerciseGroup) -> Unit,
     shouldNavigateBack: Boolean = false
 ) {
+    var showExerciseGroupSelectionDialog by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    if (showExerciseGroupSelectionDialog) {
+        ExerciseGroupSelectionDialog(
+            onDismiss = { showExerciseGroupSelectionDialog = false },
+            onExerciseGroupClicked = { group -> onEventExerciseGroupChanged(group) })
+    }
+
     LaunchedEffect(shouldNavigateBack) {
         if (shouldNavigateBack) {
             onBackClick()
@@ -85,14 +104,31 @@ internal fun CreateScheduledEventScreen(
                 )
             }
             item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = eventExerciseGroupId,
-                    onValueChange = { text -> onEventExerciseGroupChanged(text) },
-                    label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_exercise_group_label)) }
-                )
+                when (uiState) {
+                    is CreateScheduledEventUiState.Success ->
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = uiState.selectedExerciseGroup?.name
+                                ?: stringResource(R.string.create_scheduled_event_not_selected_category),
+                            onValueChange = { },
+                            label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_exercise_group_label)) },
+                            readOnly = true,
+                            interactionSource = remember { MutableInteractionSource() }
+                                .also { interactionSource ->
+                                    LaunchedEffect(interactionSource) {
+                                        interactionSource.interactions.collect {
+                                            if (it is PressInteraction.Release) {
+                                                showExerciseGroupSelectionDialog = true
+                                            }
+                                        }
+                                    }
+                                }
+                        )
+
+                    is CreateScheduledEventUiState.Loading -> {}
+                }
             }
         }
 

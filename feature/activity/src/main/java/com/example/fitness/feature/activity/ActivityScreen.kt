@@ -26,7 +26,7 @@ internal fun ActivityRoute(
     modifier: Modifier = Modifier,
     viewModel: ActivityViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.activityUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ActivityScreen(
         uiState = uiState,

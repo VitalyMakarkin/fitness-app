@@ -1,4 +1,4 @@
-package com.example.fitness.feature.createexercisegroup.dialog.exercisecategoryselection
+package com.example.fitness.feature.createscheduledevent.dialog.exercisegroupselection
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,33 +21,32 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
-import com.example.fitness.core.model.ExerciseCategory
-import com.example.fitness.feature.createexercisegroup.R
+import com.example.fitness.core.model.ExerciseGroup
+import com.example.fitness.feature.createscheduledevent.R
 
 @Composable
-internal fun ExerciseCategorySelectionDialog(
+internal fun ExerciseGroupSelectionDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    onExerciseCategoryClicked: (ExerciseCategory) -> Unit,
-    viewModel: ExerciseCategorySelectionViewModel = hiltViewModel()
+    onExerciseGroupClicked: (ExerciseGroup) -> Unit,
+    viewModel: ExerciseGroupSelectionViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ExerciseCategorySelectionDialog(
+    ExerciseGroupSelectionDialog(
         modifier = modifier,
         onDismiss = onDismiss,
-        onExerciseCategoryClicked = onExerciseCategoryClicked,
+        onExerciseGroupClicked = onExerciseGroupClicked,
         uiState = uiState
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-internal fun ExerciseCategorySelectionDialog(
+internal fun ExerciseGroupSelectionDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    onExerciseCategoryClicked: (ExerciseCategory) -> Unit,
-    uiState: ExerciseCategorySelectionUiState
+    onExerciseGroupClicked: (ExerciseGroup) -> Unit,
+    uiState: ExerciseGroupSelectionUiState
 ) {
     Dialog(
         onDismissRequest = { onDismiss() },
@@ -62,19 +60,18 @@ internal fun ExerciseCategorySelectionDialog(
             ) {
                 item {
                     TopNavigationBar(
-                        title = stringResource(R.string.category_selection_dialog_top_navigation_bar_title),
+                        title = stringResource(R.string.exercise_group_selection_top_navigation_bar_title),
                         onBackClick = { onDismiss() }
                     )
                 }
-                if (uiState is ExerciseCategorySelectionUiState.Success) {
-                    items(uiState.categories) { category ->
-                        ExerciseCategoriesListItem(
+                if (uiState is ExerciseGroupSelectionUiState.Success) {
+                    items(uiState.groups) { group ->
+                        ExerciseGroupListItem(
                             modifier = modifier.clickable {
-                                onExerciseCategoryClicked(category)
+                                onExerciseGroupClicked(group)
                                 onDismiss()
                             },
-                            name = category.name,
-                            description = category.description ?: ""
+                            name = group.name
                         )
                     }
                 }
@@ -84,10 +81,9 @@ internal fun ExerciseCategorySelectionDialog(
 }
 
 @Composable
-internal fun ExerciseCategoriesListItem(
+internal fun ExerciseGroupListItem(
     modifier: Modifier = Modifier,
     name: String = "",
-    description: String = "",
 ) {
     Column(
         modifier = modifier
@@ -99,13 +95,5 @@ internal fun ExerciseCategoriesListItem(
             fontSize = 20.sp,
             fontWeight = FontWeight(600)
         )
-
-        if (description.isNotEmpty()) {
-            Text(
-                text = description,
-                fontSize = 20.sp,
-                fontWeight = FontWeight(400)
-            )
-        }
     }
 }

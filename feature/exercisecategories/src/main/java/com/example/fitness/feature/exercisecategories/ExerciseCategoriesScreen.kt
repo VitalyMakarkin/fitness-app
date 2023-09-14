@@ -30,7 +30,7 @@ internal fun ExerciseCategoriesRouter(
     modifier: Modifier = Modifier,
     viewModel: ExerciseCategoriesViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.exerciseCategoriesUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ExerciseCategoriesScreen(
         uiState = uiState,
