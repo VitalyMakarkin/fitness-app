@@ -70,7 +70,7 @@ internal fun CreateScheduledEventScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = stringResource(R.string.top_navigation_bar_title),
+                    title = stringResource(R.string.create_scheduled_event_top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -81,7 +81,7 @@ internal fun CreateScheduledEventScreen(
                         .padding(horizontal = 16.dp),
                     value = eventScheduledAt,
                     onValueChange = { text -> onEventScheduledAtChanged(text) },
-                    label = { Text(text = stringResource(R.string.text_input_scheduled_at_label)) }
+                    label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_scheduled_at_label)) }
                 )
             }
             item {
@@ -91,7 +91,7 @@ internal fun CreateScheduledEventScreen(
                         .padding(horizontal = 16.dp),
                     value = eventExerciseGroupId,
                     onValueChange = { text -> onEventExerciseGroupChanged(text) },
-                    label = { Text(text = stringResource(R.string.text_input_exercise_group_label)) }
+                    label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_exercise_group_label)) }
                 )
             }
         }
@@ -103,7 +103,7 @@ internal fun CreateScheduledEventScreen(
             onClick = { onCreate() }
         ) {
             Text(
-                text = stringResource(R.string.confirm_button),
+                text = stringResource(R.string.create_scheduled_event_confirm_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

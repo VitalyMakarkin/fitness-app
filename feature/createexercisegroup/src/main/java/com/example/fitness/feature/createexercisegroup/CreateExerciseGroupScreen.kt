@@ -91,7 +91,7 @@ internal fun CreateExerciseGroupScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = stringResource(R.string.top_navigation_bar_title),
+                    title = stringResource(R.string.create_exercise_group_top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -102,7 +102,7 @@ internal fun CreateExerciseGroupScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryName,
                     onValueChange = { text -> onCategoryNameChanged(text) },
-                    label = { Text(text = stringResource(R.string.text_input_name_label)) }
+                    label = { Text(text = stringResource(R.string.create_exercise_group_text_input_name_label)) }
                 )
             }
             item {
@@ -117,13 +117,13 @@ internal fun CreateExerciseGroupScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = stringResource(R.string.add_exercise_button)
+                            contentDescription = stringResource(R.string.create_exercise_group_add_exercise_button)
                         )
                         Spacer(
                             modifier = modifier.width(4.dp)
                         )
                         Text(
-                            text = stringResource(R.string.add_exercise_button),
+                            text = stringResource(R.string.create_exercise_group_add_exercise_button),
                             fontSize = 20.sp,
                             fontWeight = FontWeight(600)
                         )
@@ -139,7 +139,7 @@ internal fun CreateExerciseGroupScreen(
             onClick = { onCreate() }
         ) {
             Text(
-                text = stringResource(R.string.create_group_button),
+                text = stringResource(R.string.create_exercise_group_create_group_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

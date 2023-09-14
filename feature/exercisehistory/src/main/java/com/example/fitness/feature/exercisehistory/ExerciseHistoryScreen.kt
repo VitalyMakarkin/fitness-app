@@ -57,7 +57,7 @@ internal fun ExerciseHistoryScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = stringResource(R.string.top_navigation_bar_title),
+                    title = stringResource(R.string.exercise_history_top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -88,7 +88,7 @@ internal fun ExerciseHistoryScreen(
             onClick = { onSaveCompletedExerciseClick() }
         ) {
             Text(
-                text = stringResource(R.string.add_button),
+                text = stringResource(R.string.exercise_history_add_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

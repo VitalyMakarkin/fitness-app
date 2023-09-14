@@ -57,21 +57,21 @@ internal fun ExerciseSettingsScreen(
         ) {
             item {
                 ExerciseSettingTile(
-                    title = stringResource(R.string.exercise_completed_tile),
+                    title = stringResource(R.string.exercise_settings_exercise_completed_tile),
                     subtitle = uiState.activitiesCount.toString(),
                     onClick = { onExerciseHistoryClick() }
                 )
             }
             item {
                 ExerciseSettingTile(
-                    title = stringResource(R.string.exercise_categories_tile),
+                    title = stringResource(R.string.exercise_settings_exercise_categories_tile),
                     subtitle = uiState.exerciseCategoriesCount.toString(),
                     onClick = { onExerciseCategoriesClick() }
                 )
             }
             item {
                 ExerciseSettingTile(
-                    title = stringResource(R.string.exercise_groups_tile),
+                    title = stringResource(R.string.exercise_settings_exercise_groups_tile),
                     subtitle = uiState.exerciseGroupsCount.toString(),
                     onClick = { onExerciseGroupsClick() }
                 )

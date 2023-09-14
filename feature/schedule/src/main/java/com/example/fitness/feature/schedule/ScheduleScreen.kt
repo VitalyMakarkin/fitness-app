@@ -71,7 +71,7 @@ internal fun ScheduleScreen(
             onClick = { onCreateScheduledEventClick() }
         ) {
             Text(
-                text = stringResource(R.string.add_event_button),
+                text = stringResource(R.string.schedule_add_event_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

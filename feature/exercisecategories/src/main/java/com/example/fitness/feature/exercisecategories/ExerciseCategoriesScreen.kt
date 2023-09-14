@@ -59,7 +59,7 @@ internal fun ExerciseCategoriesScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = stringResource(R.string.top_navigation_bar_title),
+                    title = stringResource(R.string.exercise_categories_top_navigation_bar_title),
                     onBackClick = onBackClick,
                     menuVisibility = true,
                     onMenuClick = onUpdate
@@ -92,7 +92,7 @@ internal fun ExerciseCategoriesScreen(
             onClick = { onNewExerciseCategoryCreateClick() }
         ) {
             Text(
-                text = stringResource(R.string.add_category_button),
+                text = stringResource(R.string.exercise_categories_add_category_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

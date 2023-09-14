@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="top_navigation_bar_title">New exercise group</string>
-    <string name="text_input_name_label">Name</string>
-    <string name="add_exercise_button">Add exercise</string>
-    <string name="create_group_button">Create</string>
+    <string name="create_exercise_group_top_navigation_bar_title">New exercise group</string>
+    <string name="create_exercise_group_text_input_name_label">Name</string>
+    <string name="create_exercise_group_add_exercise_button">Add exercise</string>
+    <string name="create_exercise_group_create_group_button">Create</string>
 
     <string name="add_exercise_dialog_top_navigation_bar_title">Add exercise</string>
     <string name="add_exercise_dialog_category_not_selected">Not selected</string>

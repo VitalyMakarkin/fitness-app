@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="top_navigation_bar_title">New completed exercise</string>
-    <string name="not_selected_category">Not selected</string>
-    <string name="text_input_category_label">Category</string>
-    <string name="text_input_name_label">Name</string>
-    <string name="text_input_completed_at_label">Completed at</string>
-    <string name="text_input_sets_label">Sets</string>
-    <string name="text_input_reps_label">Reps</string>
-    <string name="text_input_duration_label">Duration</string>
-    <string name="text_input_score_label">Score</string>
-    <string name="save_button">Save</string>
+    <string name="save_completed_exercise_top_navigation_bar_title">New completed exercise</string>
+    <string name="save_completed_exercise_not_selected_category">Not selected</string>
+    <string name="save_completed_exercise_text_input_category_label">Category</string>
+    <string name="save_completed_exercise_text_input_name_label">Name</string>
+    <string name="save_completed_exercise_text_input_completed_at_label">Completed at</string>
+    <string name="save_completed_exercise_text_input_sets_label">Sets</string>
+    <string name="save_completed_exercise_text_input_reps_label">Reps</string>
+    <string name="save_completed_exercise_text_input_duration_label">Duration</string>
+    <string name="save_completed_exercise_text_input_score_label">Score</string>
+    <string name="save_completed_exercise_save_button">Save</string>
 
     <string name="category_selection_top_navigation_bar_title">Select category</string>
 </resources>

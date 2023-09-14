@@ -70,7 +70,7 @@ internal fun CreateExerciseCategoryScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = stringResource(R.string.top_navigation_bar_title),
+                    title = stringResource(R.string.create_exercise_category_top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -81,7 +81,7 @@ internal fun CreateExerciseCategoryScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryName,
                     onValueChange = { text -> onCategoryNameChanged(text) },
-                    label = { Text(text = stringResource(R.string.text_input_name_label)) }
+                    label = { Text(text = stringResource(R.string.create_exercise_category_text_input_name_label)) }
                 )
             }
             item {
@@ -91,7 +91,7 @@ internal fun CreateExerciseCategoryScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryDescription,
                     onValueChange = { text -> onCategoryDescriptionChanged(text) },
-                    label = { Text(text = stringResource(R.string.text_input_description_label)) }
+                    label = { Text(text = stringResource(R.string.create_exercise_category_text_input_description_label)) }
                 )
             }
         }
@@ -103,7 +103,7 @@ internal fun CreateExerciseCategoryScreen(
             onClick = { onCreate() }
         ) {
             Text(
-                text = stringResource(R.string.create_button),
+                text = stringResource(R.string.create_exercise_category_create_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

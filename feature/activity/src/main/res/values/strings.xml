@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="activities_tile">Activities</string>
-    <string name="activities_tile_content">%d exercises completed for all time</string>
-    <string name="add_activity_button">Add activity</string>
+    <string name="activity_activities_tile">Activities</string>
+    <string name="activity_activities_tile_content">%d exercises completed for all time</string>
+    <string name="activity_add_activity_button">Add activity</string>
 </resources>

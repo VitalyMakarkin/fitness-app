@@ -56,8 +56,8 @@ internal fun ActivityScreen(
                     }
                     item {
                         ActionTile(
-                            title = stringResource(R.string.activities_tile),
-                            subtitle = stringResource(R.string.activities_tile_content).format(
+                            title = stringResource(R.string.activity_activities_tile),
+                            subtitle = stringResource(R.string.activity_activities_tile_content).format(
                                 uiState.activitiesCount
                             )
                         )
@@ -81,7 +81,7 @@ internal fun ActivityScreen(
             onClick = { onSaveCompletedExerciseClick() }
         ) {
             Text(
-                text = stringResource(R.string.add_activity_button),
+                text = stringResource(R.string.activity_add_activity_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

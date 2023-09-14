@@ -57,7 +57,7 @@ internal fun ExerciseGroupsScreen(
         ) {
             item {
                 TopNavigationBar(
-                    title = stringResource(R.string.top_navigation_bar_title),
+                    title = stringResource(R.string.exercise_groups_top_navigation_bar_title),
                     onBackClick = onBackClick
                 )
             }
@@ -90,7 +90,7 @@ internal fun ExerciseGroupsScreen(
             onClick = { onNewExerciseGroupCreateClick() }
         ) {
             Text(
-                text = stringResource(R.string.add_group_button),
+                text = stringResource(R.string.exercise_groups_add_group_button),
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )

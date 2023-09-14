@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="top_navigation_bar_title">New exercise category</string>
-    <string name="text_input_name_label">Name</string>
-    <string name="text_input_description_label">Description</string>
-    <string name="create_button">Create</string>
+    <string name="create_exercise_category_top_navigation_bar_title">New exercise category</string>
+    <string name="create_exercise_category_text_input_name_label">Name</string>
+    <string name="create_exercise_category_text_input_description_label">Description</string>
+    <string name="create_exercise_category_create_button">Create</string>
 </resources>
