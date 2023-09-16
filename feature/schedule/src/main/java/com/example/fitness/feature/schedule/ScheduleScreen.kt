@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.feature.schedule.model.ScheduledEventUI
 
 @Composable
 internal fun ScheduleRoute(
@@ -53,6 +56,14 @@ internal fun ScheduleScreen(
                     item {
                         Spacer(modifier = modifier.height(16.dp))
                     }
+
+                    items(uiState.events) { event ->
+                        ScheduledEventTile(
+                            modifier = modifier,
+                            event = event
+                        )
+                        Spacer(modifier = modifier.height(12.dp))
+                    }
                 }
 
                 is ScheduleUiState.Loading ->
@@ -76,5 +87,33 @@ internal fun ScheduleScreen(
                 fontWeight = FontWeight(600)
             )
         }
+    }
+}
+
+@Composable
+internal fun ScheduledEventTile(
+    modifier: Modifier = Modifier,
+    event: ScheduledEventUI
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+    ) {
+        Text(
+            modifier = modifier
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight(800),
+            text = event.exerciseGroupName
+        )
+
+        Text(
+            modifier = modifier
+                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400),
+            text = event.scheduledAt.toString()
+        )
     }
 }
