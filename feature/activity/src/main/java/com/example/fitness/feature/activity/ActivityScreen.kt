@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,53 +23,64 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 internal fun ActivityRoute(
-    onSaveCompletedExerciseClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ActivityViewModel = hiltViewModel()
+    onSaveCompletedExerciseClick: () -> Unit,
+    onExerciseHistoryClick: () -> Unit,
+    viewModel: ActivityViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ActivityScreen(
+        modifier = modifier,
         uiState = uiState,
         onSaveCompletedExerciseClick = onSaveCompletedExerciseClick,
-        modifier = modifier
+        onExerciseHistoryClick = onExerciseHistoryClick,
     )
 }
 
 @Composable
 internal fun ActivityScreen(
+    modifier: Modifier = Modifier,
     uiState: ActivityUiState,
     onSaveCompletedExerciseClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onExerciseHistoryClick: () -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
-                .weight(1f)
+                .weight(1f),
         ) {
             when (uiState) {
                 is ActivityUiState.Success -> {
                     item {
-                        Spacer(modifier = modifier.height(16.dp))
+                        Spacer(
+                            modifier = modifier
+                                .height(16.dp),
+                        )
                     }
                     item {
                         ActionTile(
                             title = stringResource(R.string.activity_activities_tile),
                             subtitle = stringResource(R.string.activity_activities_tile_content).format(
                                 uiState.activitiesCount
-                            )
+                            ),
+                            onTileClick = onExerciseHistoryClick,
                         )
-                        Spacer(modifier = modifier.height(12.dp))
+                        Spacer(
+                            modifier = modifier
+                                .height(12.dp),
+                        )
                     }
                 }
 
                 is ActivityUiState.Loading ->
                     item {
-                        Text(
-                            text = "Loading!"
+                        Spacer(
+                            modifier = modifier
+                                .height(16.dp),
                         )
                     }
             }
@@ -78,20 +90,22 @@ internal fun ActivityScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            onClick = { onSaveCompletedExerciseClick() }
+            onClick = { onSaveCompletedExerciseClick() },
         ) {
             Text(
                 text = stringResource(R.string.activity_add_activity_button),
                 fontSize = 20.sp,
-                fontWeight = FontWeight(600)
+                fontWeight = FontWeight(600),
             )
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ActionTile(
     modifier: Modifier = Modifier,
+    onTileClick: () -> Unit,
     title: String = "",
     subtitle: String = "",
 ) {
@@ -99,6 +113,7 @@ internal fun ActionTile(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
+        onClick = { onTileClick() }
     ) {
         Text(
             modifier = modifier

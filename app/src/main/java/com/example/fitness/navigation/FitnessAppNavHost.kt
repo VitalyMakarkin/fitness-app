@@ -27,16 +27,17 @@ import com.example.fitness.feature.schedule.navigation.scheduleScreen
 fun FitnessAppNavHost(
     appState: FitnessAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = activityRoute
+    startDestination: String = activityRoute,
 ) {
     val navController = appState.navHostController
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
     ) {
         activityScreen(
-            onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() }
+            onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() },
+            onExerciseHistoryClick = { navController.navigateToExerciseHistory() },
         )
         scheduleScreen(
             onCreateScheduledEventClick = { navController.navigateToCreateScheduledEvent() },
@@ -44,7 +45,7 @@ fun FitnessAppNavHost(
                 createScheduledEventScreen(
                     onBackClick = { navController.popBackStack() },
                 )
-            }
+            },
         )
         exerciseSettingsScreen(
             onExerciseHistoryClick = { navController.navigateToExerciseHistory() },
@@ -53,26 +54,26 @@ fun FitnessAppNavHost(
             nestedScreens = {
                 exerciseHistoryScreen(
                     onBackClick = { navController.popBackStack() },
-                    onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() }
+                    onSaveCompletedExerciseClick = { navController.navigateToSaveCompletedExercise() },
                 )
                 exerciseCategoriesScreen(
                     onBackClick = { navController.popBackStack() },
-                    onNewExerciseCategoryCreateClick = { navController.navigateToCreateExerciseCategory() }
+                    onNewExerciseCategoryCreateClick = { navController.navigateToCreateExerciseCategory() },
                 )
                 exerciseGroupsScreen(
                     onBackClick = { navController.popBackStack() },
-                    onNewExerciseGroupCreateClick = { navController.navigateToCreateExerciseGroup() }
+                    onNewExerciseGroupCreateClick = { navController.navigateToCreateExerciseGroup() },
                 )
                 createExerciseCategoryScreen(
                     onBackClick = { navController.popBackStack() },
                 )
                 createExerciseGroupScreen(
-                    onBackClick = { navController.popBackStack() }
+                    onBackClick = { navController.popBackStack() },
                 )
                 saveCompletedExerciseScreen(
                     onBackClick = { navController.popBackStack() },
                 )
-            }
+            },
         )
     }
 }

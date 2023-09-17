@@ -12,13 +12,15 @@ fun NavController.navigateToActivity() {
 }
 
 fun NavGraphBuilder.activityScreen(
-    onSaveCompletedExerciseClick: () -> Unit
+    onSaveCompletedExerciseClick: () -> Unit,
+    onExerciseHistoryClick: () -> Unit,
 ) {
     composable(
-        route = activityRoute
+        route = activityRoute,
     ) {
         ActivityRoute(
-            onSaveCompletedExerciseClick = onSaveCompletedExerciseClick
+            onSaveCompletedExerciseClick = onSaveCompletedExerciseClick,
+            onExerciseHistoryClick = onExerciseHistoryClick,
         )
     }
 }
