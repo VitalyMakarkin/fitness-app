@@ -44,7 +44,7 @@ internal fun CreateScheduledEventRouter(
         uiState = uiState,
         onBackClick = onBackClick,
         onCreate = { viewModel.createExerciseCategory() },
-        onEventScheduledAtChanged = { text -> viewModel.onEventScheduledAtChanged(text) },
+        onEventScheduledAtChanged = { value -> viewModel.onEventScheduledAtChanged(value) },
         onEventExerciseGroupChanged = { group -> viewModel.changeExerciseGroup(group) },
         shouldNavigateBack = viewModel.shouldNavigateBack
     )
@@ -56,7 +56,7 @@ internal fun CreateScheduledEventScreen(
     uiState: CreateScheduledEventUiState,
     onBackClick: () -> Unit,
     onCreate: () -> Unit,
-    onEventScheduledAtChanged: (String) -> Unit,
+    onEventScheduledAtChanged: (Long) -> Unit,
     onEventExerciseGroupChanged: (ExerciseGroup) -> Unit,
     shouldNavigateBack: Boolean = false
 ) {
@@ -70,7 +70,6 @@ internal fun CreateScheduledEventScreen(
             onExerciseGroupClicked = { group -> onEventExerciseGroupChanged(group) })
     }
 
-
     var showDatePicker by rememberSaveable {
         mutableStateOf(false)
     }
@@ -80,7 +79,7 @@ internal fun CreateScheduledEventScreen(
             modifier = modifier,
             initialDateInMillis = System.currentTimeMillis(),
             onDismiss = { showDatePicker = false },
-            onConfirm = { selectedDate -> onEventScheduledAtChanged(selectedDate.toString()) }
+            onConfirm = { selectedDate -> onEventScheduledAtChanged(selectedDate) }
         )
     }
 

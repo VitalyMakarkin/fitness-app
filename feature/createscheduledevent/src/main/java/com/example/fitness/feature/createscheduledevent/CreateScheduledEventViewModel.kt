@@ -61,13 +61,18 @@ class CreateScheduledEventViewModel @Inject constructor(
                             )
                         }
                 } else {
-                    flowOf(CreateScheduledEventUiState.Success(newScheduledAt, null))
+                    flowOf(
+                        CreateScheduledEventUiState.Success(
+                            selectedScheduledAt = newScheduledAt,
+                            selectedExerciseGroup = null
+                        )
+                    )
                 }
             }
     }
 
-    fun onEventScheduledAtChanged(text: String) {
-        savedStateHandle[EVENT_SCHEDULED_AT] = text.toLong()
+    fun onEventScheduledAtChanged(value: Long) {
+        savedStateHandle[EVENT_SCHEDULED_AT] = value
     }
 
     fun changeExerciseGroup(group: ExerciseGroup) {

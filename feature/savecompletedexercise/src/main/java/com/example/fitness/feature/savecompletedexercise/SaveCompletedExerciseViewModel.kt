@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -35,7 +36,6 @@ class SaveCompletedExerciseViewModel @Inject constructor(
 ) : ViewModel() {
 
     val exerciseName = savedStateHandle.getStateFlow(EXERCISE_NAME, "")
-    val exerciseCompletedAt = savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, 0L)
     val exerciseSets = savedStateHandle.getStateFlow(EXERCISE_SETS, 0)
     val exerciseReps = savedStateHandle.getStateFlow(EXERCISE_REPS, 0)
     val exerciseDuration = savedStateHandle.getStateFlow(EXERCISE_DURATION, 0L)
@@ -54,12 +54,31 @@ class SaveCompletedExerciseViewModel @Inject constructor(
 
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
         return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1)
-            .flatMapLatest { categoryId ->
+            .combine(
+                savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, -1L)
+            ) { categoryId, completedAt ->
+                Pair(categoryId, completedAt)
+            }
+            .flatMapLatest { (categoryId, completedAt) ->
+                val newCompletedAt = when (completedAt) {
+                    -1L -> System.currentTimeMillis()
+                    else -> completedAt
+                }
                 if (categoryId != -1) {
                     interactor.observeExerciseCategory(categoryId)
-                        .map { category -> SaveCompletedExerciseUiState.Success(category) }
+                        .map { category ->
+                            SaveCompletedExerciseUiState.Success(
+                                selectedExerciseCategory = category,
+                                selectedCompletedAt = newCompletedAt
+                            )
+                        }
                 } else {
-                    flowOf(SaveCompletedExerciseUiState.Success(null))
+                    flowOf(
+                        SaveCompletedExerciseUiState.Success(
+                            selectedExerciseCategory = null,
+                            selectedCompletedAt = newCompletedAt
+                        )
+                    )
                 }
             }
     }
@@ -72,8 +91,8 @@ class SaveCompletedExerciseViewModel @Inject constructor(
         savedStateHandle[EXERCISE_NAME] = text
     }
 
-    fun onExerciseCompletedAtChanged(text: String) {
-        savedStateHandle[EXERCISE_COMPLETED_AT] = text.toLong()
+    fun onExerciseCompletedAtChanged(value: Long) {
+        savedStateHandle[EXERCISE_COMPLETED_AT] = value
     }
 
     fun onExerciseSetsChanged(text: String) {

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,9 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.design.component.DatePickerDialog
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.feature.savecompletedexercise.dialog.exercisecategoryselection.ExerciseCategorySelectionDialog
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 internal fun SaveCompletedExerciseRouter(
@@ -38,7 +40,6 @@ internal fun SaveCompletedExerciseRouter(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val exerciseName by viewModel.exerciseName.collectAsStateWithLifecycle()
-    val exerciseCompletedAt by viewModel.exerciseCompletedAt.collectAsStateWithLifecycle()
     val exerciseSets by viewModel.exerciseSets.collectAsStateWithLifecycle()
     val exerciseReps by viewModel.exerciseReps.collectAsStateWithLifecycle()
     val exerciseDuration by viewModel.exerciseDuration.collectAsStateWithLifecycle()
@@ -51,8 +52,7 @@ internal fun SaveCompletedExerciseRouter(
         onExerciseCategoryChanged = { category -> viewModel.changeExerciseCategory(category) },
         exerciseName = exerciseName,
         onExerciseNameChanged = { text -> viewModel.onExerciseNameChanged(text) },
-        exerciseCompletedAt = exerciseCompletedAt.toString(),
-        onExerciseCompletedAtChanged = { text -> viewModel.onExerciseCompletedAtChanged(text) },
+        onExerciseCompletedAtChanged = { value -> viewModel.onExerciseCompletedAtChanged(value) },
         exerciseSets = exerciseSets.toString(),
         onExerciseSetsChanged = { text -> viewModel.onExerciseSetsChanged(text) },
         exerciseReps = exerciseReps.toString(),
@@ -66,7 +66,6 @@ internal fun SaveCompletedExerciseRouter(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SaveCompletedExerciseScreen(
     modifier: Modifier = Modifier,
@@ -75,8 +74,7 @@ internal fun SaveCompletedExerciseScreen(
     onExerciseCategoryChanged: (ExerciseCategory) -> Unit,
     exerciseName: String = "",
     onExerciseNameChanged: (String) -> Unit,
-    exerciseCompletedAt: String = "",
-    onExerciseCompletedAtChanged: (String) -> Unit,
+    onExerciseCompletedAtChanged: (Long) -> Unit,
     exerciseSets: String = "",
     onExerciseSetsChanged: (String) -> Unit,
     exerciseReps: String = "",
@@ -96,6 +94,19 @@ internal fun SaveCompletedExerciseScreen(
         ExerciseCategorySelectionDialog(
             onDismiss = { showExerciseCategorySelectionDialog = false },
             onExerciseCategoryClicked = { category -> onExerciseCategoryChanged(category) }
+        )
+    }
+
+    var showDatePicker by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    if (showDatePicker) {
+        DatePickerDialog(
+            modifier = modifier,
+            initialDateInMillis = System.currentTimeMillis(),
+            onDismiss = { showDatePicker = false },
+            onConfirm = { selectedDate -> onExerciseCompletedAtChanged(selectedDate) }
         )
     }
 
@@ -119,9 +130,9 @@ internal fun SaveCompletedExerciseScreen(
                     onBackClick = onBackClick
                 )
             }
-            item {
-                when (uiState) {
-                    is SaveCompletedExerciseUiState.Success ->
+            when (uiState) {
+                is SaveCompletedExerciseUiState.Success -> {
+                    item {
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
@@ -142,69 +153,81 @@ internal fun SaveCompletedExerciseScreen(
                                     }
                                 }
                         )
-
-                    is SaveCompletedExerciseUiState.Loading -> {}
+                    }
+                    item {
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = exerciseName,
+                            onValueChange = { text -> onExerciseNameChanged(text) },
+                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_name_label)) }
+                        )
+                    }
+                    item {
+                        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.ROOT)
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = formatter.format(uiState.selectedCompletedAt),
+                            onValueChange = { },
+                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_completed_at_label)) },
+                            readOnly = true,
+                            interactionSource = remember { MutableInteractionSource() }
+                                .also { interactionSource ->
+                                    LaunchedEffect(interactionSource) {
+                                        interactionSource.interactions.collect {
+                                            if (it is PressInteraction.Release) {
+                                                showDatePicker = true
+                                            }
+                                        }
+                                    }
+                                }
+                        )
+                    }
+                    item {
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = exerciseSets,
+                            onValueChange = { text -> onExerciseSetsChanged(text) },
+                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_sets_label)) }
+                        )
+                    }
+                    item {
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = exerciseReps,
+                            onValueChange = { text -> onExerciseRepsChanged(text) },
+                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_reps_label)) }
+                        )
+                    }
+                    item {
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = exerciseDuration,
+                            onValueChange = { text -> onExerciseDurationChanged(text) },
+                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_duration_label)) }
+                        )
+                    }
+                    item {
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = exerciseScore,
+                            onValueChange = { text -> onExerciseScoreChanged(text) },
+                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_score_label)) }
+                        )
+                    }
                 }
-            }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = exerciseName,
-                    onValueChange = { text -> onExerciseNameChanged(text) },
-                    label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_name_label)) }
-                )
-            }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = exerciseCompletedAt,
-                    onValueChange = { text -> onExerciseCompletedAtChanged(text) },
-                    label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_completed_at_label)) }
-                )
-            }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = exerciseSets,
-                    onValueChange = { text -> onExerciseSetsChanged(text) },
-                    label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_sets_label)) }
-                )
-            }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = exerciseReps,
-                    onValueChange = { text -> onExerciseRepsChanged(text) },
-                    label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_reps_label)) }
-                )
-            }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = exerciseDuration,
-                    onValueChange = { text -> onExerciseDurationChanged(text) },
-                    label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_duration_label)) }
-                )
-            }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = exerciseScore,
-                    onValueChange = { text -> onExerciseScoreChanged(text) },
-                    label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_score_label)) }
-                )
+                is SaveCompletedExerciseUiState.Loading -> {}
             }
         }
 
