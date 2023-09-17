@@ -26,16 +26,16 @@ data class ExerciseGroupItemEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
-    val id: Int,
+    val id: Long,
 
     @ColumnInfo(name = COLUMN_NAME)
     val name: String,
 
     @ColumnInfo(name = COLUMN_EXERCISE_GROUP_ID)
-    val exerciseGroupId: Int,
+    val exerciseGroupId: Long,
 
     @ColumnInfo(name = COLUMN_EXERCISE_CATEGORY_ID)
-    val exerciseCategoryId: Int,
+    val exerciseCategoryId: Long,
 
     @ColumnInfo(name = COLUMN_SETS)
     val sets: Int?,

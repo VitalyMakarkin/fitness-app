@@ -11,13 +11,13 @@ data class ScheduledExerciseEventEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
-    val id: Int,
+    val id: Long,
 
     @ColumnInfo(name = COLUMN_SCHEDULED_AT)
     val scheduledAt: Long,
 
     @ColumnInfo(name = COLUMN_EXERCISE_GROUP_ID)
-    val exerciseGroupId: Int
+    val exerciseGroupId: Long
 ) {
 
     companion object {

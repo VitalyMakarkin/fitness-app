@@ -11,7 +11,7 @@ data class ExerciseCategoryEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
-    val id: Int,
+    val id: Long,
 
     @ColumnInfo(name = COLUMN_NAME)
     val name: String,

@@ -14,19 +14,19 @@ interface ExerciseCategoryDao {
     fun insert(category: ExerciseCategoryEntity)
 
     @Query("SELECT * FROM exercise_categories WHERE id = :id")
-    fun get(id: Int): ExerciseCategoryEntity
+    fun get(id: Long): ExerciseCategoryEntity
 
     @Query("SELECT * FROM exercise_categories")
     fun observeAll(): Flow<List<ExerciseCategoryEntity>>
 
     @Query("SELECT * FROM exercise_categories WHERE id = :id")
-    fun observe(id: Int): Flow<ExerciseCategoryEntity>
+    fun observe(id: Long): Flow<ExerciseCategoryEntity>
 
     @Query("SELECT COUNT(*) FROM exercise_categories")
     fun observeAllCount(): Flow<Int>
 
     @Query("DELETE FROM exercise_categories WHERE id = :id")
-    fun delete(id: Int)
+    fun delete(id: Long)
 
     @Query("DELETE FROM exercise_categories")
     fun deleteAll()

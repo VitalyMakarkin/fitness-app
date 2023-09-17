@@ -3,7 +3,7 @@ package com.example.fitness.feature.exercisegroups.model
 import com.example.fitness.core.model.ExerciseGroup
 
 data class ExerciseGroupUI(
-    val id: Int,
+    val id: Long,
     val name: String,
     val exerciseCount: Int
 )

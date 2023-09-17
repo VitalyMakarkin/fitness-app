@@ -3,7 +3,7 @@ package com.example.fitness.feature.exercisecategories.model
 import com.example.fitness.core.model.ExerciseCategory
 
 data class ExerciseCategoryUI(
-    val id: Int,
+    val id: Long,
     val name: String,
     val description: String?
 )

@@ -1,7 +1,7 @@
 package com.example.fitness.core.model
 
 data class ExerciseCategory(
-    val id: Int,
+    val id: Long,
     val name: String,
     val description: String?
 )

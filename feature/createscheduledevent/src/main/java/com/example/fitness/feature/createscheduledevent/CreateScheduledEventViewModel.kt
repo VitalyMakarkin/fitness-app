@@ -43,7 +43,7 @@ class CreateScheduledEventViewModel @Inject constructor(
     private fun createScheduledEventUiState(interactor: CreateScheduledEventInteractor): Flow<CreateScheduledEventUiState> {
         return savedStateHandle.getStateFlow(EVENT_SCHEDULED_AT, -1L)
             .combine(
-                savedStateHandle.getStateFlow(EVENT_EXERCISE_GROUP_ID, -1)
+                savedStateHandle.getStateFlow(EVENT_EXERCISE_GROUP_ID, -1L)
             ) { scheduledAt, groupId ->
                 Pair(scheduledAt, groupId)
             }
@@ -52,7 +52,7 @@ class CreateScheduledEventViewModel @Inject constructor(
                     -1L -> System.currentTimeMillis()
                     else -> scheduledAt
                 }
-                if (groupId != -1) {
+                if (groupId != -1L) {
                     interactor.observeExerciseGroup(groupId)
                         .map { group ->
                             CreateScheduledEventUiState.Success(
@@ -82,7 +82,7 @@ class CreateScheduledEventViewModel @Inject constructor(
     fun createExerciseCategory() {
         viewModelScope.launch {
             val eventScheduledAt = savedStateHandle.get<Long>(EVENT_SCHEDULED_AT) ?: 0L
-            val eventExerciseGroupId = savedStateHandle.get<Int>(EVENT_EXERCISE_GROUP_ID) ?: 0
+            val eventExerciseGroupId = savedStateHandle.get<Long>(EVENT_EXERCISE_GROUP_ID) ?: 0L
 
             interactor.createScheduledEvent(
                 scheduledAt = eventScheduledAt,

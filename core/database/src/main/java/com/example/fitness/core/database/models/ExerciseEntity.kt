@@ -11,13 +11,13 @@ data class ExerciseEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
-    val id: Int,
+    val id: Long,
 
     @ColumnInfo(name = COLUMN_NAME)
     val name: String,
 
     @ColumnInfo(name = COLUMN_EXERCISE_CATEGORY_ID)
-    val exerciseCategoryId: Int,
+    val exerciseCategoryId: Long,
 
     @ColumnInfo(name = COLUMN_CREATED_AT)
     val createdAt: Long,

@@ -17,14 +17,14 @@ interface ScheduledExerciseEventDao {
 
     @Transaction
     @Query("SELECT * FROM scheduled_exercise_events WHERE id = :id")
-    fun get(id: Int): PopulatedScheduledExerciseEvent
+    fun get(id: Long): PopulatedScheduledExerciseEvent
 
     @Transaction
     @Query("SELECT * FROM scheduled_exercise_events ORDER BY scheduled_at ASC")
     fun observeAll(): Flow<List<PopulatedScheduledExerciseEvent>>
 
     @Query("DELETE FROM scheduled_exercise_events WHERE id = :id")
-    fun delete(id: Int)
+    fun delete(id: Long)
 
     @Query("DELETE FROM scheduled_exercise_events")
     fun deleteAll()

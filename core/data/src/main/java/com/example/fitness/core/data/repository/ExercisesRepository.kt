@@ -11,7 +11,7 @@ interface ExercisesRepository {
 
     suspend fun addExercise(exercise: Exercise)
 
-    suspend fun getExercise(id: Int): Exercise
+    suspend fun getExercise(id: Long): Exercise
 
     fun observeExercises(): Flow<List<Exercise>>
 
@@ -21,7 +21,7 @@ interface ExercisesRepository {
 
     fun observeExerciseCategories(): Flow<List<ExerciseCategory>>
 
-    fun observeExerciseCategory(id: Int): Flow<ExerciseCategory>
+    fun observeExerciseCategory(id: Long): Flow<ExerciseCategory>
 
     fun observeExerciseCategoriesCount(): Flow<Int>
 
@@ -31,7 +31,7 @@ interface ExercisesRepository {
 
     fun observeExerciseGroups(): Flow<List<ExerciseGroup>>
 
-    fun observeExerciseGroup(id: Int): Flow<ExerciseGroup>
+    fun observeExerciseGroup(id: Long): Flow<ExerciseGroup>
 
     fun observeExerciseGroupsCount(): Flow<Int>
 
@@ -39,11 +39,11 @@ interface ExercisesRepository {
 
     suspend fun createExerciseGroup(name: String, exercises: List<ExerciseGroupItem>)
 
-    suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int)
+    suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Long)
 
     suspend fun saveCompletedExercise(
         name: String,
-        exerciseCategoryId: Int,
+        exerciseCategoryId: Long,
         createdAt: Long,
         completedAt: Long,
         sets: Int? = null,

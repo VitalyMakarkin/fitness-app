@@ -18,7 +18,7 @@ class CreateExerciseGroupInteractor @Inject constructor(
         return exercisesRepository.observeExerciseCategories()
     }
 
-    fun observeExerciseCategory(id: Int): Flow<ExerciseCategory> {
+    fun observeExerciseCategory(id: Long): Flow<ExerciseCategory> {
         return exercisesRepository.observeExerciseCategory(id)
     }
 }

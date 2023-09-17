@@ -50,9 +50,9 @@ class AddExerciseViewModel @Inject constructor(
     var shouldNavigateBack by mutableStateOf(false)
 
     private fun addExerciseUiState(interactor: CreateExerciseGroupInteractor): Flow<AddExerciseUiState> {
-        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1)
+        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1L)
             .flatMapLatest { categoryId ->
-                if (categoryId != -1) {
+                if (categoryId != -1L) {
                     interactor.observeExerciseCategory(categoryId)
                         .map { category -> AddExerciseUiState.Success(category) }
                 } else {
@@ -83,7 +83,7 @@ class AddExerciseViewModel @Inject constructor(
 
     fun getConfirmedNewExercise(): ExerciseGroupItem {
         val exerciseName = savedStateHandle.get<String>(EXERCISE_NAME) ?: ""
-        val exerciseCategoryId = savedStateHandle.get<Int>(EXERCISE_CATEGORY_ID) ?: -1
+        val exerciseCategoryId = savedStateHandle.get<Long>(EXERCISE_CATEGORY_ID) ?: -1L
         val exerciseSets = savedStateHandle.get<Int>(EXERCISE_SETS)
         val exerciseReps = savedStateHandle.get<Int>(EXERCISE_REPS)
         val exerciseDuration = savedStateHandle.get<Long>(EXERCISE_DURATION)

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 interface ExerciseGroupDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(group: ExerciseGroupEntity)
+    fun insert(group: ExerciseGroupEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllItems(items: List<ExerciseGroupItemEntity>)
@@ -25,14 +25,14 @@ interface ExerciseGroupDao {
 
     @Transaction
     @Query("SELECT * FROM exercise_groups WHERE id = :id")
-    fun observePopulated(id: Int): Flow<PopulatedExerciseGroup>
+    fun observePopulated(id: Long): Flow<PopulatedExerciseGroup>
 
     @Query("SELECT COUNT(*) FROM exercise_groups")
     fun observeAllCount(): Flow<Int>
 
     @Query("DELETE FROM exercise_groups WHERE id = :id")
-    fun delete(id: Int)
+    fun delete(id: Long)
 
     @Query("DELETE FROM exercise_group_items WHERE id = :id")
-    fun deleteItem(id: Int)
+    fun deleteItem(id: Long)
 }

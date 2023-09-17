@@ -3,7 +3,7 @@ package com.example.fitness.feature.schedule.model
 import com.example.fitness.core.model.ScheduledExerciseEvent
 
 data class ScheduledEventUI(
-    val id: Int,
+    val id: Long,
     val scheduledAt: Long,
     val exerciseGroupName: String
 )

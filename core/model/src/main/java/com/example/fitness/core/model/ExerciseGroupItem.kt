@@ -1,9 +1,9 @@
 package com.example.fitness.core.model
 
 data class ExerciseGroupItem(
-    val id: Int,
+    val id: Long,
     val name: String,
-    val exerciseCategoryId: Int,
+    val exerciseCategoryId: Long,
     val sets: Int?,
     val reps: Int?,
     val duration: Long?

@@ -53,7 +53,7 @@ class SaveCompletedExerciseViewModel @Inject constructor(
     var shouldNavigateBack by mutableStateOf(false)
 
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
-        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1)
+        return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1L)
             .combine(
                 savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, -1L)
             ) { categoryId, completedAt ->
@@ -64,7 +64,7 @@ class SaveCompletedExerciseViewModel @Inject constructor(
                     -1L -> System.currentTimeMillis()
                     else -> completedAt
                 }
-                if (categoryId != -1) {
+                if (categoryId != -1L) {
                     interactor.observeExerciseCategory(categoryId)
                         .map { category ->
                             SaveCompletedExerciseUiState.Success(
@@ -115,7 +115,7 @@ class SaveCompletedExerciseViewModel @Inject constructor(
         viewModelScope.launch {
 
             val exerciseName = savedStateHandle.get<String>(EXERCISE_NAME) ?: ""
-            val exerciseCategoryId = savedStateHandle.get<Int>(EXERCISE_CATEGORY_ID) ?: 0
+            val exerciseCategoryId = savedStateHandle.get<Long>(EXERCISE_CATEGORY_ID) ?: 0L
             val exerciseCompletedAt = savedStateHandle.get<Long>(EXERCISE_COMPLETED_AT) ?: 0L
             val exerciseSets = savedStateHandle.get<Int>(EXERCISE_SETS) ?: 0
             val exerciseReps = savedStateHandle.get<Int>(EXERCISE_REPS) ?: 0

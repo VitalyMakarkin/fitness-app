@@ -42,7 +42,7 @@ class DefaultExercisesRepository @Inject constructor(
         }
     }
 
-    override suspend fun getExercise(id: Int): Exercise {
+    override suspend fun getExercise(id: Long): Exercise {
         return exerciseDao.get(id).mapToExercise()
     }
 
@@ -65,7 +65,7 @@ class DefaultExercisesRepository @Inject constructor(
             .map { list -> list.map { category -> category.mapToExerciseCategory() } }
     }
 
-    override fun observeExerciseCategory(id: Int): Flow<ExerciseCategory> {
+    override fun observeExerciseCategory(id: Long): Flow<ExerciseCategory> {
         return exerciseCategoryDao.observe(id)
             .map { category -> category.mapToExerciseCategory() }
     }
@@ -113,7 +113,7 @@ class DefaultExercisesRepository @Inject constructor(
             }
     }
 
-    override fun observeExerciseGroup(id: Int): Flow<ExerciseGroup> {
+    override fun observeExerciseGroup(id: Long): Flow<ExerciseGroup> {
         return exerciseGroupDao.observePopulated(id)
             .map { group -> group.mapToExerciseGroup() }
     }
@@ -145,7 +145,7 @@ class DefaultExercisesRepository @Inject constructor(
                 ExerciseGroupItemEntity(
                     id = 0,
                     name = exercise.name,
-                    exerciseGroupId = 0,
+                    exerciseGroupId = exerciseGroupId,
                     exerciseCategoryId = exercise.exerciseCategoryId,
                     sets = exercise.sets,
                     reps = exercise.reps,
@@ -156,7 +156,7 @@ class DefaultExercisesRepository @Inject constructor(
         }
     }
 
-    override suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int) {
+    override suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Long) {
         withContext(Dispatchers.IO) {
             val event = ScheduledExerciseEventEntity(
                 id = 0,
@@ -169,7 +169,7 @@ class DefaultExercisesRepository @Inject constructor(
 
     override suspend fun saveCompletedExercise(
         name: String,
-        exerciseCategoryId: Int,
+        exerciseCategoryId: Long,
         createdAt: Long,
         completedAt: Long,
         sets: Int?,

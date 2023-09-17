@@ -9,7 +9,7 @@ class CreateScheduledEventInteractor @Inject constructor(
     private val exercisesRepository: ExercisesRepository
 ) {
 
-    suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int) {
+    suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Long) {
         exercisesRepository.createScheduledEvent(scheduledAt, exerciseGroupId)
     }
 
@@ -17,7 +17,7 @@ class CreateScheduledEventInteractor @Inject constructor(
         return exercisesRepository.observeExerciseGroups()
     }
 
-    fun observeExerciseGroup(id: Int): Flow<ExerciseGroup> {
+    fun observeExerciseGroup(id: Long): Flow<ExerciseGroup> {
         return exercisesRepository.observeExerciseGroup(id)
     }
 }
