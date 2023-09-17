@@ -3,6 +3,7 @@ package com.example.fitness.core.data.repository
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
+import com.example.fitness.core.model.ExerciseGroupItem
 import com.example.fitness.core.model.ScheduledExerciseEvent
 import kotlinx.coroutines.flow.Flow
 
@@ -36,7 +37,7 @@ interface ExercisesRepository {
 
     suspend fun createExerciseCategory(name: String, description: String?)
 
-    suspend fun createExerciseGroup(name: String)
+    suspend fun createExerciseGroup(name: String, exercises: List<ExerciseGroupItem>)
 
     suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int)
 

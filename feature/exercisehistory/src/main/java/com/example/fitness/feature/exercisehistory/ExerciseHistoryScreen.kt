@@ -67,7 +67,7 @@ internal fun ExerciseHistoryScreen(
             when (uiState) {
                 is ExerciseHistoryUiState.Success -> {
                     items(uiState.completedExercises) { exercise ->
-                        ExerciseCategoryTile(
+                        ExerciseTile(
                             modifier = modifier,
                             exercise = exercise
                         )
@@ -99,7 +99,7 @@ internal fun ExerciseHistoryScreen(
 }
 
 @Composable
-internal fun ExerciseCategoryTile(
+internal fun ExerciseTile(
     modifier: Modifier = Modifier,
     exercise: ExerciseUI
 ) {

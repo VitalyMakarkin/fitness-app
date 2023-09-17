@@ -19,6 +19,9 @@ interface ExerciseGroupDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: ExerciseGroupItemEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllItems(items: List<ExerciseGroupItemEntity>)
+
     @Transaction
     @Query("SELECT * FROM exercise_groups")
     fun observeAll(): Flow<List<PopulatedExerciseGroup>>

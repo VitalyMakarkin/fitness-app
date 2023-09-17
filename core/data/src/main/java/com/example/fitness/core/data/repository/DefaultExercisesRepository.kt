@@ -12,10 +12,12 @@ import com.example.fitness.core.database.dao.ScheduledExerciseEventDao
 import com.example.fitness.core.database.models.ExerciseCategoryEntity
 import com.example.fitness.core.database.models.ExerciseEntity
 import com.example.fitness.core.database.models.ExerciseGroupEntity
+import com.example.fitness.core.database.models.ExerciseGroupItemEntity
 import com.example.fitness.core.database.models.ScheduledExerciseEventEntity
 import com.example.fitness.core.model.Exercise
 import com.example.fitness.core.model.ExerciseCategory
 import com.example.fitness.core.model.ExerciseGroup
+import com.example.fitness.core.model.ExerciseGroupItem
 import com.example.fitness.core.model.ScheduledExerciseEvent
 import com.example.fitness.core.network.api.WgerApi
 import javax.inject.Inject
@@ -125,12 +127,25 @@ class DefaultExercisesRepository @Inject constructor(
         exerciseCategoryDao.insert(exerciseCategoryEntity)
     }
 
-    override suspend fun createExerciseGroup(name: String) {
+    override suspend fun createExerciseGroup(name: String, exercises: List<ExerciseGroupItem>) {
         val exerciseGroup = ExerciseGroupEntity(
             id = 0,
             name = name
         )
         exerciseGroupDao.insert(exerciseGroup)
+
+        val groupExercises = exercises.map { exercise ->
+            ExerciseGroupItemEntity(
+                id = 0,
+                name = exercise.name,
+                exerciseGroupId = 0, // TODO
+                exerciseCategoryId = exercise.exerciseCategoryId,
+                sets = exercise.sets,
+                reps = exercise.reps,
+                duration = exercise.duration
+            )
+        }
+        exerciseGroupDao.insertAllItems(groupExercises)
     }
 
     override suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int) {
