@@ -75,11 +75,7 @@ internal fun ExerciseHistoryScreen(
                     }
                 }
 
-                is ExerciseHistoryUiState.Loading -> item {
-                    Text(
-                        text = "ExerciseHistory: Loading!"
-                    )
-                }
+                is ExerciseHistoryUiState.Loading -> {}
             }
         }
 

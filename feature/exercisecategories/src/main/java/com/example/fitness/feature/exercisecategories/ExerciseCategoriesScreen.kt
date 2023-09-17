@@ -77,11 +77,7 @@ internal fun ExerciseCategoriesScreen(
                     }
                 }
 
-                is ExerciseCategoriesUiState.Loading -> item {
-                    Text(
-                        text = "ExerciseCategories: Loading!"
-                    )
-                }
+                is ExerciseCategoriesUiState.Loading -> {}
             }
         }
 

@@ -68,12 +68,7 @@ internal fun ScheduleScreen(
                     }
                 }
 
-                is ScheduleUiState.Loading ->
-                    item {
-                        Text(
-                            text = "Schedule: Loading!"
-                        )
-                    }
+                is ScheduleUiState.Loading -> {}
             }
         }
 

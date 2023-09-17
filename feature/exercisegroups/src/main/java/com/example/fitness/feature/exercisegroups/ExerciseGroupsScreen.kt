@@ -73,13 +73,7 @@ internal fun ExerciseGroupsScreen(
                     }
                 }
 
-                is ExerciseGroupsUiState.Loading -> {
-                    item {
-                        Text(
-                            text = "ExerciseGroups: Loading!"
-                        )
-                    }
-                }
+                is ExerciseGroupsUiState.Loading -> {}
             }
         }
 

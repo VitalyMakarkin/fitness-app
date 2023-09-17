@@ -47,40 +47,41 @@ internal fun ExerciseSettingsScreen(
     onExerciseGroupsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when (uiState) {
-        is ExerciseSettingsUiState.Success -> LazyVerticalGrid(
-            modifier = modifier.fillMaxSize(),
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item {
-                ExerciseSettingTile(
-                    title = stringResource(R.string.exercise_settings_exercise_completed_tile),
-                    subtitle = uiState.activitiesCount.toString(),
-                    onClick = { onExerciseHistoryClick() }
-                )
-            }
-            item {
-                ExerciseSettingTile(
-                    title = stringResource(R.string.exercise_settings_exercise_categories_tile),
-                    subtitle = uiState.exerciseCategoriesCount.toString(),
-                    onClick = { onExerciseCategoriesClick() }
-                )
-            }
-            item {
-                ExerciseSettingTile(
-                    title = stringResource(R.string.exercise_settings_exercise_groups_tile),
-                    subtitle = uiState.exerciseGroupsCount.toString(),
-                    onClick = { onExerciseGroupsClick() }
-                )
-            }
-        }
 
-        is ExerciseSettingsUiState.Loading -> Text(
-            text = "ExerciseSettings: Loading!"
-        )
+    LazyVerticalGrid(
+        modifier = modifier.fillMaxSize(),
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        when (uiState) {
+            is ExerciseSettingsUiState.Success -> {
+                item {
+                    ExerciseSettingTile(
+                        title = stringResource(R.string.exercise_settings_exercise_completed_tile),
+                        subtitle = uiState.activitiesCount.toString(),
+                        onClick = { onExerciseHistoryClick() }
+                    )
+                }
+                item {
+                    ExerciseSettingTile(
+                        title = stringResource(R.string.exercise_settings_exercise_categories_tile),
+                        subtitle = uiState.exerciseCategoriesCount.toString(),
+                        onClick = { onExerciseCategoriesClick() }
+                    )
+                }
+                item {
+                    ExerciseSettingTile(
+                        title = stringResource(R.string.exercise_settings_exercise_groups_tile),
+                        subtitle = uiState.exerciseGroupsCount.toString(),
+                        onClick = { onExerciseGroupsClick() }
+                    )
+                }
+            }
+
+            is ExerciseSettingsUiState.Loading -> {}
+        }
     }
 }
 
