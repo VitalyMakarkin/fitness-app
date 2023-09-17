@@ -97,4 +97,8 @@ class AddExerciseViewModel @Inject constructor(
             exerciseDuration
         )
     }
+
+    fun resetShouldNavigateBack() {
+        shouldNavigateBack = false
+    }
 }
