@@ -8,13 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.fitness.core.design.component.DatePickerDialog
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.feature.createscheduledevent.dialog.exercisegroupselection.ExerciseGroupSelectionDialog
-import java.util.Calendar
 
 @Composable
 internal fun CreateScheduledEventRouter(
@@ -56,7 +51,6 @@ internal fun CreateScheduledEventRouter(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CreateScheduledEventScreen(
     modifier: Modifier = Modifier,
@@ -78,12 +72,6 @@ internal fun CreateScheduledEventScreen(
             onExerciseGroupClicked = { group -> onEventExerciseGroupChanged(group) })
     }
 
-    // TODO: move
-    val calendar = Calendar.getInstance()
-    calendar.set(1990, 0, 22) // add year, month (Jan), date
-
-    // TODO: move
-    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis)
 
     var showDatePicker by rememberSaveable {
         mutableStateOf(false)
@@ -91,19 +79,11 @@ internal fun CreateScheduledEventScreen(
 
     if (showDatePicker) {
         DatePickerDialog(
-            onDismissRequest = { showDatePicker = false },
-            confirmButton = {
-                TextButton(
-                    onClick = { showDatePicker = false }
-                ) {
-                    Text(text = "Confirm")
-                }
-            }
-        ) {
-            DatePicker(
-                state = datePickerState
-            )
-        }
+            modifier = modifier,
+            initialDateInMillis = System.currentTimeMillis(),
+            onDismiss = { showDatePicker = false },
+            onConfirm = { selectedDate -> onEventScheduledAtChanged(selectedDate.toString()) }
+        )
     }
 
     LaunchedEffect(shouldNavigateBack) {
@@ -153,7 +133,8 @@ internal fun CreateScheduledEventScreen(
                                     LaunchedEffect(interactionSource) {
                                         interactionSource.interactions.collect {
                                             if (it is PressInteraction.Release) {
-                                                showExerciseGroupSelectionDialog = true
+//                                                showExerciseGroupSelectionDialog = true
+                                                showDatePicker = true
                                             }
                                         }
                                     }
