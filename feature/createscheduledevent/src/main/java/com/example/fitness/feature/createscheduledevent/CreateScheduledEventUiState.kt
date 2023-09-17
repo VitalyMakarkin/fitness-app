@@ -5,7 +5,7 @@ import com.example.fitness.core.model.ExerciseGroup
 sealed interface CreateScheduledEventUiState {
 
     data class Success(
-        val selectedScheduledAt: Long?,
+        val selectedScheduledAt: Long,
         val selectedExerciseGroup: ExerciseGroup?,
     ) : CreateScheduledEventUiState
 

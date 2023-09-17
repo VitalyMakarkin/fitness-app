@@ -48,16 +48,20 @@ class CreateScheduledEventViewModel @Inject constructor(
                 Pair(scheduledAt, groupId)
             }
             .flatMapLatest { (scheduledAt, groupId) ->
+                val newScheduledAt = when (scheduledAt) {
+                    -1L -> System.currentTimeMillis()
+                    else -> scheduledAt
+                }
                 if (groupId != -1) {
                     interactor.observeExerciseGroup(groupId)
                         .map { group ->
                             CreateScheduledEventUiState.Success(
-                                selectedScheduledAt = scheduledAt,
+                                selectedScheduledAt = newScheduledAt,
                                 selectedExerciseGroup = group
                             )
                         }
                 } else {
-                    flowOf(CreateScheduledEventUiState.Success(scheduledAt, null))
+                    flowOf(CreateScheduledEventUiState.Success(newScheduledAt, null))
                 }
             }
     }

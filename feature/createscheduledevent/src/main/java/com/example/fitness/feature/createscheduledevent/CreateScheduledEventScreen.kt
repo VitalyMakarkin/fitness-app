@@ -112,8 +112,7 @@ internal fun CreateScheduledEventScreen(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
-                            value = uiState.selectedScheduledAt?.let { formatter.format(it) }
-                                ?: stringResource(R.string.create_scheduled_event_not_selected),
+                            value = formatter.format(uiState.selectedScheduledAt),
                             onValueChange = { },
                             label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_scheduled_at_label)) },
                             readOnly = true,
