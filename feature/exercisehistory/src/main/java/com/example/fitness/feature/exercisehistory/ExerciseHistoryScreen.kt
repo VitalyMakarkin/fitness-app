@@ -22,6 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.feature.exercisehistory.model.ExerciseUI
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 internal fun ExercisesHistoryRoute(
@@ -101,6 +103,8 @@ internal fun ExerciseCategoryTile(
     modifier: Modifier = Modifier,
     exercise: ExerciseUI
 ) {
+    val formatter = SimpleDateFormat("dd.MM.yy", Locale.ROOT)
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -119,7 +123,7 @@ internal fun ExerciseCategoryTile(
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight(400),
-            text = exercise.completedAt.toString()
+            text = formatter.format(exercise.completedAt)
         )
     }
 }

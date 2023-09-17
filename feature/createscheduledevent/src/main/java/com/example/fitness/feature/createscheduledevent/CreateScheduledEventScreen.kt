@@ -28,6 +28,8 @@ import com.example.fitness.core.design.component.DatePickerDialog
 import com.example.fitness.core.design.component.TopNavigationBar
 import com.example.fitness.core.model.ExerciseGroup
 import com.example.fitness.feature.createscheduledevent.dialog.exercisegroupselection.ExerciseGroupSelectionDialog
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 internal fun CreateScheduledEventRouter(
@@ -37,14 +39,11 @@ internal fun CreateScheduledEventRouter(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val eventScheduledAt by viewModel.scheduledAt.collectAsStateWithLifecycle()
-
     CreateScheduledEventScreen(
         modifier = modifier,
         uiState = uiState,
         onBackClick = onBackClick,
         onCreate = { viewModel.createExerciseCategory() },
-        eventScheduledAt = eventScheduledAt.toString(),
         onEventScheduledAtChanged = { text -> viewModel.onEventScheduledAtChanged(text) },
         onEventExerciseGroupChanged = { group -> viewModel.changeExerciseGroup(group) },
         shouldNavigateBack = viewModel.shouldNavigateBack
@@ -57,7 +56,6 @@ internal fun CreateScheduledEventScreen(
     uiState: CreateScheduledEventUiState,
     onBackClick: () -> Unit,
     onCreate: () -> Unit,
-    eventScheduledAt: String = "",
     onEventScheduledAtChanged: (String) -> Unit,
     onEventExerciseGroupChanged: (ExerciseGroup) -> Unit,
     shouldNavigateBack: Boolean = false
@@ -106,25 +104,38 @@ internal fun CreateScheduledEventScreen(
                     onBackClick = onBackClick
                 )
             }
-            item {
-                OutlinedTextField(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    value = eventScheduledAt,
-                    onValueChange = { text -> onEventScheduledAtChanged(text) },
-                    label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_scheduled_at_label)) }
-                )
-            }
-            item {
-                when (uiState) {
-                    is CreateScheduledEventUiState.Success ->
+            when (uiState) {
+                is CreateScheduledEventUiState.Success -> {
+                    item {
+                        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.ROOT)
+                        OutlinedTextField(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            value = uiState.selectedScheduledAt?.let { formatter.format(it) }
+                                ?: stringResource(R.string.create_scheduled_event_not_selected),
+                            onValueChange = { },
+                            label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_scheduled_at_label)) },
+                            readOnly = true,
+                            interactionSource = remember { MutableInteractionSource() }
+                                .also { interactionSource ->
+                                    LaunchedEffect(interactionSource) {
+                                        interactionSource.interactions.collect {
+                                            if (it is PressInteraction.Release) {
+                                                showDatePicker = true
+                                            }
+                                        }
+                                    }
+                                }
+                        )
+                    }
+                    item {
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = uiState.selectedExerciseGroup?.name
-                                ?: stringResource(R.string.create_scheduled_event_not_selected_category),
+                                ?: stringResource(R.string.create_scheduled_event_not_selected),
                             onValueChange = { },
                             label = { Text(text = stringResource(R.string.create_scheduled_event_text_input_exercise_group_label)) },
                             readOnly = true,
@@ -133,16 +144,16 @@ internal fun CreateScheduledEventScreen(
                                     LaunchedEffect(interactionSource) {
                                         interactionSource.interactions.collect {
                                             if (it is PressInteraction.Release) {
-//                                                showExerciseGroupSelectionDialog = true
-                                                showDatePicker = true
+                                                showExerciseGroupSelectionDialog = true
                                             }
                                         }
                                     }
                                 }
                         )
-
-                    is CreateScheduledEventUiState.Loading -> {}
+                    }
                 }
+
+                is CreateScheduledEventUiState.Loading -> {}
             }
         }
 

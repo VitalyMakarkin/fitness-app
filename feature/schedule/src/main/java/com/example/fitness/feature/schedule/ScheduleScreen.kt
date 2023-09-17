@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitness.feature.schedule.model.ScheduledEventUI
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 internal fun ScheduleRoute(
@@ -95,6 +97,8 @@ internal fun ScheduledEventTile(
     modifier: Modifier = Modifier,
     event: ScheduledEventUI
 ) {
+    val formatter = SimpleDateFormat("dd.MM.yy", Locale.ROOT)
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -113,7 +117,7 @@ internal fun ScheduledEventTile(
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight(400),
-            text = event.scheduledAt.toString()
+            text = formatter.format(event.scheduledAt)
         )
     }
 }

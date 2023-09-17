@@ -12,6 +12,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -28,8 +29,6 @@ class CreateScheduledEventViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    val scheduledAt = savedStateHandle.getStateFlow(EVENT_SCHEDULED_AT, 0L)
-
     val uiState: StateFlow<CreateScheduledEventUiState> =
         createScheduledEventUiState(
             interactor = interactor
@@ -42,17 +41,23 @@ class CreateScheduledEventViewModel @Inject constructor(
     var shouldNavigateBack by mutableStateOf(false)
 
     private fun createScheduledEventUiState(interactor: CreateScheduledEventInteractor): Flow<CreateScheduledEventUiState> {
-        return savedStateHandle.getStateFlow(EVENT_EXERCISE_GROUP_ID, -1)
-            .flatMapLatest { groupId ->
+        return savedStateHandle.getStateFlow(EVENT_SCHEDULED_AT, -1L)
+            .combine(
+                savedStateHandle.getStateFlow(EVENT_EXERCISE_GROUP_ID, -1)
+            ) { scheduledAt, groupId ->
+                Pair(scheduledAt, groupId)
+            }
+            .flatMapLatest { (scheduledAt, groupId) ->
                 if (groupId != -1) {
                     interactor.observeExerciseGroup(groupId)
                         .map { group ->
                             CreateScheduledEventUiState.Success(
+                                selectedScheduledAt = scheduledAt,
                                 selectedExerciseGroup = group
                             )
                         }
                 } else {
-                    flowOf(CreateScheduledEventUiState.Success(null))
+                    flowOf(CreateScheduledEventUiState.Success(scheduledAt, null))
                 }
             }
     }
