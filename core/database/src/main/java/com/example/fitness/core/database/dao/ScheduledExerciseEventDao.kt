@@ -13,19 +13,19 @@ import kotlinx.coroutines.flow.Flow
 interface ScheduledExerciseEventDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(schedule: ScheduledExerciseEventEntity)
+    fun insert(schedule: ScheduledExerciseEventEntity)
 
     @Transaction
     @Query("SELECT * FROM scheduled_exercise_events WHERE id = :id")
-    suspend fun get(id: Int): PopulatedScheduledExerciseEvent
+    fun get(id: Int): PopulatedScheduledExerciseEvent
 
     @Transaction
     @Query("SELECT * FROM scheduled_exercise_events ORDER BY scheduled_at ASC")
     fun observeAll(): Flow<List<PopulatedScheduledExerciseEvent>>
 
     @Query("DELETE FROM scheduled_exercise_events WHERE id = :id")
-    suspend fun delete(id: Int)
+    fun delete(id: Int)
 
     @Query("DELETE FROM scheduled_exercise_events")
-    suspend fun deleteAll()
+    fun deleteAll()
 }

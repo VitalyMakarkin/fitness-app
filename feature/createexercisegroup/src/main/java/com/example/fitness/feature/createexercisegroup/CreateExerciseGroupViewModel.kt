@@ -63,11 +63,11 @@ class CreateExerciseGroupViewModel @Inject constructor(
     }
 
     fun createExerciseCategory() {
-        viewModelScope.launch {
-            val categoryName = savedStateHandle.get<String>(GROUP_NAME) ?: ""
-            val exercises =
-                savedStateHandle.get<List<ExerciseGroupItem>>(GROUP_EXERCISES) ?: emptyList()
+        val categoryName = savedStateHandle.get<String>(GROUP_NAME) ?: ""
+        val exercises = savedStateHandle.get<List<ExerciseGroupItem>>(GROUP_EXERCISES)
+                ?: emptyList()
 
+        viewModelScope.launch {
             interactor.createExerciseGroup(
                 name = categoryName,
                 exercises = exercises

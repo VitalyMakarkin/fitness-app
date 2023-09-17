@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 interface ExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(exercise: ExerciseEntity)
+    fun insert(exercise: ExerciseEntity)
 
     @Query("SELECT * FROM exercises WHERE id = :id")
-    suspend fun get(id: Int): ExerciseEntity
+    fun get(id: Int): ExerciseEntity
 
     @Query("SELECT * FROM exercises ORDER BY completed_at DESC")
     fun observeAll(): Flow<List<ExerciseEntity>>
@@ -23,11 +23,11 @@ interface ExerciseDao {
     fun observeAllCount(): Flow<Int>
 
     @Query("SELECT * FROM exercises WHERE exercise_category_id =:id ORDER BY completed_at DESC")
-    suspend fun getAllByCategoryId(id: Int): List<ExerciseEntity>
+    fun getAllByCategoryId(id: Int): List<ExerciseEntity>
 
     @Query("DELETE FROM exercises WHERE id = :id")
-    suspend fun delete(id: Int)
+    fun delete(id: Int)
 
     @Query("DELETE FROM exercises")
-    suspend fun deleteAll()
+    fun deleteAll()
 }

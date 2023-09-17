@@ -35,9 +35,11 @@ class DefaultExercisesRepository @Inject constructor(
 ) : ExercisesRepository {
 
     override suspend fun addExercise(exercise: Exercise) {
-        return exerciseDao.insert(
-            exercise = exercise.mapToExerciseEntity()
-        )
+        withContext(Dispatchers.IO) {
+            exerciseDao.insert(
+                exercise = exercise.mapToExerciseEntity()
+            )
+        }
     }
 
     override suspend fun getExercise(id: Int): Exercise {
@@ -97,7 +99,9 @@ class DefaultExercisesRepository @Inject constructor(
     }
 
     override suspend fun clearAllExerciseCategories() {
-        return exerciseCategoryDao.deleteAll()
+        withContext(Dispatchers.IO) {
+            exerciseCategoryDao.deleteAll()
+        }
     }
 
     override fun observeExerciseGroups(): Flow<List<ExerciseGroup>> {
@@ -119,42 +123,48 @@ class DefaultExercisesRepository @Inject constructor(
     }
 
     override suspend fun createExerciseCategory(name: String, description: String?) {
-        val exerciseCategoryEntity = ExerciseCategoryEntity(
-            id = 0,
-            name = name,
-            description = description
-        )
-        exerciseCategoryDao.insert(exerciseCategoryEntity)
+        withContext(Dispatchers.IO) {
+            val exerciseCategoryEntity = ExerciseCategoryEntity(
+                id = 0,
+                name = name,
+                description = description
+            )
+            exerciseCategoryDao.insert(exerciseCategoryEntity)
+        }
     }
 
     override suspend fun createExerciseGroup(name: String, exercises: List<ExerciseGroupItem>) {
-        val exerciseGroup = ExerciseGroupEntity(
-            id = 0,
-            name = name
-        )
-        exerciseGroupDao.insert(exerciseGroup)
-
-        val groupExercises = exercises.map { exercise ->
-            ExerciseGroupItemEntity(
+        withContext(Dispatchers.IO) {
+            val exerciseGroup = ExerciseGroupEntity(
                 id = 0,
-                name = exercise.name,
-                exerciseGroupId = 0, // TODO
-                exerciseCategoryId = exercise.exerciseCategoryId,
-                sets = exercise.sets,
-                reps = exercise.reps,
-                duration = exercise.duration
+                name = name
             )
+            val exerciseGroupId = exerciseGroupDao.insert(exerciseGroup)
+
+            val groupExercises = exercises.map { exercise ->
+                ExerciseGroupItemEntity(
+                    id = 0,
+                    name = exercise.name,
+                    exerciseGroupId = 0,
+                    exerciseCategoryId = exercise.exerciseCategoryId,
+                    sets = exercise.sets,
+                    reps = exercise.reps,
+                    duration = exercise.duration
+                )
+            }
+            exerciseGroupDao.insertAllItems(groupExercises)
         }
-        exerciseGroupDao.insertAllItems(groupExercises)
     }
 
     override suspend fun createScheduledEvent(scheduledAt: Long, exerciseGroupId: Int) {
-        val event = ScheduledExerciseEventEntity(
-            id = 0,
-            scheduledAt = scheduledAt,
-            exerciseGroupId = exerciseGroupId
-        )
-        exerciseEventDao.insert(event)
+        withContext(Dispatchers.IO) {
+            val event = ScheduledExerciseEventEntity(
+                id = 0,
+                scheduledAt = scheduledAt,
+                exerciseGroupId = exerciseGroupId
+            )
+            exerciseEventDao.insert(event)
+        }
     }
 
     override suspend fun saveCompletedExercise(
@@ -167,17 +177,19 @@ class DefaultExercisesRepository @Inject constructor(
         duration: Long?,
         score: Int
     ) {
-        val exerciseEntity = ExerciseEntity(
-            id = 0,
-            name = name,
-            exerciseCategoryId = exerciseCategoryId,
-            createdAt = createdAt,
-            completedAt = completedAt,
-            sets = sets,
-            reps = reps,
-            duration = duration,
-            score = score
-        )
-        exerciseDao.insert(exerciseEntity)
+        withContext(Dispatchers.IO) {
+            val exerciseEntity = ExerciseEntity(
+                id = 0,
+                name = name,
+                exerciseCategoryId = exerciseCategoryId,
+                createdAt = createdAt,
+                completedAt = completedAt,
+                sets = sets,
+                reps = reps,
+                duration = duration,
+                score = score
+            )
+            exerciseDao.insert(exerciseEntity)
+        }
     }
 }
