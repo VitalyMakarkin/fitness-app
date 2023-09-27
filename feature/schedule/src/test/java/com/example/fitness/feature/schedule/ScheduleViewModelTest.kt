@@ -1,6 +1,6 @@
-package com.example.fitness.feature.exercisehistory
+package com.example.fitness.feature.schedule
 
-import com.example.fitness.core.testing.data.ExercisesData
+import com.example.fitness.core.testing.data.ScheduledExerciseEventsData
 import com.example.fitness.core.testing.utils.MainDispatcherRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -14,19 +14,19 @@ import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.openMocks
 import org.mockito.kotlin.verify
 
-class ExerciseHistoryViewModelTest {
+class ScheduleViewModelTest {
 
     @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    @Mock private lateinit var interactor: ExerciseHistoryInteractor
+    @Mock private lateinit var interactor: ScheduleInteractor
 
-    private lateinit var viewModel: ExerciseHistoryViewModel
+    private lateinit var viewModel: ScheduleViewModel
 
     @Before
     fun setup() {
         openMocks(this)
 
-        viewModel = ExerciseHistoryViewModel(
+        viewModel = ScheduleViewModel(
             interactor = interactor,
         )
     }
@@ -34,17 +34,18 @@ class ExerciseHistoryViewModelTest {
     @Test
     fun testUiStateLoading() = runTest {
         assertEquals(
-            ExerciseHistoryUiState.Loading,
+            ScheduleUiState.Loading,
             viewModel.uiState.value,
         )
     }
 
     @Test
     fun testUiStateSuccess() = runTest {
-        val exercises = ExercisesData
-        `when`(interactor.observeExercises())
-            .thenReturn(flowOf(exercises))
+        val events = ScheduledExerciseEventsData
 
-        verify(interactor).observeExercises()
+        `when`(interactor.observeEvents())
+            .thenReturn(flowOf(events))
+
+        verify(interactor).observeEvents()
     }
 }

@@ -27,7 +27,7 @@ class ExerciseCategoriesViewModelTest {
         openMocks(this)
 
         viewModel = ExerciseCategoriesViewModel(
-            interactor = interactor
+            interactor = interactor,
         )
     }
 
