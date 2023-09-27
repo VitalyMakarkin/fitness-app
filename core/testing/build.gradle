@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.example.fitness.core.testing'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 24
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(":core:model")
+
+    implementation "com.google.dagger:hilt-android:2.48"
+    kapt "com.google.dagger:hilt-compiler:2.48"
+
+    implementation 'junit:junit:4.13.2'
+    implementation 'org.mockito:mockito-core:5.3.1'
+    implementation "org.mockito.kotlin:mockito-kotlin:5.1.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
+}
