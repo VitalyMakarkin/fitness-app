@@ -55,6 +55,11 @@ class DefaultExercisesRepository @Inject constructor(
         return exerciseDao.observeAllCount()
     }
 
+    override fun observeExercisesAverageScore(lastExerciseCount: Int): Flow<Double> {
+        return exerciseDao.observeLastExercisesAverageScore(lastExerciseCount)
+            .map { result -> result ?: 0.0 }
+    }
+
     override fun observeScheduledExerciseEvents(): Flow<List<ScheduledExerciseEvent>> {
         return exerciseEventDao.observeAll()
             .map { list -> list.map { event -> event.mapToScheduledExerciseEvent() } }

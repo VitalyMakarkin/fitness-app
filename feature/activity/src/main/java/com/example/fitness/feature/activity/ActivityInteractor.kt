@@ -11,4 +11,8 @@ class ActivityInteractor @Inject constructor(
     fun observeExercisesCount(): Flow<Int> {
         return exerciseRepository.observeExercisesCount()
     }
+
+    fun observeExercisesAverageScore(lastExerciseCount: Int): Flow<Double> {
+        return exerciseRepository.observeExercisesAverageScore(lastExerciseCount)
+    }
 }

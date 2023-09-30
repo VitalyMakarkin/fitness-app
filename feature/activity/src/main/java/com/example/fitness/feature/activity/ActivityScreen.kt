@@ -64,10 +64,21 @@ internal fun ActivityScreen(
                     item {
                         ActionTile(
                             title = stringResource(R.string.activity_activities_tile),
-                            subtitle = stringResource(R.string.activity_activities_tile_content).format(
-                                uiState.activitiesCount
-                            ),
+                            subtitle = stringResource(R.string.activity_activities_tile_content)
+                                .format(uiState.activitiesCount),
                             onTileClick = onExerciseHistoryClick,
+                        )
+                        Spacer(
+                            modifier = modifier
+                                .height(12.dp),
+                        )
+                    }
+                    item {
+                        ActionTile(
+                            title = stringResource(R.string.activity_average_score_tile),
+                            subtitle = stringResource(R.string.activity_average_score_tile_content)
+                                .format(uiState.averageScore),
+                            onTileClick = {},
                         )
                         Spacer(
                             modifier = modifier

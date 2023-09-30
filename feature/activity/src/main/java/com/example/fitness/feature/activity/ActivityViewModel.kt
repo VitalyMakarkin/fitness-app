@@ -7,8 +7,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.zip
 
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
@@ -25,6 +25,11 @@ class ActivityViewModel @Inject constructor(
 
     private fun activityUiState(interactor: ActivityInteractor): Flow<ActivityUiState> {
         return interactor.observeExercisesCount()
-            .map { count -> ActivityUiState.Success(count) }
+            .zip(interactor.observeExercisesAverageScore(lastExerciseCount = 10)) { count, average ->
+                ActivityUiState.Success(
+                    activitiesCount = count,
+                    averageScore = average
+                )
+            }
     }
 }

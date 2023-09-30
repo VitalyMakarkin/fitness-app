@@ -17,6 +17,8 @@ interface ExercisesRepository {
 
     fun observeExercisesCount(): Flow<Int>
 
+    fun observeExercisesAverageScore(lastExerciseCount: Int): Flow<Double>
+
     fun observeScheduledExerciseEvents(): Flow<List<ScheduledExerciseEvent>>
 
     fun observeExerciseCategories(): Flow<List<ExerciseCategory>>
