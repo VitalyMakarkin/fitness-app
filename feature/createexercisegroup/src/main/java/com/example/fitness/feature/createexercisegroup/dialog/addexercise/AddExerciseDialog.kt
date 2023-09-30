@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -165,32 +167,56 @@ internal fun AddExerciseDialog(
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^\\d+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseSets,
-                            onValueChange = { text -> onExerciseSetsChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseSetsChanged("0")
+                                } else if (text.matches(numberPattern)) {
+                                    onExerciseSetsChanged(text)
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_sets_label)) }
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^\\d+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseReps,
-                            onValueChange = { text -> onExerciseRepsChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseRepsChanged("0")
+                                } else if (text.matches(numberPattern)) {
+                                    onExerciseRepsChanged(text)
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_reps_label)) }
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^\\d+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseDuration,
-                            onValueChange = { text -> onExerciseDurationChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseDurationChanged("0")
+                                } else if (text.matches(numberPattern)) {
+                                    onExerciseDurationChanged(text)
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_duration_label)) }
                         )
                     }

@@ -81,7 +81,7 @@ internal fun SaveCompletedExerciseScreen(
     onExerciseRepsChanged: (String) -> Unit,
     exerciseDuration: String = "",
     onExerciseDurationChanged: (String) -> Unit,
-    exerciseScore: String = "",
+    exerciseScore: String = "5",
     onExerciseScoreChanged: (String) -> Unit,
     onSaveClick: () -> Unit,
     shouldNavigateBack: Boolean = false
@@ -187,46 +187,75 @@ internal fun SaveCompletedExerciseScreen(
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^\\d+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseSets,
-                            onValueChange = { text -> onExerciseSetsChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseSetsChanged("0")
+                                } else if (text.matches(numberPattern)) {
+                                    onExerciseSetsChanged(text)
+                                }
+                            },
                             label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_sets_label)) }
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^\\d+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseReps,
-                            onValueChange = { text -> onExerciseRepsChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseRepsChanged("0")
+                                } else if (text.matches(numberPattern)) {
+                                    onExerciseRepsChanged(text)
+                                }
+                            },
                             label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_reps_label)) }
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^\\d+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseDuration,
-                            onValueChange = { text -> onExerciseDurationChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseDurationChanged("0")
+                                } else if (text.matches(numberPattern)) {
+                                    onExerciseDurationChanged(text)
+                                }
+                            },
                             label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_duration_label)) }
                         )
                     }
                     item {
+                        val numberPattern = remember { Regex("^[1-5]+\$") }
                         OutlinedTextField(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             value = exerciseScore,
-                            onValueChange = { text -> onExerciseScoreChanged(text) },
+                            onValueChange = { text ->
+                                if (text.isEmpty()) {
+                                    onExerciseScoreChanged("5")
+                                } else if (text.matches(numberPattern) && text.length == 1) {
+                                    onExerciseScoreChanged(text)
+                                }
+                            },
                             label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_score_label)) }
                         )
                     }
                 }
+
                 is SaveCompletedExerciseUiState.Loading -> {}
             }
         }
