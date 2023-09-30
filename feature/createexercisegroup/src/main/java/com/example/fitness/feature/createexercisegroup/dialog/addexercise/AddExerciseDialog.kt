@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -163,7 +164,10 @@ internal fun AddExerciseDialog(
                                 .padding(horizontal = 16.dp),
                             value = exerciseName,
                             onValueChange = { text -> onExerciseNameChanged(text) },
-                            label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_name_label)) }
+                            label = { Text(text = stringResource(R.string.add_exercise_dialog_text_input_name_label)) },
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                capitalization = KeyboardCapitalization.Sentences
+                            )
                         )
                     }
                     item {

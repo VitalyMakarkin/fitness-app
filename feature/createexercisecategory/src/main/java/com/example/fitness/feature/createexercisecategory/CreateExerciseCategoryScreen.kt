@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -15,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -81,7 +83,10 @@ internal fun CreateExerciseCategoryScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryName,
                     onValueChange = { text -> onCategoryNameChanged(text) },
-                    label = { Text(text = stringResource(R.string.create_exercise_category_text_input_name_label)) }
+                    label = { Text(text = stringResource(R.string.create_exercise_category_text_input_name_label)) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        capitalization = KeyboardCapitalization.Sentences
+                    )
                 )
             }
             item {
@@ -91,7 +96,10 @@ internal fun CreateExerciseCategoryScreen(
                         .padding(horizontal = 16.dp),
                     value = categoryDescription,
                     onValueChange = { text -> onCategoryDescriptionChanged(text) },
-                    label = { Text(text = stringResource(R.string.create_exercise_category_text_input_description_label)) }
+                    label = { Text(text = stringResource(R.string.create_exercise_category_text_input_description_label)) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        capitalization = KeyboardCapitalization.Sentences
+                    )
                 )
             }
         }
