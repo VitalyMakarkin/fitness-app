@@ -127,7 +127,7 @@ internal fun ExerciseCategoryTile(
             Text(
                 modifier = modifier,
                 fontSize = 18.sp,
-                fontWeight = FontWeight(800),
+                fontWeight = FontWeight(600),
                 text = exerciseCategory.name
             )
             IconButton(onClick = { delete(exerciseCategory.id) }) {

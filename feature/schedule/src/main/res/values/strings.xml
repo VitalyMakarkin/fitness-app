@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="schedule_add_event_button">Add event</string>
+    <string name="schedule_short_datetime_format">dd.MM.yy</string>
 </resources>

@@ -187,7 +187,7 @@ internal fun ExerciseTile(
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 20.sp,
-            fontWeight = FontWeight(800),
+            fontWeight = FontWeight(600),
             text = exercise.name
         )
     }

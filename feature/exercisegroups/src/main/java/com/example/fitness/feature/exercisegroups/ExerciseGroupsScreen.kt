@@ -123,7 +123,7 @@ internal fun ExerciseGroupTile(
             Text(
                 modifier = modifier,
                 fontSize = 18.sp,
-                fontWeight = FontWeight(800),
+                fontWeight = FontWeight(600),
                 text = exerciseGroup.name
             )
             IconButton(onClick = { delete(exerciseGroup.id) }) {

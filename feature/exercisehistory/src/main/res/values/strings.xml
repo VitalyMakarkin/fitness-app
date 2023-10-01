@@ -2,4 +2,5 @@
 <resources>
     <string name="exercise_history_top_navigation_bar_title">Completed exercises</string>
     <string name="exercise_history_add_button">Add</string>
+    <string name="exercise_short_datetime_format">dd.MM.yy</string>
 </resources>

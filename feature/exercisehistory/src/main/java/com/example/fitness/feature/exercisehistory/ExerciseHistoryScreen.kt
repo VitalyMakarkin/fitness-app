@@ -111,7 +111,10 @@ internal fun ExerciseTile(
     exercise: ExerciseUI,
     delete: (Long) -> Unit,
 ) {
-    val formatter = SimpleDateFormat("dd.MM.yy", Locale.ROOT)
+    val formatter = SimpleDateFormat(
+        stringResource(id = R.string.exercise_short_datetime_format),
+        Locale.ROOT
+    )
 
     Card(
         modifier = modifier
@@ -128,7 +131,7 @@ internal fun ExerciseTile(
             Text(
                 modifier = modifier,
                 fontSize = 18.sp,
-                fontWeight = FontWeight(800),
+                fontWeight = FontWeight(600),
                 text = exercise.name
             )
             IconButton(onClick = { delete(exercise.id) }) {
@@ -155,7 +158,7 @@ internal fun ExerciseTile(
             ) {
                 Text(
                     modifier = modifier,
-                    fontSize = 14.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight(600),
                     text = exercise.score.toString(),
                 )
