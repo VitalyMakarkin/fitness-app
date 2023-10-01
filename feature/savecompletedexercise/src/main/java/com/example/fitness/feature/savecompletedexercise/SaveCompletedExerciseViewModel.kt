@@ -13,11 +13,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 private const val EXERCISE_NAME = "saveCompletedExerciseName"
@@ -36,10 +36,9 @@ class SaveCompletedExerciseViewModel @Inject constructor(
 ) : ViewModel() {
 
     val exerciseName = savedStateHandle.getStateFlow(EXERCISE_NAME, "")
-    val exerciseSets = savedStateHandle.getStateFlow(EXERCISE_SETS, 0)
-    val exerciseReps = savedStateHandle.getStateFlow(EXERCISE_REPS, 0)
-    val exerciseDuration = savedStateHandle.getStateFlow(EXERCISE_DURATION, 0L)
-    val exerciseScore = savedStateHandle.getStateFlow(EXERCISE_SCORE, 0)
+    val exerciseSets = savedStateHandle.getStateFlow(EXERCISE_SETS, "")
+    val exerciseReps = savedStateHandle.getStateFlow(EXERCISE_REPS, "")
+    val exerciseDuration = savedStateHandle.getStateFlow(EXERCISE_DURATION, "")
 
     val uiState: StateFlow<SaveCompletedExerciseUiState> =
         saveCompletedExerciseUiState(
@@ -54,29 +53,23 @@ class SaveCompletedExerciseViewModel @Inject constructor(
 
     private fun saveCompletedExerciseUiState(interactor: SaveCompletedExerciseInteractor): Flow<SaveCompletedExerciseUiState> {
         return savedStateHandle.getStateFlow(EXERCISE_CATEGORY_ID, -1L)
-            .combine(
-                savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, -1L)
-            ) { categoryId, completedAt ->
-                Pair(categoryId, completedAt)
-            }
+            .zip(
+                savedStateHandle.getStateFlow(EXERCISE_COMPLETED_AT, System.currentTimeMillis())
+            ) { categoryId, completedAt -> Pair(categoryId, completedAt) }
             .flatMapLatest { (categoryId, completedAt) ->
-                val newCompletedAt = when (completedAt) {
-                    -1L -> System.currentTimeMillis()
-                    else -> completedAt
-                }
                 if (categoryId != -1L) {
                     interactor.observeExerciseCategory(categoryId)
                         .map { category ->
                             SaveCompletedExerciseUiState.Success(
                                 selectedExerciseCategory = category,
-                                selectedCompletedAt = newCompletedAt
+                                selectedCompletedAt = completedAt
                             )
                         }
                 } else {
                     flowOf(
                         SaveCompletedExerciseUiState.Success(
                             selectedExerciseCategory = null,
-                            selectedCompletedAt = newCompletedAt
+                            selectedCompletedAt = completedAt
                         )
                     )
                 }
@@ -96,19 +89,19 @@ class SaveCompletedExerciseViewModel @Inject constructor(
     }
 
     fun onExerciseSetsChanged(text: String) {
-        savedStateHandle[EXERCISE_SETS] = text.toInt()
+        savedStateHandle[EXERCISE_SETS] = text
     }
 
     fun onExerciseRepsChanged(text: String) {
-        savedStateHandle[EXERCISE_REPS] = text.toInt()
+        savedStateHandle[EXERCISE_REPS] = text
     }
 
     fun onExerciseDurationChanged(text: String) {
-        savedStateHandle[EXERCISE_DURATION] = text.toLong()
+        savedStateHandle[EXERCISE_DURATION] = text
     }
 
-    fun onExerciseScoreChanged(text: String) {
-        savedStateHandle[EXERCISE_SCORE] = text.toInt()
+    fun onExerciseScoreChanged(value: Int) {
+        savedStateHandle[EXERCISE_SCORE] = value
     }
 
     fun saveExercise() {
@@ -116,10 +109,15 @@ class SaveCompletedExerciseViewModel @Inject constructor(
 
             val exerciseName = savedStateHandle.get<String>(EXERCISE_NAME) ?: ""
             val exerciseCategoryId = savedStateHandle.get<Long>(EXERCISE_CATEGORY_ID) ?: 0L
-            val exerciseCompletedAt = savedStateHandle.get<Long>(EXERCISE_COMPLETED_AT) ?: 0L
-            val exerciseSets = savedStateHandle.get<Int>(EXERCISE_SETS) ?: 0
-            val exerciseReps = savedStateHandle.get<Int>(EXERCISE_REPS) ?: 0
-            val exerciseDuration = savedStateHandle.get<Long>(EXERCISE_DURATION) ?: 0L
+            val exerciseCompletedAt =
+                savedStateHandle.get<Long>(EXERCISE_COMPLETED_AT) ?: System.currentTimeMillis()
+            val exerciseSets =
+                savedStateHandle.get<String>(EXERCISE_SETS)?.let { it.ifEmpty { null } }?.toInt()
+            val exerciseReps =
+                savedStateHandle.get<String>(EXERCISE_REPS)?.let { it.ifEmpty { null } }?.toInt()
+            val exerciseDuration =
+                savedStateHandle.get<String>(EXERCISE_DURATION)?.let { it.ifEmpty { null } }
+                    ?.toLong()?.times(60 * 1000)
             val exerciseScore = savedStateHandle.get<Int>(EXERCISE_SCORE) ?: 0
 
             val currentTime = System.currentTimeMillis()

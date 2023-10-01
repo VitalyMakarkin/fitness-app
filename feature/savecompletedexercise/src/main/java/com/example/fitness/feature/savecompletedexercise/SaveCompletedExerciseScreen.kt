@@ -64,13 +64,13 @@ internal fun SaveCompletedExerciseRouter(
         exerciseName = exerciseName,
         onExerciseNameChanged = { text -> viewModel.onExerciseNameChanged(text) },
         onExerciseCompletedAtChanged = { value -> viewModel.onExerciseCompletedAtChanged(value) },
-        exerciseSets = exerciseSets.toString(),
+        exerciseSets = exerciseSets,
         onExerciseSetsChanged = { text -> viewModel.onExerciseSetsChanged(text) },
-        exerciseReps = exerciseReps.toString(),
+        exerciseReps = exerciseReps,
         onExerciseRepsChanged = { text -> viewModel.onExerciseRepsChanged(text) },
-        exerciseDuration = exerciseDuration.toString(),
+        exerciseDuration = exerciseDuration,
         onExerciseDurationChanged = { text -> viewModel.onExerciseDurationChanged(text) },
-        onExerciseScoreChanged = { text -> viewModel.onExerciseScoreChanged(text) },
+        onExerciseScoreChanged = { score -> viewModel.onExerciseScoreChanged(score) },
         onSaveClick = { viewModel.saveExercise() },
         shouldNavigateBack = viewModel.shouldNavigateBack
     )
@@ -91,7 +91,7 @@ internal fun SaveCompletedExerciseScreen(
     onExerciseRepsChanged: (String) -> Unit,
     exerciseDuration: String = "",
     onExerciseDurationChanged: (String) -> Unit,
-    onExerciseScoreChanged: (String) -> Unit,
+    onExerciseScoreChanged: (Int) -> Unit,
     onSaveClick: () -> Unit,
     shouldNavigateBack: Boolean = false
 ) {
@@ -206,9 +206,7 @@ internal fun SaveCompletedExerciseScreen(
                                 .padding(horizontal = 16.dp),
                             value = exerciseSets,
                             onValueChange = { text ->
-                                if (text.isEmpty()) {
-                                    onExerciseSetsChanged("0")
-                                } else if (text.matches(numberPattern)) {
+                                if (text.matches(numberPattern)) {
                                     onExerciseSetsChanged(text)
                                 }
                             },
@@ -223,9 +221,7 @@ internal fun SaveCompletedExerciseScreen(
                                 .padding(horizontal = 16.dp),
                             value = exerciseReps,
                             onValueChange = { text ->
-                                if (text.isEmpty()) {
-                                    onExerciseRepsChanged("0")
-                                } else if (text.matches(numberPattern)) {
+                                if (text.matches(numberPattern)) {
                                     onExerciseRepsChanged(text)
                                 }
                             },
@@ -240,9 +236,7 @@ internal fun SaveCompletedExerciseScreen(
                                 .padding(horizontal = 16.dp),
                             value = exerciseDuration,
                             onValueChange = { text ->
-                                if (text.isEmpty()) {
-                                    onExerciseDurationChanged("0")
-                                } else if (text.matches(numberPattern)) {
+                                if (text.matches(numberPattern)) {
                                     onExerciseDurationChanged(text)
                                 }
                             },
@@ -258,7 +252,7 @@ internal fun SaveCompletedExerciseScreen(
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             select = { score ->
-                                onExerciseScoreChanged(score.toString())
+                                onExerciseScoreChanged(score)
                             },
                         )
                     }
