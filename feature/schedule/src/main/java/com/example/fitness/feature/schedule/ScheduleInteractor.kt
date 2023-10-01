@@ -12,4 +12,8 @@ class ScheduleInteractor @Inject constructor(
     fun observeEvents(): Flow<List<ScheduledExerciseEvent>> {
         return exercisesRepository.observeScheduledExerciseEvents()
     }
+
+    suspend fun deleteEvent(id: Long) {
+        return exercisesRepository.deleteEvent(id)
+    }
 }

@@ -215,4 +215,10 @@ class DefaultExercisesRepository @Inject constructor(
             exerciseGroupDao.delete(id)
         }
     }
+
+    override suspend fun deleteEvent(id: Long) {
+        withContext(Dispatchers.IO) {
+            exerciseEventDao.delete(id)
+        }
+    }
 }

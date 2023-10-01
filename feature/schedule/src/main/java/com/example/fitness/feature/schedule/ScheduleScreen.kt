@@ -1,6 +1,8 @@
 package com.example.fitness.feature.schedule
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,8 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,17 +39,19 @@ internal fun ScheduleRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScheduleScreen(
+        modifier = modifier,
         uiState = uiState,
         onCreateScheduledEventClick = onCreateScheduledEventClick,
-        modifier = modifier
+        onDeleteItem = { id -> viewModel.deleteEvent(id)}
     )
 }
 
 @Composable
 internal fun ScheduleScreen(
+    modifier: Modifier = Modifier,
     uiState: ScheduleUiState,
     onCreateScheduledEventClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onDeleteItem: (Long) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -62,7 +70,8 @@ internal fun ScheduleScreen(
                     items(uiState.events) { event ->
                         ScheduledEventTile(
                             modifier = modifier,
-                            event = event
+                            event = event,
+                            delete = onDeleteItem
                         )
                         Spacer(modifier = modifier.height(12.dp))
                     }
@@ -90,7 +99,8 @@ internal fun ScheduleScreen(
 @Composable
 internal fun ScheduledEventTile(
     modifier: Modifier = Modifier,
-    event: ScheduledEventUI
+    event: ScheduledEventUI,
+    delete: (Long) -> Unit,
 ) {
     val formatter = SimpleDateFormat("dd.MM.yy", Locale.ROOT)
 
@@ -99,14 +109,25 @@ internal fun ScheduledEventTile(
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
     ) {
-        Text(
+        Row(
             modifier = modifier
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight(800),
-            text = event.exerciseGroupName
-        )
-
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                modifier = modifier
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                fontSize = 20.sp,
+                fontWeight = FontWeight(800),
+                text = event.exerciseGroupName
+            )
+            IconButton(onClick = { delete(event.id) }) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Delete"
+                )
+            }
+        }
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),

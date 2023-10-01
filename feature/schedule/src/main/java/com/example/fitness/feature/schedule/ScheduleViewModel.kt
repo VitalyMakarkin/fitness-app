@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
@@ -31,5 +32,11 @@ class ScheduleViewModel @Inject constructor(
                     events = events.map { it.mapToScheduledEventUI() }
                 )
             }
+    }
+
+    fun deleteEvent(id: Long) {
+        viewModelScope.launch {
+            interactor.deleteEvent(id)
+        }
     }
 }

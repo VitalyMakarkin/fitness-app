@@ -48,4 +48,11 @@ class ScheduleViewModelTest {
 
         verify(interactor).observeEvents()
     }
+
+    @Test
+    fun testDeleteEvent() = runTest {
+        viewModel.deleteEvent(0)
+
+        verify(interactor).deleteEvent(0)
+    }
 }
