@@ -39,4 +39,10 @@ class ExerciseCategoriesViewModel @Inject constructor(
             interactor.updateRemoteExerciseCategories()
         }
     }
+
+    fun deleteExerciseCategory(id: Long) {
+        viewModelScope.launch {
+            interactor.deleteExerciseCategory(id)
+        }
+    }
 }

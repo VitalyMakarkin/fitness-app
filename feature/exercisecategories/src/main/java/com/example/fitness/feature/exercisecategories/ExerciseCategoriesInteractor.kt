@@ -16,4 +16,8 @@ class ExerciseCategoriesInteractor @Inject constructor(
     suspend fun updateRemoteExerciseCategories() {
         exercisesRepository.updateAllCategories()
     }
+
+    suspend fun deleteExerciseCategory(id: Long) {
+        exercisesRepository.deleteExerciseCategory(id)
+    }
 }

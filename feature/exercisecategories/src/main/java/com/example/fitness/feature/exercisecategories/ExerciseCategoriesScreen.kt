@@ -1,6 +1,8 @@
 package com.example.fitness.feature.exercisecategories
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,8 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,21 +39,23 @@ internal fun ExerciseCategoriesRouter(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ExerciseCategoriesScreen(
+        modifier = modifier,
         uiState = uiState,
         onBackClick = onBackClick,
         onNewExerciseCategoryCreateClick = onNewExerciseCategoryCreateClick,
         onUpdate = { viewModel.updateRemoteExerciseCategories() },
-        modifier = modifier
+        onDeleteItem = { id -> viewModel.deleteExerciseCategory(id) }
     )
 }
 
 @Composable
 internal fun ExerciseCategoriesScreen(
+    modifier: Modifier = Modifier,
     uiState: ExerciseCategoriesUiState,
     onBackClick: () -> Unit,
     onNewExerciseCategoryCreateClick: () -> Unit,
     onUpdate: () -> Unit,
-    modifier: Modifier = Modifier
+    onDeleteItem: (Long) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -71,7 +79,8 @@ internal fun ExerciseCategoriesScreen(
                     items(uiState.exerciseCategories) { category ->
                         ExerciseCategoryTile(
                             modifier = modifier,
-                            exerciseCategory = category
+                            exerciseCategory = category,
+                            delete = onDeleteItem
                         )
                         Spacer(modifier = modifier.height(12.dp))
                     }
@@ -99,20 +108,33 @@ internal fun ExerciseCategoriesScreen(
 @Composable
 internal fun ExerciseCategoryTile(
     modifier: Modifier = Modifier,
-    exerciseCategory: ExerciseCategoryUI
+    exerciseCategory: ExerciseCategoryUI,
+    delete: (Long) -> Unit,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
     ) {
-        Text(
+        Row(
             modifier = modifier
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight(800),
-            text = exerciseCategory.name
-        )
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                modifier = modifier
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                fontSize = 20.sp,
+                fontWeight = FontWeight(800),
+                text = exerciseCategory.name
+            )
+            IconButton(onClick = { delete(exerciseCategory.id) }) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Delete"
+                )
+            }
+        }
 
         Text(
             modifier = modifier

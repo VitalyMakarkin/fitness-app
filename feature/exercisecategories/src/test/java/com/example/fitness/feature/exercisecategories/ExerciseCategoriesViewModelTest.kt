@@ -66,4 +66,11 @@ class ExerciseCategoriesViewModelTest {
 
         verify(interactor).updateRemoteExerciseCategories()
     }
+
+    @Test
+    fun testDeleteExerciseCategory() = runTest {
+        viewModel.deleteExerciseCategory(0)
+
+        verify(interactor).deleteExerciseCategory(0)
+    }
 }
