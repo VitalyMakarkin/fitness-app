@@ -1,6 +1,8 @@
 package com.example.fitness.feature.exercisegroups
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,8 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,19 +39,21 @@ internal fun ExerciseGroupsRouter(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ExerciseGroupsScreen(
+        modifier = modifier,
         uiState = uiState,
         onBackClick = onBackClick,
         onNewExerciseGroupCreateClick = onNewExerciseGroupCreateClick,
-        modifier = modifier
+        onDeleteItem = { id -> viewModel.deleteExerciseGroup(id) }
     )
 }
 
 @Composable
 internal fun ExerciseGroupsScreen(
+    modifier: Modifier = Modifier,
     uiState: ExerciseGroupsUiState,
     onBackClick: () -> Unit,
     onNewExerciseGroupCreateClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onDeleteItem: (Long) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -67,7 +75,8 @@ internal fun ExerciseGroupsScreen(
                     items(uiState.exerciseGroups) { group ->
                         ExerciseGroupTile(
                             modifier = modifier,
-                            exerciseGroup = group
+                            exerciseGroup = group,
+                            delete = onDeleteItem
                         )
                         Spacer(modifier = modifier.height(12.dp))
                     }
@@ -95,21 +104,33 @@ internal fun ExerciseGroupsScreen(
 @Composable
 internal fun ExerciseGroupTile(
     modifier: Modifier = Modifier,
-    exerciseGroup: ExerciseGroupUI
+    exerciseGroup: ExerciseGroupUI,
+    delete: (Long) -> Unit,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
     ) {
-        Text(
+        Row(
             modifier = modifier
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight(800),
-            text = exerciseGroup.name
-        )
-
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                modifier = modifier
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                fontSize = 20.sp,
+                fontWeight = FontWeight(800),
+                text = exerciseGroup.name
+            )
+            IconButton(onClick = { delete(exerciseGroup.id) }) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Delete"
+                )
+            }
+        }
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),

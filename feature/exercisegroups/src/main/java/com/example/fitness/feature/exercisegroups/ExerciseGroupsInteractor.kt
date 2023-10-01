@@ -12,4 +12,8 @@ class ExerciseGroupsInteractor @Inject constructor(
     fun observeExerciseGroups() : Flow<List<ExerciseGroup>> {
         return exercisesRepository.observeExerciseGroups()
     }
+
+    suspend fun deleteExerciseGroup(id: Long) {
+        return exercisesRepository.deleteExerciseGroup(id)
+    }
 }

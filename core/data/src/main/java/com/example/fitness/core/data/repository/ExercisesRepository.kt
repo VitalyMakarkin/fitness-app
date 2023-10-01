@@ -57,4 +57,6 @@ interface ExercisesRepository {
     suspend fun deleteExercise(id: Long)
 
     suspend fun deleteExerciseCategory(id: Long)
+
+    suspend fun deleteExerciseGroup(id: Long)
 }

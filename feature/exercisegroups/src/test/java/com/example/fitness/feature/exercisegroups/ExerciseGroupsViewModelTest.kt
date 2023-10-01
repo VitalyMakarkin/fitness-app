@@ -10,7 +10,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.openMocks
 import org.mockito.kotlin.verify
 
@@ -42,9 +42,16 @@ class ExerciseGroupsViewModelTest {
     @Test
     fun testUiStateSuccess() = runTest {
         val groups = ExerciseGroupsData
-        Mockito.`when`(interactor.observeExerciseGroups())
+        `when`(interactor.observeExerciseGroups())
             .thenReturn(flowOf(groups))
 
         verify(interactor).observeExerciseGroups()
+    }
+
+    @Test
+    fun testDeleteExerciseGroup() = runTest {
+        viewModel.deleteExerciseGroup(0)
+
+        verify(interactor).deleteExerciseGroup(0)
     }
 }
