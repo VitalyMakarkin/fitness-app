@@ -19,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +43,7 @@ internal fun ScheduleRoute(
         modifier = modifier,
         uiState = uiState,
         onCreateScheduledEventClick = onCreateScheduledEventClick,
-        onDeleteItem = { id -> viewModel.deleteEvent(id)}
+        onDeleteItem = { id -> viewModel.deleteEvent(id) }
     )
 }
 
@@ -89,7 +90,7 @@ internal fun ScheduleScreen(
         ) {
             Text(
                 text = stringResource(R.string.schedule_add_event_button),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600)
             )
         }
@@ -111,13 +112,14 @@ internal fun ScheduledEventTile(
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = modifier
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-                fontSize = 20.sp,
+                modifier = modifier,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(800),
                 text = event.exerciseGroupName
             )
@@ -131,7 +133,7 @@ internal fun ScheduledEventTile(
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight(400),
             text = formatter.format(event.scheduledAt)
         )

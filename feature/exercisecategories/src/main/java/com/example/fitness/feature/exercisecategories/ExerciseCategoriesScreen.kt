@@ -19,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -98,7 +99,7 @@ internal fun ExerciseCategoriesScreen(
         ) {
             Text(
                 text = stringResource(R.string.exercise_categories_add_category_button),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600)
             )
         }
@@ -118,13 +119,14 @@ internal fun ExerciseCategoryTile(
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = modifier
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-                fontSize = 20.sp,
+                modifier = modifier,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(800),
                 text = exerciseCategory.name
             )
@@ -138,8 +140,8 @@ internal fun ExerciseCategoryTile(
 
         Text(
             modifier = modifier
-                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp,
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+            fontSize = 14.sp,
             fontWeight = FontWeight(400),
             text = exerciseCategory.description ?: ""
         )

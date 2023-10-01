@@ -100,16 +100,16 @@ internal fun ExerciseSettingTile(
     ) {
         Text(
             text = title,
-            fontSize = 20.sp,
-            fontWeight = FontWeight(800),
+            fontSize = 18.sp,
+            fontWeight = FontWeight(600),
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp)
         )
         if (subtitle.isNotEmpty()) {
             Text(
                 text = subtitle,
-                fontSize = 40.sp,
-                fontWeight = FontWeight(500),
+                fontSize = 36.sp,
+                fontWeight = FontWeight(600),
                 modifier = modifier
                     .padding(start = 16.dp, top = 8.dp, end = 16.dp)
             )

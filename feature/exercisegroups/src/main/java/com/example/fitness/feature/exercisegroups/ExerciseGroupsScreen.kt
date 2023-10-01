@@ -19,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -94,7 +95,7 @@ internal fun ExerciseGroupsScreen(
         ) {
             Text(
                 text = stringResource(R.string.exercise_groups_add_group_button),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600)
             )
         }
@@ -114,13 +115,14 @@ internal fun ExerciseGroupTile(
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = modifier
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-                fontSize = 20.sp,
+                modifier = modifier,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(800),
                 text = exerciseGroup.name
             )
@@ -133,10 +135,12 @@ internal fun ExerciseGroupTile(
         }
         Text(
             modifier = modifier
-                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp,
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+            fontSize = 14.sp,
             fontWeight = FontWeight(400),
-            text = exerciseGroup.exerciseCount.toString()
+            text = stringResource(id = R.string.exercise_groups_item_exercise_counter).format(
+                exerciseGroup.exerciseCount
+            )
         )
     }
 }

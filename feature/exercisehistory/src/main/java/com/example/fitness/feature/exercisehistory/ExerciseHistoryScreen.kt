@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -19,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -96,7 +98,7 @@ internal fun ExerciseHistoryScreen(
         ) {
             Text(
                 text = stringResource(R.string.exercise_history_add_button),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600)
             )
         }
@@ -118,13 +120,14 @@ internal fun ExerciseTile(
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = modifier
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-                fontSize = 20.sp,
+                modifier = modifier,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(800),
                 text = exercise.name
             )
@@ -135,12 +138,32 @@ internal fun ExerciseTile(
                 )
             }
         }
-        Text(
+        Row(
             modifier = modifier
-                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight(400),
-            text = formatter.format(exercise.completedAt)
-        )
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                modifier = modifier,
+                fontSize = 14.sp,
+                fontWeight = FontWeight(400),
+                text = formatter.format(exercise.completedAt)
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    modifier = modifier,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(600),
+                    text = exercise.score.toString(),
+                )
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    contentDescription = "Score"
+                )
+            }
+        }
     }
 }

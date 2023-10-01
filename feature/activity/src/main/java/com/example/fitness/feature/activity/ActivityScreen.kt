@@ -105,7 +105,7 @@ internal fun ActivityScreen(
         ) {
             Text(
                 text = stringResource(R.string.activity_add_activity_button),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight(600),
             )
         }
@@ -129,14 +129,14 @@ internal fun ActionTile(
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight(800),
             text = title
         )
         Text(
             modifier = modifier
                 .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
-            fontSize = 20.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight(400),
             text = subtitle
         )

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="exercise_groups_top_navigation_bar_title">Exercise groups</string>
+    <string name="exercise_groups_item_exercise_counter">%d exercises</string>
     <string name="exercise_groups_add_group_button">Add group</string>
 </resources>
