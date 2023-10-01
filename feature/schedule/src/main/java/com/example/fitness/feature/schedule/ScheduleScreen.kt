@@ -132,7 +132,7 @@ internal fun ScheduledEventTile(
         }
         Text(
             modifier = modifier
-                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 14.sp,
             fontWeight = FontWeight(400),
             text = formatter.format(event.scheduledAt)
