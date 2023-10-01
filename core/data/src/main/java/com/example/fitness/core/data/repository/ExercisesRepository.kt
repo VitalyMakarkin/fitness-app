@@ -53,4 +53,6 @@ interface ExercisesRepository {
         duration: Long? = null,
         score: Int
     )
+
+    suspend fun deleteExercise(id: Long)
 }

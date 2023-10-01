@@ -47,4 +47,11 @@ class ExerciseHistoryViewModelTest {
 
         verify(interactor).observeExercises()
     }
+
+    @Test
+    fun testDeleteExercise() = runTest {
+        viewModel.deleteExercise(0)
+
+        verify(interactor).deleteExercise(0)
+    }
 }

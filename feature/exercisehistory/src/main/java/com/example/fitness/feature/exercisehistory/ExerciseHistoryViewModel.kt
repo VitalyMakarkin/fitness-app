@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ExerciseHistoryViewModel @Inject constructor(
@@ -31,5 +32,11 @@ class ExerciseHistoryViewModel @Inject constructor(
                     completedExercises = exercises.map { it.mapToExerciseUI() }
                 )
             }
+    }
+
+    fun deleteExercise(id: Long) {
+        viewModelScope.launch {
+            interactor.deleteExercise(id)
+        }
     }
 }

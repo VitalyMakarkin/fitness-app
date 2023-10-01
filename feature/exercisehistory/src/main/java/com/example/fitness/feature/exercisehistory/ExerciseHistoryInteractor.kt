@@ -12,4 +12,8 @@ class ExerciseHistoryInteractor @Inject constructor(
     fun observeExercises(): Flow<List<Exercise>> {
         return exerciseRepository.observeExercises()
     }
+
+    suspend fun deleteExercise(id: Long) {
+        exerciseRepository.deleteExercise(id)
+    }
 }

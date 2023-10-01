@@ -197,4 +197,10 @@ class DefaultExercisesRepository @Inject constructor(
             exerciseDao.insert(exerciseEntity)
         }
     }
+
+    override suspend fun deleteExercise(id: Long) {
+        withContext(Dispatchers.IO) {
+            exerciseDao.delete(id)
+        }
+    }
 }
