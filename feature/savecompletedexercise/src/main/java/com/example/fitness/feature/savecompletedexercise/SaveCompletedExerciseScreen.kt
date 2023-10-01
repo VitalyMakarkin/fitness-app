@@ -2,23 +2,33 @@ package com.example.fitness.feature.savecompletedexercise
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -45,7 +55,6 @@ internal fun SaveCompletedExerciseRouter(
     val exerciseSets by viewModel.exerciseSets.collectAsStateWithLifecycle()
     val exerciseReps by viewModel.exerciseReps.collectAsStateWithLifecycle()
     val exerciseDuration by viewModel.exerciseDuration.collectAsStateWithLifecycle()
-    val exerciseScore by viewModel.exerciseScore.collectAsStateWithLifecycle()
 
     SaveCompletedExerciseScreen(
         modifier = modifier,
@@ -61,7 +70,6 @@ internal fun SaveCompletedExerciseRouter(
         onExerciseRepsChanged = { text -> viewModel.onExerciseRepsChanged(text) },
         exerciseDuration = exerciseDuration.toString(),
         onExerciseDurationChanged = { text -> viewModel.onExerciseDurationChanged(text) },
-        exerciseScore = exerciseScore.toString(),
         onExerciseScoreChanged = { text -> viewModel.onExerciseScoreChanged(text) },
         onSaveClick = { viewModel.saveExercise() },
         shouldNavigateBack = viewModel.shouldNavigateBack
@@ -83,7 +91,6 @@ internal fun SaveCompletedExerciseScreen(
     onExerciseRepsChanged: (String) -> Unit,
     exerciseDuration: String = "",
     onExerciseDurationChanged: (String) -> Unit,
-    exerciseScore: String = "5",
     onExerciseScoreChanged: (String) -> Unit,
     onSaveClick: () -> Unit,
     shouldNavigateBack: Boolean = false
@@ -243,20 +250,16 @@ internal fun SaveCompletedExerciseScreen(
                         )
                     }
                     item {
-                        val numberPattern = remember { Regex("^[1-5]+\$") }
-                        OutlinedTextField(
+                        Spacer(
+                            modifier = modifier.height(8.dp)
+                        )
+                        ScoreSelector(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
-                            value = exerciseScore,
-                            onValueChange = { text ->
-                                if (text.isEmpty()) {
-                                    onExerciseScoreChanged("5")
-                                } else if (text.matches(numberPattern) && text.length == 1) {
-                                    onExerciseScoreChanged(text)
-                                }
+                            select = { score ->
+                                onExerciseScoreChanged(score.toString())
                             },
-                            label = { Text(text = stringResource(R.string.save_completed_exercise_text_input_score_label)) }
                         )
                     }
                 }
@@ -276,6 +279,37 @@ internal fun SaveCompletedExerciseScreen(
                 fontSize = 20.sp,
                 fontWeight = FontWeight(600)
             )
+        }
+    }
+}
+
+@Composable
+internal fun ScoreSelector(
+    modifier: Modifier = Modifier,
+    select: (Int) -> Unit,
+    maxScore: Int = 5,
+
+    ) {
+    var currentScore by rememberSaveable {
+        mutableIntStateOf(0)
+    }
+
+    Row(
+        modifier = modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround,
+    ) {
+        for (i in 1..maxScore) {
+            IconButton(onClick = {
+                currentScore = i
+                select(i)
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    contentDescription = "Score",
+                    tint = if (currentScore < i) Color.Gray else Color.Yellow,
+                )
+            }
         }
     }
 }
