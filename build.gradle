@@ -13,7 +13,8 @@ subprojects {
     apply plugin: "io.gitlab.arturbosch.detekt"
     detekt {
         toolVersion = "1.23.1"
-        buildUponDefaultConfig = true
+        parallel = true
+        config.setFrom("$rootDir/lint/config/detekt/detekt.yml")
     }
 }
 
