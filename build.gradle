@@ -14,7 +14,7 @@ subprojects {
     detekt {
         toolVersion = "1.23.1"
         parallel = true
-        config.setFrom("$rootDir/lint/config/detekt/detekt.yml")
+        config.setFrom(files("$rootDir/lint/src/main/resources/config/detekt.yml"))
     }
 }
 

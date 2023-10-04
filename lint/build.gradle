@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation 'io.gitlab.arturbosch.detekt:detekt-api:1.23.1'
+    compileOnly 'io.gitlab.arturbosch.detekt:detekt-api:1.23.1'
 }
