@@ -12,7 +12,7 @@ config:
   warningsAsErrors: false
   checkExhaustiveness: false
   # when writing own rules with new properties, exclude the property path e.g.: 'my_rule_set,.*>.*>[my_property]'
-  excludes: ''
+  excludes: 'detekt-custom'
 
 processors:
   active: true
@@ -164,17 +164,17 @@ complexity:
     ignoreAnnotation: true
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'
-  TooManyFunctions:
-    active: true
-    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
-    thresholdInFiles: 11
-    thresholdInClasses: 11
-    thresholdInInterfaces: 11
-    thresholdInObjects: 11
-    thresholdInEnums: 11
-    ignoreDeprecated: false
-    ignorePrivate: false
-    ignoreOverridden: false
+#  TooManyFunctions:
+#    active: true
+#    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+#    thresholdInFiles: 11
+#    thresholdInClasses: 11
+#    thresholdInInterfaces: 11
+#    thresholdInObjects: 11
+#    thresholdInEnums: 11
+#    ignoreDeprecated: false
+#    ignorePrivate: false
+#    ignoreOverridden: false
 
 coroutines:
   active: true
@@ -784,3 +784,7 @@ style:
     active: true
     excludeImports:
       - 'java.util.*'
+
+detekt-custom:
+  TooManyFunctions:
+    active: true

@@ -1,1 +1,1 @@
-com.example.fitness.lint.rules.RuleSetProvider
+com.example.fitness.lint.CustomRuleSetProvider
