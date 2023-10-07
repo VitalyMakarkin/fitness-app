@@ -10,7 +10,7 @@ import io.gitlab.arturbosch.detekt.api.Severity
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction
 
-class TooManyFunctions(config: Config) : Rule(config) {
+class TooManyFunctionsCustom(config: Config) : Rule(config) {
 
     override val issue = Issue(
         javaClass.simpleName,
@@ -19,7 +19,7 @@ class TooManyFunctions(config: Config) : Rule(config) {
         Debt.TWENTY_MINS
     )
 
-    private val threshold = 10
+    private val threshold = 5
     private var amount: Int = 0
 
     override fun visitKtFile(file: KtFile) {

@@ -62,4 +62,7 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    detekt "io.gitlab.arturbosch.detekt:detekt-cli:1.23.1"
+    detekt project(":lint")
 }
